@@ -128,14 +128,14 @@ export const TradingChart = memo(function TradingChart({ candles, isLoading, sym
   const isUp = lastCandle && prevCandle ? lastCandle.close >= prevCandle.close : true;
 
   return (
-    <div className="rounded-card border border-white-10 bg-primary-800 overflow-hidden">
+    <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-primary-500/40">
         <div className="flex items-center gap-3">
-          <h3 className="text-sm font-bold text-white font-mono">{symbol}</h3>
+          <h3 className="text-sm font-bold text-ink dark:text-white font-mono">{symbol}</h3>
           {lastCandle && (
             <>
-              <span className="text-sm font-mono text-white-90">
+              <span className="text-sm font-mono text-ink-90 dark:text-white-90">
                 ${lastCandle.close.toLocaleString()}
               </span>
               <span className={cn(
@@ -149,7 +149,7 @@ export const TradingChart = memo(function TradingChart({ candles, isLoading, sym
           )}
         </div>
         {!lastCandle && !isLoading && (
-          <span className="text-xs text-white-50">No chart data</span>
+          <span className="text-xs text-ink-50 dark:text-white-50">No chart data</span>
         )}
       </div>
       <div ref={containerRef} />

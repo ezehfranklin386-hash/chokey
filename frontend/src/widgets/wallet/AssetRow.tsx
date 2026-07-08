@@ -21,7 +21,7 @@ export function AssetRow({ wallet, onSelect }: AssetRowProps) {
   return (
     <div
       onClick={() => onSelect(wallet.asset)}
-      className="flex items-center gap-4 px-4 py-3.5 transition-colors hover:bg-primary-600/50 cursor-pointer border-b border-primary-500/40 last:border-0"
+      className="flex items-center gap-4 px-4 py-3.5 transition-colors hover:bg-primary-600/50 cursor-pointer border-b border-ink-30/10 dark:border-primary-500/40 last:border-0"
     >
       {/* Icon */}
       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-600 text-base text-ink-90 dark:text-white-90 font-mono">
@@ -62,4 +62,6 @@ export function AssetRow({ wallet, onSelect }: AssetRowProps) {
       <svg className="h-4 w-4 text-ink-30 dark:text-white-30 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <polyline points="9 18 15 12 9 6" />
       </svg>
-    
+    </div>
+  );
+}

@@ -18,7 +18,7 @@ export const OrderBook = memo(function OrderBook({ data, isLoading, symbol }: Or
 
   if (isLoading) {
     return (
-      <div className="rounded-card border border-white-10 bg-primary-800 p-4">
+      <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-4">
         <div className="flex items-center justify-center py-20">
           <Spinner />
         </div>
@@ -28,9 +28,9 @@ export const OrderBook = memo(function OrderBook({ data, isLoading, symbol }: Or
 
   if (!data || (data.asks.length === 0 && data.bids.length === 0)) {
     return (
-      <div className="rounded-card border border-white-10 bg-primary-800 p-4">
-        <h3 className="text-sm font-medium text-white-70 mb-4">Order Book</h3>
-        <div className="flex items-center justify-center py-12 text-sm text-white-50">
+      <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-4">
+        <h3 className="text-sm font-medium text-ink-70 dark:text-white-70 mb-4">Order Book</h3>
+        <div className="flex items-center justify-center py-12 text-sm text-ink-50 dark:text-white-50">
           No orders for this pair
         </div>
       </div>
@@ -38,15 +38,15 @@ export const OrderBook = memo(function OrderBook({ data, isLoading, symbol }: Or
   }
 
   return (
-    <div className="rounded-card border border-white-10 bg-primary-800">
+    <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800">
       {/* Header */}
       <div className="px-4 py-2.5 border-b border-primary-500/40">
-        <h3 className="text-sm font-medium text-white">Order Book</h3>
-        <p className="text-xs text-white-50 font-mono">{symbol}</p>
+        <h3 className="text-sm font-medium text-ink dark:text-white">Order Book</h3>
+        <p className="text-xs text-ink-50 dark:text-white-50 font-mono">{symbol}</p>
       </div>
 
       {/* Column headers */}
-      <div className="flex items-center px-4 py-1.5 text-[10px] text-white-50 uppercase tracking-wider">
+      <div className="flex items-center px-4 py-1.5 text-[10px] text-ink-50 dark:text-white-50 uppercase tracking-wider">
         <span className="flex-1 text-left">Price</span>
         <span className="flex-1 text-right">Amount</span>
         <span className="flex-1 text-right">Total</span>
@@ -66,10 +66,10 @@ export const OrderBook = memo(function OrderBook({ data, isLoading, symbol }: Or
               <span className="flex-1 text-left text-market-red z-10">
                 {parseFloat(ask.price).toLocaleString()}
               </span>
-              <span className="flex-1 text-right text-white-90 z-10">
+              <span className="flex-1 text-right text-ink-90 dark:text-white-90 z-10">
                 {parseFloat(ask.amount).toFixed(4)}
               </span>
-              <span className="flex-1 text-right text-white-50 z-10">
+              <span className="flex-1 text-right text-ink-50 dark:text-white-50 z-10">
                 {parseFloat(ask.total).toFixed(4)}
               </span>
             </div>
@@ -79,10 +79,10 @@ export const OrderBook = memo(function OrderBook({ data, isLoading, symbol }: Or
 
       {/* Spread */}
       <div className="flex items-center justify-between px-4 py-2 border-y border-primary-500/40 bg-primary-700/50">
-        <span className="text-xs font-mono text-gold-500">
+        <span className="text-xs font-mono text-brand-500">
           {parseFloat(data.spread).toLocaleString()}
         </span>
-        <span className="text-[10px] text-white-50">Spread {data.spreadPercent}%</span>
+        <span className="text-[10px] text-ink-50 dark:text-white-50">Spread {data.spreadPercent}%</span>
       </div>
 
       {/* Bids (green) */}
@@ -99,10 +99,10 @@ export const OrderBook = memo(function OrderBook({ data, isLoading, symbol }: Or
               <span className="flex-1 text-left text-market-green z-10">
                 {parseFloat(bid.price).toLocaleString()}
               </span>
-              <span className="flex-1 text-right text-white-90 z-10">
+              <span className="flex-1 text-right text-ink-90 dark:text-white-90 z-10">
                 {parseFloat(bid.amount).toFixed(4)}
               </span>
-              <span className="flex-1 text-right text-white-50 z-10">
+              <span className="flex-1 text-right text-ink-50 dark:text-white-50 z-10">
                 {parseFloat(bid.total).toFixed(4)}
               </span>
             </div>

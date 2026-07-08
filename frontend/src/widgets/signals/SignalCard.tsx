@@ -16,7 +16,7 @@ const DIRECTION_CONFIG = {
 };
 
 const DIRECTION_ACCENT = {
-  STRONG_BUY: 'bg-gold-500',
+  STRONG_BUY: 'bg-brand-500',
   BUY: 'bg-market-green',
   SELL: 'bg-market-red',
   STRONG_SELL: 'bg-market-red',
@@ -44,7 +44,7 @@ export function SignalCard({ signal }: SignalCardProps) {
   const accent = DIRECTION_ACCENT[signal.direction];
 
   return (
-    <div className="rounded-card border border-white-10 bg-primary-800 hover:border-white-20 transition-colors overflow-hidden">
+    <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 hover:border-white-20 transition-colors overflow-hidden">
       <div className="flex">
         {/* Left accent bar */}
         <div className={cn('w-1 shrink-0', accent)} />
@@ -53,44 +53,44 @@ export function SignalCard({ signal }: SignalCardProps) {
           {/* Top row: Asset + Direction + Timestamp */}
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-mono text-white-90">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-mono text-ink-90 dark:text-white-90">
                 {signal.asset.slice(0, 2)}
               </div>
               <div>
-                <h3 className="text-sm font-bold text-white">{signal.assetName || signal.asset}</h3>
+                <h3 className="text-sm font-bold text-ink dark:text-white">{signal.assetName || signal.asset}</h3>
                 <span className={cn('rounded px-1.5 py-0.5 text-[10px] font-bold', config.bg, config.color)}>
                   {config.label}
                 </span>
               </div>
             </div>
-            <span className="text-[10px] text-white-50 shrink-0">{formatTime(signal.createdAt)}</span>
+            <span className="text-[10px] text-ink-50 dark:text-white-50 shrink-0">{formatTime(signal.createdAt)}</span>
           </div>
 
           {/* Price targets grid */}
           <div className="grid grid-cols-4 gap-2 mb-3">
             <div className="rounded bg-market-red/10 p-2 text-center">
-              <p className="text-[9px] text-white-50 uppercase">Stop</p>
+              <p className="text-[9px] text-ink-50 dark:text-white-50 uppercase">Stop</p>
               <p className="text-xs font-mono text-market-red font-medium">
                 ${parseFloat(signal.stopLoss).toLocaleString()}
               </p>
             </div>
             <div className="rounded bg-primary-600 p-2 text-center">
-              <p className="text-[9px] text-white-50 uppercase">Entry</p>
-              <p className="text-xs font-mono text-white-90 font-medium">
+              <p className="text-[9px] text-ink-50 dark:text-white-50 uppercase">Entry</p>
+              <p className="text-xs font-mono text-ink-90 dark:text-white-90 font-medium">
                 ${parseFloat(signal.entryPrice).toLocaleString()}
               </p>
             </div>
             <div className="rounded bg-market-green/10 p-2 text-center">
-              <p className="text-[9px] text-white-50 uppercase">Target 1</p>
+              <p className="text-[9px] text-ink-50 dark:text-white-50 uppercase">Target 1</p>
               <p className="text-xs font-mono text-market-green font-medium">
                 ${parseFloat(signal.targetPrice1).toLocaleString()}
               </p>
             </div>
             <div className="rounded bg-market-green/5 p-2 text-center">
-              <p className="text-[9px] text-white-50 uppercase">Target 2</p>
+              <p className="text-[9px] text-ink-50 dark:text-white-50 uppercase">Target 2</p>
               <p className={cn(
                 'text-xs font-mono font-medium',
-                signal.targetPrice2 ? 'text-market-green' : 'text-white-50',
+                signal.targetPrice2 ? 'text-market-green' : 'text-ink-50 dark:text-white-50',
               )}>
                 {signal.targetPrice2 ? `$${parseFloat(signal.targetPrice2).toLocaleString()}` : '—'}
               </p>
@@ -100,34 +100,34 @@ export function SignalCard({ signal }: SignalCardProps) {
           {/* Confidence bar */}
           <div className="mb-3">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] text-white-50">Confidence</span>
+              <span className="text-[10px] text-ink-50 dark:text-white-50">Confidence</span>
               <span className={cn(
                 'text-xs font-mono font-bold',
-                signal.confidence >= 70 ? 'text-gold-500' : 'text-white-70',
+                signal.confidence >= 70 ? 'text-brand-500' : 'text-ink-70 dark:text-white-70',
               )}>
                 {signal.confidence}%
               </span>
             </div>
             <div className="h-1.5 overflow-hidden rounded-full bg-primary-500">
               <div
-                className={cn('h-full rounded-full', signal.confidence >= 70 ? 'bg-gold-500' : 'bg-white-30')}
+                className={cn('h-full rounded-full', signal.confidence >= 70 ? 'bg-brand-500' : 'bg-ink-30 dark:bg-white-30')}
                 style={{ width: `${signal.confidence}%` }}
               />
             </div>
           </div>
 
           {/* Strategy + Rationale */}
-          <p className="text-xs text-white-70 mb-1">
-            <span className="font-medium text-white-90">{signal.strategy}</span>
+          <p className="text-xs text-ink-70 dark:text-white-70 mb-1">
+            <span className="font-medium text-ink-90 dark:text-white-90">{signal.strategy}</span>
           </p>
-          <p className="text-xs text-white-50 line-clamp-2 mb-3">{signal.rationale}</p>
+          <p className="text-xs text-ink-50 dark:text-white-50 line-clamp-2 mb-3">{signal.rationale}</p>
 
           {/* Provider info */}
           <div className="flex items-center gap-2 mb-3">
-            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-gold-500/20 text-[9px] font-bold text-gold-500">
+            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-brand-500/20 text-[9px] font-bold text-brand-500">
               {signal.provider.name.charAt(0)}
             </div>
-            <span className="text-xs text-white-70">{signal.provider.name}</span>
+            <span className="text-xs text-ink-70 dark:text-white-70">{signal.provider.name}</span>
             <span className={cn(
               'text-[10px] font-medium',
               Number(signal.provider.winRate) >= 60 ? 'text-market-green' : 'text-market-red',
@@ -154,8 +154,8 @@ export function SignalCard({ signal }: SignalCardProps) {
               className={cn(
                 'rounded-lg p-2 transition-colors',
                 signal.isBookmarked
-                  ? 'text-gold-500 hover:text-gold-400'
-                  : 'text-white-50 hover:text-white-90',
+                  ? 'text-brand-500 hover:text-brand-400'
+                  : 'text-ink-50 dark:text-white-50 hover:text-ink-90 dark:text-white-90',
               )}
               aria-label={signal.isBookmarked ? 'Remove bookmark' : 'Bookmark signal'}
             >
@@ -165,7 +165,7 @@ export function SignalCard({ signal }: SignalCardProps) {
             </button>
             <button
               onClick={() => navigate(`/signals/${signal.id}`)}
-              className="rounded-lg p-2 text-white-50 hover:text-white-90 transition-colors"
+              className="rounded-lg p-2 text-ink-50 dark:text-white-50 hover:text-ink-90 dark:text-white-90 transition-colors"
               aria-label="View details"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

@@ -1,6 +1,6 @@
 export function SignalCardSkeleton() {
   return (
-    <div className="rounded-card border border-white-10 bg-primary-800 overflow-hidden">
+    <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 overflow-hidden">
       <div className="flex">
         <div className="w-1 shrink-0 bg-primary-500" />
         <div className="flex-1 p-4 space-y-3">

@@ -34,15 +34,15 @@ export function MarketPairs({ pairs, isLoading, activePair, onSelect }: MarketPa
   }
 
   return (
-    <div className="flex h-full flex-col bg-primary-800 border-r border-primary-500/40">
+    <div className="flex h-full flex-col bg-white dark:bg-primary-800 border-r border-ink-30/10 dark:border-primary-500/40">
       {/* Header */}
       <div className="p-3 border-b border-primary-500/40">
-        <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-2">Markets</h3>
+        <h3 className="text-xs font-bold text-ink dark:text-white uppercase tracking-wider mb-2">Markets</h3>
         <SearchBar value={search} onChange={setSearch} />
       </div>
 
       {/* Column headers */}
-      <div className="flex items-center px-3 py-1.5 text-[10px] text-white-50 uppercase tracking-wider border-b border-primary-500/40">
+      <div className="flex items-center px-3 py-1.5 text-[10px] text-ink-50 dark:text-white-50 uppercase tracking-wider border-b border-primary-500/40">
         <span className="flex-1">Pair</span>
         <span className="w-20 text-right">Price</span>
         <span className="w-16 text-right">24h</span>
@@ -51,7 +51,7 @@ export function MarketPairs({ pairs, isLoading, activePair, onSelect }: MarketPa
       {/* Pairs list */}
       <div className="flex-1 overflow-y-auto">
         {!filteredPairs || filteredPairs.length === 0 ? (
-          <div className="flex items-center justify-center py-8 text-xs text-white-50">
+          <div className="flex items-center justify-center py-8 text-xs text-ink-50 dark:text-white-50">
             {search ? 'No pairs match your search' : 'No trading pairs available'}
           </div>
         ) : (
@@ -65,21 +65,21 @@ export function MarketPairs({ pairs, isLoading, activePair, onSelect }: MarketPa
                 onClick={() => onSelect(pair.symbol)}
                 className={cn(
                   'flex w-full items-center px-3 py-2.5 text-left transition-colors hover:bg-primary-600/50',
-                  isActive && 'bg-gold-500/5 border-l-2 border-gold-500',
+                  isActive && 'bg-brand-500/5 border-l-2 border-brand-500',
                 )}
               >
                 <div className="flex-1 min-w-0">
                   <p className={cn(
                     'text-sm font-medium font-mono',
-                    isActive ? 'text-gold-500' : 'text-white',
+                    isActive ? 'text-brand-500' : 'text-ink dark:text-white',
                   )}>
                     {pair.symbol}
                   </p>
-                  <p className="text-[10px] text-white-50">
+                  <p className="text-[10px] text-ink-50 dark:text-white-50">
                     Vol: ${(parseFloat(pair.volume24h) / 1_000_000).toFixed(1)}M
                   </p>
                 </div>
-                <span className="w-20 text-right text-sm font-mono text-white-90">
+                <span className="w-20 text-right text-sm font-mono text-ink-90 dark:text-white-90">
                   ${parseFloat(pair.price).toLocaleString()}
                 </span>
                 <span className={cn(

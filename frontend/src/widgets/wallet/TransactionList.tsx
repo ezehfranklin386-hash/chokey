@@ -67,16 +67,16 @@ export function TransactionList({ transactions, isLoading, compact: _compact }: 
   if (!transactions || transactions.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-12 text-center">
-        <div className="mb-3 text-3xl text-white-30">📭</div>
-        <p className="text-sm text-white-70">No transactions yet</p>
-        <p className="mt-1 text-xs text-white-50">Your transactions will appear here</p>
+        <div className="mb-3 text-3xl text-ink-30 dark:text-white-30">📭</div>
+        <p className="text-sm text-ink-70 dark:text-white-70">No transactions yet</p>
+        <p className="mt-1 text-xs text-ink-50 dark:text-white-50">Your transactions will appear here</p>
       </div>
     );
   }
 
   return (
     <>
-      <div className="divide-y divide-primary-500/40">
+      <div className="divide-y divide-ink-30/10 dark:divide-primary-500/40">
         {transactions.map((tx) => (
           <div
             key={tx.id}
@@ -100,8 +100,8 @@ export function TransactionList({ transactions, isLoading, compact: _compact }: 
 
             {/* Info */}
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white">{TYPE_LABELS[tx.type] || tx.type}</p>
-              <div className="flex items-center gap-2 text-xs text-white-50">
+              <p className="text-sm font-medium text-ink dark:text-white">{TYPE_LABELS[tx.type] || tx.type}</p>
+              <div className="flex items-center gap-2 text-xs text-ink-50 dark:text-white-50">
                 <span>{formatTime(tx.createdAt)}</span>
                 {tx.txHash && <span className="font-mono">···{tx.txHash.slice(-6)}</span>}
               </div>
@@ -109,13 +109,13 @@ export function TransactionList({ transactions, isLoading, compact: _compact }: 
 
             {/* Amount + Status */}
             <div className="text-right shrink-0">
-              <p className={cn('text-sm font-mono', TYPE_COLORS[tx.type] || 'text-white')}>
+              <p className={cn('text-sm font-mono', TYPE_COLORS[tx.type] || 'text-ink dark:text-white')}>
                 {(tx.type === 'buy' || tx.type === 'deposit' || tx.type === 'transfer_in') ? '+' : '-'}
                 {Number(tx.amount).toLocaleString()} {tx.asset}
               </p>
               <span className={cn(
                 'inline-block rounded px-1.5 py-0.5 text-[10px] font-medium',
-                STATUS_BADGES[tx.status] || 'bg-primary-500/30 text-white-50',
+                STATUS_BADGES[tx.status] || 'bg-primary-500/30 text-ink-50 dark:text-white-50',
               )}>
                 {tx.status.charAt(0).toUpperCase() + tx.status.slice(1)}
               </span>

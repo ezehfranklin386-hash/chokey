@@ -19,13 +19,13 @@ export function TransactionDetailModal({ transaction: tx, onClose }: Transaction
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
       <div
-        className="relative w-full max-w-md rounded-modal border border-white-10 bg-primary-800 p-6 shadow-2xl"
+        className="relative w-full max-w-md rounded-modal border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-bold text-white">Transaction Details</h2>
-          <button onClick={onClose} className="text-white-50 hover:text-white-90 transition-colors" aria-label="Close">
+          <h2 className="text-lg font-bold text-ink dark:text-white">Transaction Details</h2>
+          <button onClick={onClose} className="text-ink-50 dark:text-white-50 hover:text-ink-90 dark:hover:text-white-90 transition-colors" aria-label="Close">
             <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
             </svg>
@@ -45,7 +45,7 @@ export function TransactionDetailModal({ transaction: tx, onClose }: Transaction
           <p className={cn('text-2xl font-bold font-mono', isPositive ? 'text-market-green' : 'text-market-red')}>
             {isPositive ? '+' : '-'}{Number(tx.amount).toLocaleString()} {tx.asset}
           </p>
-          <p className="text-sm text-white-70">${Number(tx.usdValue).toLocaleString()}</p>
+          <p className="text-sm text-ink-70 dark:text-white-70">${Number(tx.usdValue).toLocaleString()}</p>
         </div>
 
         {/* Details */}
@@ -63,13 +63,13 @@ export function TransactionDetailModal({ transaction: tx, onClose }: Transaction
           } />
           <DetailRow label="Fee" value={`${Number(tx.fee).toLocaleString()} ${tx.asset}`} />
           {tx.txHash && <DetailRow label="Transaction Hash" value={
-            <span className="font-mono text-gold-500 text-xs break-all">{tx.txHash}</span>
+            <span className="font-mono text-brand-500 text-xs break-all">{tx.txHash}</span>
           } />}
           {tx.fromAddress && <DetailRow label="From" value={
-            <span className="font-mono text-xs text-white-50 break-all">{tx.fromAddress}</span>
+            <span className="font-mono text-xs text-ink-50 dark:text-white-50 break-all">{tx.fromAddress}</span>
           } />}
           {tx.toAddress && <DetailRow label="To" value={
-            <span className="font-mono text-xs text-white-50 break-all">{tx.toAddress}</span>
+            <span className="font-mono text-xs text-ink-50 dark:text-white-50 break-all">{tx.toAddress}</span>
           } />}
           {tx.confirmations !== undefined && <DetailRow label="Confirmations" value={String(tx.confirmations)} />}
           <DetailRow label="Date" value={new Date(tx.createdAt).toLocaleString()} />
@@ -86,8 +86,8 @@ export function TransactionDetailModal({ transaction: tx, onClose }: Transaction
 function DetailRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex items-center justify-between py-1.5 border-b border-primary-500/30 last:border-0">
-      <span className="text-white-50">{label}</span>
-      <span className="text-white-90 text-right max-w-[60%]">{value}</span>
+      <span className="text-ink-50 dark:text-white-50">{label}</span>
+      <span className="text-ink-90 dark:text-white-90 text-right max-w-[60%]">{value}</span>
     </div>
   );
 }
