@@ -3,7 +3,7 @@ import { createChart, AreaSeries, LineSeries, type IChartApi, type ISeriesApi, t
 import { cn } from '@/shared/lib/cn';
 
 export interface MiniChartDataPoint {
-  time: string;
+  time: string | number;
   value: number;
 }
 

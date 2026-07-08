@@ -145,7 +145,7 @@ export default function AssetDetailPage() {
           </div>
         ) : candles && candles.length > 0 ? (
           <MiniChart
-            data={candles.map((c) => ({ time: String(c.time), value: c.close }))}
+            data={candles.map((c) => ({ time: c.time, value: c.close }))}
             height={200}
             color={isPositive ? '#22C55E' : '#EF4444'}
           />
