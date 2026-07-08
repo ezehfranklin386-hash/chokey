@@ -1,0 +1,102 @@
+{
+  "app": {
+    "name": "CryptoWallet Pro",
+    "shortName": "CryptoWallet",
+    "tagline": "Trade smarter, not harder"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "trade": "Trade",
+    "wallet": "Wallet",
+    "signals": "Signals",
+    "settings": "Settings",
+    "kyc": "Verification",
+    "admin": "Admin",
+    "logout": "Sign Out"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "retry": "Try Again",
+    "close": "Close",
+    "delete": "Delete",
+    "edit": "Edit",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "skip": "Skip",
+    "done": "Done",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "clearAll": "Clear All",
+    "viewAll": "View All",
+    "showMore": "Show More",
+    "showLess": "Show Less",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "share": "Share",
+    "learnMore": "Learn More",
+    "tryAgain": "Try Again",
+    "goBack": "Go Back",
+    "goHome": "Go Home",
+    "dismiss": "Dismiss"
+  },
+  "states": {
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "submitting": "Submitting...",
+    "processing": "Processing...",
+    "error": "Something went wrong",
+    "empty": "No data available",
+    "notFound": "Page not found",
+    "offline": "You are offline",
+    "online": "Back online",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information"
+  },
+  "time": {
+    "justNow": "Just now",
+    "minuteAgo": "{{count}}m ago",
+    "minutesAgo": "{{count}}m ago",
+    "hourAgo": "{{count}}h ago",
+    "hoursAgo": "{{count}}h ago",
+    "dayAgo": "{{count}}d ago",
+    "daysAgo": "{{count}}d ago",
+    "today": "Today",
+    "yesterday": "Yesterday"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address",
+    "minLength": "Must be at least {{count}} characters",
+    "maxLength": "Must be no more than {{count}} characters",
+    "passwordMatch": "Passwords must match",
+    "invalidNumber": "Please enter a valid number",
+    "invalidAmount": "Please enter a valid amount"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "Network error. Please check your connection.",
+    "rateLimit": "Too many requests. Please wait a moment.",
+    "sessionExpired": "Your session has expired. Please sign in again.",
+    "maintenance": "We are currently undergoing maintenance. Please check back shortly.",
+    "support": "If the problem persists, please contact support."
+  },
+  "accessibility": {
+    "skipToContent": "Skip to main content",
+    "toggleSidebar": "Toggle sidebar",
+    "toggleNavigation": "Toggle navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "openNotifications": "Open notifications",
+    "goToPage": "Go to page {{page}}",
+    "sortBy": "Sort by {{column}}",
+    "filterBy": "Filter by {{field}}",
+    "searchResults": "Search results",
+    "itemSelected": "{{item}} selected",
+    "progress": "Step {{current}} of {{total}}"
+  }
+}

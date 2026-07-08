@@ -1,0 +1,81 @@
+{
+  "page": {
+    "title": "Signals",
+    "subtitle": "Trading signals and market insights",
+    "resultsCount": "{{count}} signals found",
+    "noSignals": "No signals available",
+    "noMatch": "No signals match your filters",
+    "clearFilters": "Clear Filters"
+  },
+  "card": {
+    "direction": {
+      "strongBuy": "Strong Buy",
+      "buy": "Buy",
+      "sell": "Sell",
+      "strongSell": "Strong Sell"
+    },
+    "priceTargets": {
+      "stopLoss": "Stop Loss",
+      "entry": "Entry",
+      "target1": "Target 1",
+      "target2": "Target 2"
+    },
+    "confidence": "Confidence",
+    "strategy": "Strategy",
+    "provider": "Provider",
+    "winRate": "Win Rate",
+    "followers": "Followers",
+    "totalSignals": "Total Signals",
+    "totalPnl": "Total P&L",
+    "verified": "Verified Provider",
+    "tradeNow": "Trade Now",
+    "bookmark": "Bookmark",
+    "bookmarked": "Bookmarked",
+    "viewDetail": "View Details",
+    "performance": {
+      "tp1Hit": "TP1 Hit",
+      "tp2Hit": "TP2 Hit",
+      "missed": "Missed",
+      "active": "Active"
+    }
+  },
+  "filters": {
+    "direction": "Direction",
+    "timeframe": "Timeframe",
+    "sort": "Sort By",
+    "asset": "Search Asset",
+    "all": "All",
+    "timeframes": {
+      "1h": "1H",
+      "4h": "4H",
+      "1d": "1D",
+      "1w": "1W"
+    },
+    "sortOptions": {
+      "latest": "Latest",
+      "confidence": "Confidence",
+      "pnl": "P&L"
+    }
+  },
+  "detail": {
+    "title": "Signal Details",
+    "notFound": "Signal not found",
+    "noSelection": "No signal selected",
+    "backToSignals": "Back to Signals",
+    "strategy": "Strategy",
+    "rationale": "Rationale",
+    "entryPrice": "Entry Price",
+    "stopLoss": "Stop Loss",
+    "takeProfit1": "Take Profit 1",
+    "takeProfit2": "Take Profit 2",
+    "published": "Published {{date}}",
+    "expires": "Expires {{date}}",
+    "relatedSignals": "Related Signals",
+    "providerDetails": "Provider Details",
+    "performanceOverview": "Performance Overview",
+    "profitLoss": "Profit & Loss",
+    "viewAllSignals": "View All Signals by {{provider}}",
+    "copySignal": "Copy This Signal",
+    "copyingSignal": "Copying..."
+  }
+}

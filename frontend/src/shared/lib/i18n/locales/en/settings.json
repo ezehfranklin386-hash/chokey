@@ -1,0 +1,129 @@
+{
+  "page": {
+    "title": "Settings"
+  },
+  "tabs": {
+    "profile": "Profile",
+    "security": "Security",
+    "notifications": "Notifications",
+    "preferences": "Preferences",
+    "about": "About"
+  },
+  "profile": {
+    "title": "Profile Information",
+    "avatarAlt": "Profile avatar",
+    "uploadAvatar": "Upload Avatar",
+    "nameLabel": "Full Name",
+    "namePlaceholder": "Enter your full name",
+    "emailLabel": "Email Address",
+    "emailDescription": "Email cannot be changed",
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "Enter your phone number",
+    "editButton": "Edit Profile",
+    "saveButton": "Save Changes",
+    "cancelButton": "Cancel",
+    "saved": "Profile updated successfully",
+    "saveFailed": "Failed to update profile"
+  },
+  "security": {
+    "title": "Security",
+    "twoFactor": {
+      "label": "Two-Factor Authentication",
+      "description": "Add an extra layer of security to your account",
+      "enabled": "2FA is enabled",
+      "disabled": "2FA is disabled",
+      "enableButton": "Enable 2FA",
+      "disableButton": "Disable 2FA"
+    },
+    "password": {
+      "title": "Change Password",
+      "currentLabel": "Current Password",
+      "currentPlaceholder": "Enter current password",
+      "newLabel": "New Password",
+      "newPlaceholder": "Enter new password",
+      "confirmLabel": "Confirm New Password",
+      "confirmPlaceholder": "Re-enter new password",
+      "changeButton": "Change Password",
+      "changingButton": "Changing...",
+      "success": "Password changed successfully",
+      "failed": "Failed to change password",
+      "wrongPassword": "Current password is incorrect"
+    },
+    "sessions": {
+      "title": "Active Sessions",
+      "current": "Current Session",
+      "device": "Device",
+      "lastActive": "Last Active",
+      "ipAddress": "IP Address",
+      "revoke": "Revoke",
+      "viewAll": "View All Sessions"
+    },
+    "apiKeys": {
+      "title": "API Keys",
+      "description": "Manage API keys for programmatic access",
+      "createButton": "Create API Key",
+      "manageButton": "Manage API Keys",
+      "noKeys": "No API keys created"
+    }
+  },
+  "notifications": {
+    "title": "Notification Preferences",
+    "channels": {
+      "push": "Push Notifications",
+      "email": "Email Notifications",
+      "sms": "SMS Notifications"
+    },
+    "events": {
+      "priceAlerts": "Price Alerts",
+      "orderFills": "Order Fills",
+      "deposits": "Deposits",
+      "withdrawals": "Withdrawals",
+      "signals": "New Signals",
+      "marketing": "Marketing & Promotions"
+    },
+    "saved": "Notification preferences updated",
+    "saveFailed": "Failed to update preferences"
+  },
+  "preferences": {
+    "title": "Preferences",
+    "currency": {
+      "label": "Display Currency",
+      "usd": "USD — US Dollar",
+      "eur": "EUR — Euro",
+      "gbp": "GBP — British Pound",
+      "jpy": "JPY — Japanese Yen",
+      "cny": "CNY — Chinese Yuan",
+      "btc": "BTC — Bitcoin"
+    },
+    "language": {
+      "label": "Language",
+      "en": "English",
+      "es": "Español",
+      "zh": "中文",
+      "ja": "日本語"
+    },
+    "slippage": {
+      "label": "Slippage Tolerance",
+      "description": "Maximum price slippage for market orders"
+    },
+    "tradingView": {
+      "label": "Default Trading View",
+      "trading": "Trading View",
+      "simple": "Simple",
+      "advanced": "Advanced"
+    },
+    "saved": "Preferences updated",
+    "saveFailed": "Failed to update preferences"
+  },
+  "about": {
+    "title": "About",
+    "version": "Version {{version}}",
+    "buildDate": "Build Date",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "licenses": "Open Source Licenses",
+    "signOut": "Sign Out",
+    "signOutConfirm": "Are you sure you want to sign out?",
+    "copyright": "© {{year}} CryptoWallet Pro. All rights reserved."
+  }
+}

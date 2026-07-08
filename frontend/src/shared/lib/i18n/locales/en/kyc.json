@@ -1,0 +1,123 @@
+{
+  "page": {
+    "title": "Identity Verification",
+    "subtitle": "Complete verification to unlock higher limits and full platform access"
+  },
+  "steps": {
+    "personalInfo": "Personal Info",
+    "documentUpload": "ID Upload",
+    "selfie": "Selfie",
+    "review": "Review",
+    "submitted": "Submitted",
+    "verified": "Verified",
+    "rejected": "Rejected"
+  },
+  "personalInfo": {
+    "title": "Personal Information",
+    "description": "Enter your personal details as they appear on your government-issued ID",
+    "fullNameLabel": "Full Legal Name",
+    "fullNamePlaceholder": "Enter your full name",
+    "dateOfBirthLabel": "Date of Birth",
+    "nationalityLabel": "Nationality",
+    "nationalityPlaceholder": "Select your nationality",
+    "addressLabel": "Residential Address",
+    "addressPlaceholder": "Enter your street address",
+    "cityLabel": "City",
+    "cityPlaceholder": "Enter your city",
+    "postalCodeLabel": "Postal Code",
+    "postalCodePlaceholder": "Enter postal code",
+    "countryLabel": "Country",
+    "countryPlaceholder": "Select your country",
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "Enter your phone number"
+  },
+  "documentUpload": {
+    "title": "ID Document Upload",
+    "description": "Upload a clear photo of your government-issued ID",
+    "documentType": {
+      "label": "Document Type",
+      "passport": "Passport",
+      "nationalId": "National ID Card",
+      "driversLicense": "Driver's License",
+      "residencePermit": "Residence Permit"
+    },
+    "front": {
+      "label": "Front Side",
+      "dropText": "Drop front image here or click to browse",
+      "previewAlt": "Front of ID document preview"
+    },
+    "back": {
+      "label": "Back Side (optional)",
+      "dropText": "Drop back image here or click to browse"
+    },
+    "documentNumber": {
+      "label": "Document Number",
+      "placeholder": "Enter document number"
+    },
+    "expiryDate": {
+      "label": "Expiry Date"
+    },
+    "requirements": "Document must be clearly visible, not expired, and all details must match the information provided above."
+  },
+  "selfie": {
+    "title": "Selfie Verification",
+    "description": "Take a selfie holding your ID next to your face",
+    "dropText": "Drop your selfie here or click to take a photo",
+    "previewAlt": "Selfie preview",
+    "requirements": "Make sure your face and ID are clearly visible in good lighting"
+  },
+  "review": {
+    "title": "Review Your Information",
+    "description": "Please verify all information before submitting",
+    "personalInfoSection": "Personal Information",
+    "documentSection": "Document Information",
+    "documentFront": "Document Front",
+    "documentBack": "Document Back",
+    "selfieSection": "Selfie Photo",
+    "editButton": "Edit",
+    "submitButton": "Submit Verification",
+    "submittingButton": "Submitting..."
+  },
+  "submitted": {
+    "title": "Verification Submitted",
+    "description": "Your verification documents have been submitted successfully.",
+    "estimatedTime": "Estimated review time: {{hours}} hours",
+    "note": "You will receive a notification once your verification is complete."
+  },
+  "verified": {
+    "title": "Verification Approved!",
+    "description": "Your identity has been verified successfully.",
+    "limits": {
+      "title": "Your New Limits",
+      "dailyDeposit": "Daily Deposit Limit",
+      "dailyWithdrawal": "Daily Withdrawal Limit",
+      "monthlyVolume": "Monthly Volume Limit"
+    }
+  },
+  "rejected": {
+    "title": "Verification Not Approved",
+    "description": "We were unable to verify your identity with the information provided.",
+    "reason": "Reason: {{reason}}",
+    "commonReasons": {
+      "blurryImage": "Uploaded images are not clear enough",
+      "mismatchedInfo": "Information does not match the document",
+      "expiredDocument": "Document has expired",
+      "suspectedForgery": "Document appears to be altered"
+    },
+    "contactSupport": "If you believe this is an error, please contact support.",
+    "retryButton": "Submit Again"
+  },
+  "status": {
+    "notStarted": "Verification not started",
+    "inProgress": "Verification in progress",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "expired": "Verification session expired"
+  },
+  "errors": {
+    "fileTooLarge": "File size exceeds {{maxSize}} MB limit",
+    "invalidFileType": "Unsupported file type. Please upload JPG, PNG, or PDF",
+    "uploadFailed": "File upload failed. Please try again.",
+    "submitFailed": "Failed to submit verification. Please try again."
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "page": {
+    "title": "Trade",
+    "subtitle": "Spot Trading"
+  },
+  "chart": {
+    "title": "Chart",
+    "noData": "No chart data",
+    "interval": {
+      "1m": "1m",
+      "5m": "5m",
+      "15m": "15m",
+      "30m": "30m",
+      "1h": "1h",
+      "4h": "4h",
+      "1d": "1d",
+      "1w": "1w"
+    },
+    "indicators": "Indicators",
+    "drawingTools": "Drawing Tools"
+  },
+  "orderBook": {
+    "title": "Order Book",
+    "price": "Price",
+    "amount": "Amount",
+    "total": "Total",
+    "spread": "Spread",
+    "noOrders": "No orders for this pair"
+  },
+  "tradeForm": {
+    "buy": "Buy",
+    "sell": "Sell",
+    "market": "Market",
+    "limit": "Limit",
+    "stopLimit": "Stop Limit",
+    "price": "Price",
+    "amount": "Amount",
+    "total": "Total",
+    "available": "Available",
+    "lastPrice": "Last Price",
+    "buyButton": "Buy {{asset}}",
+    "sellButton": "Sell {{asset}}",
+    "placeOrder": "Place Order",
+    "placeBuyOrder": "Place Buy Order",
+    "placeSellOrder": "Place Sell Order",
+    "timeInForce": {
+      "label": "Time in Force",
+      "gtc": "GTC — Good 'til Cancelled",
+      "ioc": "IOC — Immediate or Cancel",
+      "fok": "FOK — Fill or Kill"
+    },
+    "quickAmount": "{{percent}}%",
+    "slippageWarning": "Slippage exceeds {{percent}}%",
+    "orderPlaced": "Order placed successfully",
+    "orderFailed": "Failed to place order",
+    "insufficientBalance": "Insufficient {{asset}} balance",
+    "minAmount": "Minimum order: {{amount}} {{asset}}"
+  },
+  "recentTrades": {
+    "title": "Recent Trades",
+    "price": "Price",
+    "amount": "Amount",
+    "time": "Time",
+    "noTrades": "No recent trades"
+  },
+  "marketPairs": {
+    "title": "Markets",
+    "search": "Search pairs...",
+    "noResults": "No pairs match your search",
+    "pair": "Pair",
+    "price": "Price",
+    "change": "24h Change",
+    "volume": "24h Volume",
+    "favorites": "Favorites",
+    "all": "All"
+  },
+  "positions": {
+    "title": "Positions",
+    "noPositions": "No open positions",
+    "size": "Size",
+    "entry": "Entry Price",
+    "mark": "Mark Price",
+    "pnl": "P&L",
+    "liquidation": "Liquidation Price"
+  },
+  "orders": {
+    "title": "Open Orders",
+    "noOrders": "No open orders",
+    "history": "Order History",
+    "id": "Order ID",
+    "pair": "Pair",
+    "type": "Type",
+    "side": "Side",
+    "price": "Price",
+    "amount": "Amount",
+    "filled": "Filled",
+    "status": "Status",
+    "time": "Time",
+    "cancel": "Cancel",
+    "cancelAll": "Cancel All",
+    "cancelled": "Order cancelled",
+    "cancelFailed": "Failed to cancel order"
+  }
+}
