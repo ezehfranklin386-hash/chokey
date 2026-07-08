@@ -3,7 +3,7 @@ import { cn } from '@/shared/lib/cn';
 export interface ProgressBarProps {
   value: number;
   max?: number;
-  color?: 'gold' | 'green' | 'red' | 'blue';
+  color?: 'brand' | 'gold' | 'green' | 'red' | 'blue';
   label?: string;
   showPercent?: boolean;
   size?: 'sm' | 'md' | 'lg';
@@ -11,6 +11,7 @@ export interface ProgressBarProps {
 }
 
 const colorClasses = {
+  brand: 'bg-brand-500',
   gold: 'bg-gold-500',
   green: 'bg-market-green',
   red: 'bg-market-red',
@@ -26,7 +27,7 @@ const sizeClasses = {
 export function ProgressBar({
   value,
   max = 100,
-  color = 'gold',
+  color = 'brand',
   label,
   showPercent = false,
   size = 'md',
@@ -38,13 +39,13 @@ export function ProgressBar({
     <div className={cn('w-full', className)}>
       {(label || showPercent) && (
         <div className="mb-1.5 flex items-center justify-between">
-          {label && <span className="text-xs text-white-70">{label}</span>}
+          {label && <span className="text-xs text-ink-70 dark:text-white-70">{label}</span>}
           {showPercent && (
-            <span className="text-xs font-medium text-white">{Math.round(percent)}%</span>
+            <span className="text-xs font-medium text-ink dark:text-white">{Math.round(percent)}%</span>
           )}
         </div>
       )}
-      <div className={cn('w-full overflow-hidden rounded-full bg-primary-600', sizeClasses[size])}>
+      <div className={cn('w-full overflow-hidden rounded-full bg-ink-30/20 dark:bg-primary-600', sizeClasses[size])}>
         <div
           className={cn(
             'h-full rounded-full transition-all duration-500 ease-out',

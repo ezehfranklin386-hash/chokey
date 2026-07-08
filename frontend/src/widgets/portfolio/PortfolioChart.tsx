@@ -35,7 +35,7 @@ export function PortfolioChart({ data, isLoading }: PortfolioChartProps) {
 
   if (isLoading) {
     return (
-      <div className="rounded-card border border-white-10 bg-primary-800 p-6">
+      <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
         <div className="skeleton mb-4 h-5 w-32 rounded" />
         <div className="skeleton h-48 w-full rounded" />
       </div>
@@ -44,19 +44,19 @@ export function PortfolioChart({ data, isLoading }: PortfolioChartProps) {
 
   if (!data || data.length === 0) {
     return (
-      <div className="rounded-card border border-white-10 bg-primary-800 p-6">
-        <h3 className="text-sm font-medium text-white-70">Portfolio Performance</h3>
+      <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
+        <h3 className="text-sm font-medium text-ink-70 dark:text-white-70">Portfolio Performance</h3>
         <div className="flex h-48 items-center justify-center">
-          <p className="text-sm text-white-50">No history data available</p>
+          <p className="text-sm text-ink-50 dark:text-white-50">No history data available</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="rounded-card border border-white-10 bg-primary-800 p-6">
+    <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-sm font-medium text-white-70">Portfolio Performance</h3>
+        <h3 className="text-sm font-medium text-ink-70 dark:text-white-70">Portfolio Performance</h3>
         <span className={cn(
           'text-xs font-medium',
           isPositive ? 'text-market-green' : 'text-market-red',

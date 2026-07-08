@@ -11,20 +11,20 @@ export function ErrorState({ error, onRetry, onSupport, className }: ErrorStateP
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center rounded-card border border-dashed border-market-red/30 bg-primary-800/50 px-8 py-16 text-center',
+        'flex flex-col items-center justify-center rounded-card border border-dashed border-market-red/30 bg-surface-secondary dark:bg-primary-800/50 px-8 py-16 text-center',
         className,
       )}
     >
       <div className="mb-4 text-5xl text-warning">⚠️</div>
-      <h3 className="text-xl font-semibold text-white">Something went wrong</h3>
+      <h3 className="text-xl font-semibold text-ink dark:text-white">Something went wrong</h3>
       {error && (
-        <p className="mt-2 max-w-md text-base text-white-70">{error}</p>
+        <p className="mt-2 max-w-md text-base text-ink-70 dark:text-white-70">{error}</p>
       )}
       <div className="mt-6 flex gap-3">
         {onRetry && (
           <button
             onClick={onRetry}
-            className="rounded-lg border border-gold-500 px-6 py-2.5 text-sm font-semibold text-gold-500 transition-colors hover:bg-gold-500/10"
+            className="rounded-lg border border-brand-500 px-6 py-2.5 text-sm font-semibold text-brand-500 transition-colors hover:bg-brand-500/10"
           >
             Try Again
           </button>
@@ -32,7 +32,7 @@ export function ErrorState({ error, onRetry, onSupport, className }: ErrorStateP
         {onSupport && (
           <button
             onClick={onSupport}
-            className="rounded-lg px-6 py-2.5 text-sm font-medium text-white-70 transition-colors hover:bg-primary-600"
+            className="rounded-lg px-6 py-2.5 text-sm font-medium text-ink-70 dark:text-white-70 transition-colors hover:bg-ink-30/10 dark:hover:bg-primary-600"
           >
             Contact Support
           </button>

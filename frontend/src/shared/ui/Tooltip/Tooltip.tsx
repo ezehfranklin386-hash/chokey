@@ -43,7 +43,7 @@ export function Tooltip({ content, side = 'top', delay = 200, children, classNam
         <div
           role="tooltip"
           className={cn(
-            'pointer-events-none absolute z-50 whitespace-nowrap rounded-lg bg-primary-600 px-3 py-1.5 text-xs text-white-90 shadow-lg',
+            'pointer-events-none absolute z-50 whitespace-nowrap rounded-lg bg-ink dark:bg-primary-600 px-3 py-1.5 text-xs text-white shadow-lg',
             sideClasses[side],
           )}
         >

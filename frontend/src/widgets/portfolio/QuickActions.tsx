@@ -56,8 +56,8 @@ export function QuickActions() {
   ];
 
   return (
-    <div className="rounded-card border border-white-10 bg-primary-800 p-6">
-      <h3 className="mb-4 text-sm font-medium text-white-70">Quick Actions</h3>
+    <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
+      <h3 className="mb-4 text-sm font-medium text-ink-70 dark:text-white-70">Quick Actions</h3>
       <div className="grid grid-cols-2 gap-3">
         {actions.map((action) => (
           <button
@@ -65,8 +65,8 @@ export function QuickActions() {
             onClick={action.onClick}
             className={`flex flex-col items-center gap-2 rounded-lg p-4 transition-all duration-200 ${
               action.variant === 'gold'
-                ? 'bg-gold-500/10 text-gold-500 hover:bg-gold-500/20 border border-gold-500/20'
-                : 'bg-primary-700 text-white-70 hover:bg-primary-600 hover:text-white-90 border border-primary-500'
+                ? 'bg-brand-500/10 text-brand-500 hover:bg-brand-500/20 border border-brand-500/20'
+                : 'bg-primary-700 text-ink-70 dark:text-white-70 hover:bg-primary-600 hover:text-ink-90 dark:hover:text-white-90 border border-primary-500'
             }`}
           >
             {action.icon}

@@ -52,8 +52,8 @@ function formatTime(iso: string): string {
 export function RecentTransactions({ transactions, isLoading }: RecentTransactionsProps) {
   if (isLoading) {
     return (
-      <div className="rounded-card border border-white-10 bg-primary-800 p-6">
-        <h3 className="mb-4 text-sm font-medium text-white-70">Recent Transactions</h3>
+      <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
+        <h3 className="mb-4 text-sm font-medium text-ink-70 dark:text-white-70">Recent Transactions</h3>
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
             <div key={i} className="flex items-center gap-3">
@@ -75,20 +75,20 @@ export function RecentTransactions({ transactions, isLoading }: RecentTransactio
 
   if (!transactions || transactions.length === 0) {
     return (
-      <div className="rounded-card border border-white-10 bg-primary-800 p-6">
-        <h3 className="mb-4 text-sm font-medium text-white-70">Recent Transactions</h3>
+      <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
+        <h3 className="mb-4 text-sm font-medium text-ink-70 dark:text-white-70">Recent Transactions</h3>
         <div className="flex flex-col items-center justify-center py-8 text-center">
-          <div className="mb-3 text-3xl text-white-30">📭</div>
-          <p className="text-sm text-white-70">No transactions yet</p>
-          <p className="mt-1 text-xs text-white-50">Your crypto transactions will appear here</p>
+          <div className="mb-3 text-3xl text-ink-30 dark:text-white-30">📭</div>
+          <p className="text-sm text-ink-70 dark:text-white-70">No transactions yet</p>
+          <p className="mt-1 text-xs text-ink-50 dark:text-white-50">Your crypto transactions will appear here</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="rounded-card border border-white-10 bg-primary-800 p-6">
-      <h3 className="mb-4 text-sm font-medium text-white-70">Recent Transactions</h3>
+    <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
+      <h3 className="mb-4 text-sm font-medium text-ink-70 dark:text-white-70">Recent Transactions</h3>
       <div className="space-y-1">
         {transactions.slice(0, 5).map((tx) => (
           <div
@@ -114,19 +114,19 @@ export function RecentTransactions({ transactions, isLoading }: RecentTransactio
 
             {/* Info */}
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white">{TYPE_LABELS[tx.type] || tx.type}</p>
-              <p className="text-xs text-white-50">{formatTime(tx.createdAt)}</p>
+              <p className="text-sm font-medium text-ink dark:text-white">{TYPE_LABELS[tx.type] || tx.type}</p>
+              <p className="text-xs text-ink-50 dark:text-white-50">{formatTime(tx.createdAt)}</p>
             </div>
 
             {/* Amount + Status */}
             <div className="text-right">
-              <p className={cn('text-sm font-mono', TYPE_COLORS[tx.type] || 'text-white')}>
+              <p className={cn('text-sm font-mono', TYPE_COLORS[tx.type] || 'text-ink dark:text-white')}>
                 {tx.type === 'buy' || tx.type === 'deposit' || tx.type === 'transfer_in' ? '+' : '-'}
                 {Number(tx.amount).toLocaleString()} {tx.asset}
               </p>
               <span className={cn(
                 'inline-block rounded px-1.5 py-0.5 text-[10px] font-medium',
-                STATUS_BADGES[tx.status] || 'bg-primary-500/30 text-white-50',
+                STATUS_BADGES[tx.status] || 'bg-primary-500/30 text-ink-50 dark:text-white-50',
               )}>
                 {tx.status.charAt(0).toUpperCase() + tx.status.slice(1)}
               </span>

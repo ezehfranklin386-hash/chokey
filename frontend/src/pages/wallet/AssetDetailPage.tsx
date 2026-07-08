@@ -35,7 +35,7 @@ export default function AssetDetailPage() {
   if (!assetId) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
-        <p className="text-white-70">Asset not specified</p>
+        <p className="text-ink-70 dark:text-white-70">Asset not specified</p>
         <Button variant="secondary" onClick={() => navigate('/wallet')} className="mt-4">
           Back to Wallet
         </Button>
@@ -48,7 +48,7 @@ export default function AssetDetailPage() {
       {/* Back */}
       <button
         onClick={() => navigate('/wallet')}
-        className="flex items-center gap-1 text-sm text-white-50 hover:text-white-90 transition-colors"
+        className="flex items-center gap-1 text-sm text-ink-50 dark:text-white-50 hover:text-ink-70 dark:hover:text-white-90 transition-colors"
       >
         <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <polyline points="15 18 9 12 15 6" />
@@ -67,16 +67,16 @@ export default function AssetDetailPage() {
         </div>
       ) : (
         <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-600 text-xl text-white-90 font-mono">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-100 dark:bg-primary-600 text-xl text-brand-600 dark:text-white-90 font-mono">
             {icon}
           </div>
           <div>
-            <h1 className="text-xl font-bold text-white">{wallet?.name || assetId}</h1>
+            <h1 className="text-xl font-bold text-ink dark:text-white">{wallet?.name || assetId}</h1>
             <div className="flex items-center gap-2">
-              <span className="text-sm text-white-50 font-mono">{assetId}</span>
+              <span className="text-sm text-ink-50 dark:text-white-50 font-mono">{assetId}</span>
               {priceData && (
                 <>
-                  <span className="text-sm font-mono text-white-90">
+                  <span className="text-sm font-mono text-ink dark:text-white-90">
                     ${Number(priceData.price).toLocaleString()}
                   </span>
                   <span className={cn(
@@ -93,7 +93,7 @@ export default function AssetDetailPage() {
       )}
 
       {/* Balance breakdown */}
-      <div className="rounded-card border border-white-10 bg-primary-800 p-6">
+      <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
         {walletLoading ? (
           <div className="space-y-3">
             <div className="skeleton h-8 w-40 rounded" />
@@ -105,29 +105,29 @@ export default function AssetDetailPage() {
           </div>
         ) : (
           <div>
-            <p className="text-sm text-white-50">Total Balance</p>
-            <p className="text-3xl font-bold font-mono text-white mt-1">
+            <p className="text-sm text-ink-50 dark:text-white-50">Total Balance</p>
+            <p className="text-3xl font-bold font-mono text-ink dark:text-white mt-1">
               {Number(wallet?.balance || 0).toLocaleString()} {assetId}
             </p>
-            <p className="text-sm text-white-70 font-mono mt-1">
+            <p className="text-sm text-ink-70 dark:text-white-70 font-mono mt-1">
               ${Number(wallet?.usdValue || 0).toLocaleString()}
             </p>
             <div className="flex flex-wrap gap-6 mt-4">
               <div>
-                <p className="text-xs text-white-50">Available</p>
-                <p className="text-sm font-mono text-white-90">
+                <p className="text-xs text-ink-50 dark:text-white-50">Available</p>
+                <p className="text-sm font-mono text-ink dark:text-white-90">
                   {Number(wallet?.available || 0).toLocaleString()} {assetId}
                 </p>
               </div>
               <div>
-                <p className="text-xs text-white-50">In Orders</p>
-                <p className="text-sm font-mono text-white-90">
+                <p className="text-xs text-ink-50 dark:text-white-50">In Orders</p>
+                <p className="text-sm font-mono text-ink dark:text-white-90">
                   {Number(wallet?.locked || 0).toLocaleString()} {assetId}
                 </p>
               </div>
               <div>
-                <p className="text-xs text-white-50">USD Value</p>
-                <p className="text-sm font-mono text-white-90">
+                <p className="text-xs text-ink-50 dark:text-white-50">USD Value</p>
+                <p className="text-sm font-mono text-ink dark:text-white-90">
                   ${Number(wallet?.usdValue || 0).toLocaleString()}
                 </p>
               </div>
@@ -137,8 +137,8 @@ export default function AssetDetailPage() {
       </div>
 
       {/* Mini chart */}
-      <div className="rounded-card border border-white-10 bg-primary-800 p-4">
-        <h3 className="text-sm font-medium text-white-70 mb-3">Price Chart (30D)</h3>
+      <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-4">
+        <h3 className="text-sm font-medium text-ink-70 dark:text-white-70 mb-3">Price Chart (30D)</h3>
         {candlesLoading ? (
           <div className="flex items-center justify-center py-12">
             <Spinner />
@@ -150,7 +150,7 @@ export default function AssetDetailPage() {
             color={isPositive ? '#22C55E' : '#EF4444'}
           />
         ) : (
-          <div className="flex items-center justify-center py-12 text-sm text-white-50">
+          <div className="flex items-center justify-center py-12 text-sm text-ink-50 dark:text-white-50">
             Chart data unavailable
           </div>
         )}
@@ -170,9 +170,9 @@ export default function AssetDetailPage() {
       </div>
 
       {/* Transaction History */}
-      <div className="rounded-card border border-white-10 bg-primary-800">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-primary-500/40">
-          <h3 className="text-sm font-medium text-white-70">Transaction History</h3>
+      <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-ink-30/10 dark:border-primary-500/40">
+          <h3 className="text-sm font-medium text-ink-70 dark:text-white-70">Transaction History</h3>
           <SearchBar value={txSearch} onChange={setTxSearch} />
         </div>
         <TransactionList

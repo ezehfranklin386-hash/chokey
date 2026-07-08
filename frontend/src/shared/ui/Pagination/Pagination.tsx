@@ -29,7 +29,7 @@ export function Pagination({ page, totalPages, onChange, className }: Pagination
       <button
         onClick={() => onChange(page - 1)}
         disabled={page <= 1}
-        className="rounded-lg px-3 py-2 text-sm text-white-70 transition-colors hover:bg-primary-600 disabled:cursor-not-allowed disabled:opacity-30"
+        className="rounded-lg px-3 py-2 text-sm text-ink-70 dark:text-white-70 transition-colors hover:bg-ink-30/10 dark:hover:bg-primary-600 disabled:cursor-not-allowed disabled:opacity-30"
         aria-label="Previous page"
       >
         ←
@@ -37,7 +37,7 @@ export function Pagination({ page, totalPages, onChange, className }: Pagination
 
       {getPages().map((p, i) =>
         p === '...' ? (
-          <span key={`ellipsis-${i}`} className="px-2 text-white-50">
+          <span key={`ellipsis-${i}`} className="px-2 text-ink-50 dark:text-white-50">
             ...
           </span>
         ) : (
@@ -47,8 +47,8 @@ export function Pagination({ page, totalPages, onChange, className }: Pagination
             className={cn(
               'min-w-[36px] rounded-lg px-3 py-2 text-sm font-medium transition-colors',
               p === page
-                ? 'bg-gold-500 text-white'
-                : 'text-white-70 hover:bg-primary-600 hover:text-white',
+                ? 'bg-brand-500 text-white'
+                : 'text-ink-70 dark:text-white-70 hover:bg-ink-30/10 dark:hover:bg-primary-600 hover:text-ink dark:hover:text-white',
             )}
             aria-current={p === page ? 'page' : undefined}
           >
@@ -60,7 +60,7 @@ export function Pagination({ page, totalPages, onChange, className }: Pagination
       <button
         onClick={() => onChange(page + 1)}
         disabled={page >= totalPages}
-        className="rounded-lg px-3 py-2 text-sm text-white-70 transition-colors hover:bg-primary-600 disabled:cursor-not-allowed disabled:opacity-30"
+        className="rounded-lg px-3 py-2 text-sm text-ink-70 dark:text-white-70 transition-colors hover:bg-ink-30/10 dark:hover:bg-primary-600 disabled:cursor-not-allowed disabled:opacity-30"
         aria-label="Next page"
       >
         →

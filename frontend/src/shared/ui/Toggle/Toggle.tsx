@@ -23,7 +23,7 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
             checked={checked}
             {...props}
           />
-          <div className="h-6 w-11 rounded-full bg-primary-500 transition-colors peer-checked:bg-gold-500 peer-focus-visible:ring-2 peer-focus-visible:ring-gold-500/50" />
+          <div className="h-6 w-11 rounded-full bg-ink-30/30 dark:bg-primary-500 transition-colors peer-checked:bg-brand-500 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-500/50" />
           <div
             className={cn(
               'absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition-transform duration-200',
@@ -31,7 +31,7 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
             )}
           />
         </div>
-        {label && <span className="text-sm text-white-90">{label}</span>}
+        {label && <span className="text-sm text-ink dark:text-white-90">{label}</span>}
       </label>
     );
   },

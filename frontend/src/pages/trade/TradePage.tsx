@@ -32,7 +32,7 @@ export default function TradePage() {
   return (
     <div className="flex h-[calc(100vh-64px)]">
       {/* Left: Market Pairs */}
-      <div className="hidden lg:block w-[240px] shrink-0 border-r border-primary-500/40">
+      <div className="hidden lg:block w-[240px] shrink-0 border-r border-ink-30/10 dark:border-primary-500/40">
         <MarketPairs
           pairs={pairs}
           isLoading={pairsLoading}
@@ -53,7 +53,7 @@ export default function TradePage() {
         </div>
 
         {/* Bottom: Trade Form + Recent Trades */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 border-t border-primary-500/40 bg-primary-900">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 border-t border-ink-30/10 dark:border-primary-500/40 bg-surface dark:bg-primary-900">
           <TradeForm
             symbol={activePair}
             baseAsset={baseAsset}
@@ -68,7 +68,7 @@ export default function TradePage() {
       </div>
 
       {/* Right: Order Book */}
-      <div className="hidden xl:block w-[260px] shrink-0 border-l border-primary-500/40">
+      <div className="hidden xl:block w-[260px] shrink-0 border-l border-ink-30/10 dark:border-primary-500/40">
         <OrderBook
           data={orderBook}
           isLoading={orderBookLoading}

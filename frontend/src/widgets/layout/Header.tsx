@@ -1,19 +1,21 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { cn } from '@/shared/lib/cn';
 import { useAuth } from '@/app/providers/AuthProvider';
 import { useTheme } from '@/app/providers/ThemeProvider';
 import { Badge } from '@/shared/ui/Badge/Badge';
 import { IS_DEMO_MODE } from '@/shared/api/demo/demoConfig';
+import { navItems } from './navConfig';
 
 export interface HeaderProps {
-  collapsed: boolean;
   onMenuToggle: () => void;
   className?: string;
 }
 
-export function Header({ collapsed, onMenuToggle, className }: HeaderProps) {
+export function Header({ onMenuToggle, className }: HeaderProps) {
   const { user } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
 
   const displayName = useMemo(() => {
     if (!user) return 'User';
@@ -34,16 +36,16 @@ export function Header({ collapsed, onMenuToggle, className }: HeaderProps) {
   return (
     <header
       className={cn(
-        'flex h-16 shrink-0 items-center justify-between border-b border-white-10 bg-primary-900 px-4 lg:px-6',
+        'sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-900 px-4 lg:px-6',
         className,
       )}
     >
-      {/* Left section */}
+      {/* Left section: hamburger + logo */}
       <div className="flex items-center gap-3">
         {/* Mobile hamburger */}
         <button
           onClick={onMenuToggle}
-          className="rounded-lg p-2 text-white-70 hover:bg-primary-600 hover:text-white-90 transition-colors md:hidden"
+          className="rounded-lg p-2 text-ink-70 dark:text-white-70 hover:bg-ink-30/10 dark:hover:bg-primary-600 hover:text-ink dark:hover:text-white-90 transition-colors lg:hidden"
           aria-label="Toggle navigation menu"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -53,26 +55,51 @@ export function Header({ collapsed, onMenuToggle, className }: HeaderProps) {
           </svg>
         </button>
 
-        {/* Page title / breadcrumb could go here */}
-        {collapsed && (
-          <button
-            onClick={onMenuToggle}
-            className="hidden rounded-lg p-2 text-white-70 hover:bg-primary-600 hover:text-white-90 transition-colors md:flex"
-            aria-label="Expand sidebar"
-          >
-            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </button>
-        )}
+        {/* Logo */}
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="flex items-center gap-2.5"
+        >
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500">
+            <span className="text-sm font-bold text-white">C</span>
+          </div>
+          <span className="text-lg font-bold tracking-tight text-ink dark:text-white">
+            Chokey
+          </span>
+        </button>
       </div>
 
+      {/* Center: nav links (desktop) */}
+      <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          return (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              end={item.exact}
+              className={({ isActive }) =>
+                cn(
+                  'flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                  isActive
+                    ? 'text-brand-500 bg-brand-50 dark:bg-brand-500/10'
+                    : 'text-ink-70 dark:text-white-70 hover:text-ink dark:hover:text-white-90 hover:bg-ink-30/10 dark:hover:bg-primary-600',
+                )
+              }
+            >
+              <Icon className="h-4 w-4" />
+              <span>{item.label}</span>
+            </NavLink>
+          );
+        })}
+      </nav>
+
       {/* Right section */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1">
         {/* Theme toggle */}
         <button
           onClick={toggleTheme}
-          className="rounded-lg p-2 text-white-70 hover:bg-primary-600 hover:text-white-90 transition-colors"
+          className="rounded-lg p-2 text-ink-70 dark:text-white-70 hover:bg-ink-30/10 dark:hover:bg-primary-600 hover:text-ink dark:hover:text-white-90 transition-colors"
           aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
         >
           {theme === 'dark' ? (
@@ -89,7 +116,7 @@ export function Header({ collapsed, onMenuToggle, className }: HeaderProps) {
 
         {/* Notifications */}
         <button
-          className="relative rounded-lg p-2 text-white-70 hover:bg-primary-600 hover:text-white-90 transition-colors"
+          className="relative rounded-lg p-2 text-ink-70 dark:text-white-70 hover:bg-ink-30/10 dark:hover:bg-primary-600 hover:text-ink dark:hover:text-white-90 transition-colors"
           aria-label="Notifications"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -108,13 +135,13 @@ export function Header({ collapsed, onMenuToggle, className }: HeaderProps) {
 
         {/* User avatar */}
         <div className="ml-2 flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-semibold text-white-90">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-100 dark:bg-primary-600 text-sm font-semibold text-brand-600 dark:text-white-90">
             {initials}
           </div>
           <div className="hidden md:block">
-            <p className="text-sm font-medium text-white-90">{displayName}</p>
+            <p className="text-sm font-medium text-ink dark:text-white-90">{displayName}</p>
             {user?.kycLevel && user.kycLevel > 0 && (
-              <Badge variant="gold" size="sm">
+              <Badge variant="brand" size="sm">
                 Level {user.kycLevel}
               </Badge>
             )}

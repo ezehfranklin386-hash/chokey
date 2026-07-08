@@ -37,8 +37,8 @@ export default function DashboardPage() {
     <div className="space-y-6">
       {/* Page header */}
       <div>
-        <h1 className="text-xl font-bold text-white">Dashboard</h1>
-        <p className="text-sm text-white-50">Portfolio overview and market summary</p>
+        <h1 className="text-xl font-bold text-ink dark:text-white">Dashboard</h1>
+        <p className="text-sm text-ink-50 dark:text-white-50">Portfolio overview and market summary</p>
       </div>
 
       {/* Balance card + Portfolio chart */}

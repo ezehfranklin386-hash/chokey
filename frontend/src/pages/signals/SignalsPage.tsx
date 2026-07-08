@@ -54,12 +54,12 @@ export default function SignalsPage() {
     <div className="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-white">Signals</h1>
-        <p className="text-sm text-white-50">Professional trading signals to guide your decisions</p>
+        <h1 className="text-2xl font-bold text-ink dark:text-white">Signals</h1>
+        <p className="text-sm text-ink-50 dark:text-white-50">Professional trading signals to guide your decisions</p>
       </div>
 
       {/* Filters */}
-      <div className="rounded-card border border-white-10 bg-primary-800 p-4">
+      <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-4">
         <SignalFilters
           direction={direction}
           onDirectionChange={setDirection}
@@ -74,7 +74,7 @@ export default function SignalsPage() {
 
       {/* Results count */}
       <div className="flex items-center justify-between">
-        <p className="text-xs text-white-50">
+        <p className="text-xs text-ink-50 dark:text-white-50">
           {isLoading ? 'Loading...' : `${filteredSignals.length} signal${filteredSignals.length !== 1 ? 's' : ''} found`}
         </p>
       </div>
@@ -88,11 +88,11 @@ export default function SignalsPage() {
         </div>
       ) : filteredSignals.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 text-center">
-          <div className="mb-4 text-4xl text-white-30">📡</div>
-          <p className="text-sm text-white-70">
+          <div className="mb-4 text-4xl text-ink-30 dark:text-white-30">📡</div>
+          <p className="text-sm text-ink-70 dark:text-white-70">
             {asset ? 'No signals match your search' : 'No signals available yet'}
           </p>
-          <p className="mt-1 text-xs text-white-50">
+          <p className="mt-1 text-xs text-ink-50 dark:text-white-50">
             {asset
               ? 'Try a different asset or adjust your filters'
               : 'Check back later for new trading signals'}
@@ -100,7 +100,7 @@ export default function SignalsPage() {
           {asset && (
             <button
               onClick={() => setAsset('')}
-              className="mt-4 text-xs font-medium text-gold-500 hover:text-gold-400"
+              className="mt-4 text-xs font-medium text-brand-500 hover:text-brand-600"
             >
               Clear filters
             </button>

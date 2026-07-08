@@ -3,24 +3,24 @@ import { cn } from '@/shared/lib/cn';
 
 const variants = {
   underline: {
-    container: 'flex border-b border-primary-500',
+    container: 'flex border-b border-ink-30/20 dark:border-primary-500',
     tab: (active: boolean) =>
       cn(
         'px-4 py-3 text-sm font-medium transition-colors duration-200 relative',
         'after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transition-transform after:duration-200',
         active
-          ? 'text-white after:bg-gold-500 after:scale-x-100'
-          : 'text-white-70 hover:text-white-90 after:scale-x-0',
+          ? 'text-ink dark:text-white after:bg-brand-500 after:scale-x-100'
+          : 'text-ink-70 dark:text-white-70 hover:text-ink dark:hover:text-white-90 after:scale-x-0',
       ),
   },
   pill: {
-    container: 'flex gap-1 rounded-lg bg-primary-700 p-1',
+    container: 'flex gap-1 rounded-lg bg-ink-30/10 dark:bg-primary-700 p-1',
     tab: (active: boolean) =>
       cn(
         'rounded-md px-4 py-2 text-sm font-medium transition-all duration-200',
         active
-          ? 'bg-gold-500 text-white shadow-sm'
-          : 'text-white-70 hover:text-white-90 hover:bg-primary-600',
+          ? 'bg-brand-500 text-white shadow-sm'
+          : 'text-ink-70 dark:text-white-70 hover:text-ink dark:hover:text-white-90 hover:bg-ink-30/10 dark:hover:bg-primary-600',
       ),
   },
   icon: {
@@ -28,7 +28,7 @@ const variants = {
     tab: (active: boolean) =>
       cn(
         'flex flex-col items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-200',
-        active ? 'text-gold-500' : 'text-white-70 hover:text-white-90',
+        active ? 'text-brand-500' : 'text-ink-70 dark:text-white-70 hover:text-ink dark:hover:text-white-90',
       ),
   },
 } as const;

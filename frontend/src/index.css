@@ -5,8 +5,13 @@
 @tailwind utilities;
 
 @layer base {
+  /* ── LIGHT MODE (default) ──────────────────────────── */
+  :root {
+    color-scheme: light;
+  }
+
   html {
-    @apply bg-primary-900 text-white-90 antialiased;
+    @apply bg-surface text-ink antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     scroll-behavior: smooth;
   }
@@ -16,6 +21,16 @@
   }
 
   * {
+    @apply border-ink-30/20;
+  }
+
+  /* ── DARK MODE ─────────────────────────────────────── */
+  .dark html,
+  html.dark {
+    @apply bg-primary-900 text-white-90;
+  }
+
+  .dark * {
     @apply border-white-30/20;
   }
 
@@ -30,16 +45,28 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-primary-500 rounded-full;
+    @apply bg-brand-200 rounded-full;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    @apply bg-primary-500;
   }
 
   ::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-400;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
     @apply bg-primary-400;
   }
 
   /* Focus ring — visible outline for keyboard users only */
   :focus-visible {
-    @apply outline-none ring-2 ring-gold-500/60 ring-offset-2 ring-offset-primary-900;
+    @apply outline-none ring-2 ring-brand-500/60 ring-offset-2 ring-offset-white;
+  }
+
+  .dark :focus-visible {
+    @apply ring-offset-primary-900;
   }
 
   /* Remove focus outline for mouse users */
@@ -49,19 +76,32 @@
 
   /* Selection */
   ::selection {
-    @apply bg-gold-500/30 text-white;
+    @apply bg-brand-500/20 text-ink;
+  }
+
+  .dark ::selection {
+    @apply bg-brand-500/30 text-white;
   }
 }
 
 @layer components {
-  /* Glow effect for gold accent elements */
+  /* Glow effects */
+  .glow-brand {
+    box-shadow: 0 0 20px rgba(0, 82, 255, 0.15);
+  }
+
   .glow-gold {
     box-shadow: 0 0 20px rgba(212, 168, 67, 0.15);
   }
 
-  /* Glass morphism surfaces */
+  /* Glass morphism surfaces (dark mode) */
   .glass-surface {
     @apply bg-primary-800/80 backdrop-blur-sm border border-white-30/10;
+  }
+
+  /* Glass morphism surfaces (light mode) */
+  .glass-surface-light {
+    @apply bg-white/80 backdrop-blur-sm border border-ink-30/10;
   }
 
   /* Price flash animations */
@@ -75,7 +115,7 @@
 
   /* Skip to content link — hidden until focused */
   .skip-to-content {
-    @apply fixed left-4 top-4 z-[100] -translate-y-full rounded-lg bg-gold-500 px-4 py-2 text-sm font-semibold text-primary-900 shadow-lg transition-transform focus:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-300 focus-visible:ring-offset-2 focus-visible:ring-offset-primary-900;
+    @apply fixed left-4 top-4 z-[100] -translate-y-full rounded-lg bg-brand-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-transform focus:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
   }
   .skip-to-content:focus {
     transform: translateY(0);
@@ -83,6 +123,18 @@
 
   /* Skeleton shimmer */
   .skeleton {
+    @apply bg-ink-30/20 rounded;
+    background: linear-gradient(
+      90deg,
+      theme('colors.ink.30 / 0.1') 25%,
+      theme('colors.ink.30 / 0.25') 50%,
+      theme('colors.ink.30 / 0.1') 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  .dark .skeleton {
     @apply bg-primary-700 rounded;
     background: linear-gradient(
       90deg,
@@ -140,14 +192,27 @@
 
   .skeleton {
     animation: none !important;
+    @apply bg-ink-30/10;
+  }
+
+  .dark .skeleton {
     @apply bg-primary-600;
   }
 }
 
 /* ===== High Contrast Mode Support ===== */
 @media (forced-colors: active) {
+  .glow-brand,
   .glow-gold {
     box-shadow: none;
-    @apply border border-gold-500;
+    @apply border border-brand-500;
+  }
+
+  .dark .glow-gold {
+    @apply border-gold-500;
+  }
+
+  .dark .glow-brand {
+    @apply border-brand-400;
   }
 }

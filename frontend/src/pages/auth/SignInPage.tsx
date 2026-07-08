@@ -36,19 +36,19 @@ export default function SignInPage() {
     <div className="space-y-6">
       {/* Demo mode banner */}
       {IS_DEMO_MODE && (
-        <div className="rounded-lg border border-gold-500/30 bg-gold-500/10 p-3 text-center">
-          <Badge variant="warning" size="sm" className="mb-1">DEMO MODE</Badge>
-          <p className="text-xs text-white-70">Credentials auto-filled — just click <strong className="text-white-90">Sign In</strong></p>
+        <div className="rounded-lg border border-brand-500/30 bg-brand-500/5 p-3 text-center">
+          <Badge variant="brand" size="sm" className="mb-1">DEMO MODE</Badge>
+          <p className="text-xs text-ink-70 dark:text-white-70">Credentials auto-filled — just click <strong className="text-ink dark:text-white-90">Sign In</strong></p>
         </div>
       )}
 
       {/* Logo & Heading */}
       <div className="text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gold-500 shadow-glow-gold">
-          <span className="text-2xl font-bold text-primary-900">C</span>
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-brand-500 shadow-glow-brand">
+          <span className="text-2xl font-bold text-white">C</span>
         </div>
-        <h1 className="text-2xl font-bold text-white">Welcome Back</h1>
-        <p className="mt-1 text-sm text-white-70">Sign in to your account</p>
+        <h1 className="text-2xl font-bold text-ink dark:text-white">Welcome Back</h1>
+        <p className="mt-1 text-sm text-ink-70 dark:text-white-70">Sign in to your account</p>
       </div>
 
       {/* Form */}
@@ -74,7 +74,7 @@ export default function SignInPage() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-white-50 hover:text-white-90 transition-colors"
+                className="text-ink-50 dark:text-white-50 hover:text-ink-70 dark:hover:text-white-90 transition-colors"
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? (
@@ -96,7 +96,7 @@ export default function SignInPage() {
           <div className="mt-1.5 text-right">
             <Link
               to="/auth/forgot-password"
-              className="text-xs text-gold-500 hover:text-gold-400 transition-colors"
+              className="text-xs text-brand-500 hover:text-brand-600 transition-colors"
             >
               Forgot password?
             </Link>
@@ -104,10 +104,10 @@ export default function SignInPage() {
         </div>
 
         {/* Remember me */}
-        <label className="flex items-center gap-2 text-sm text-white-70 cursor-pointer">
+        <label className="flex items-center gap-2 text-sm text-ink-70 dark:text-white-70 cursor-pointer">
           <input
             type="checkbox"
-            className="h-4 w-4 rounded border-primary-500 bg-primary-700 text-gold-500 focus:ring-gold-500/30 focus:ring-offset-0"
+            className="h-4 w-4 rounded border-ink-30/30 dark:border-primary-500 bg-surface-secondary dark:bg-primary-700 text-brand-500 focus:ring-brand-500/30 focus:ring-offset-0"
             {...register('rememberMe')}
           />
           Remember me for 30 days
@@ -128,10 +128,10 @@ export default function SignInPage() {
       {/* Divider */}
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-primary-500" />
+          <div className="w-full border-t border-ink-30/20 dark:border-primary-500" />
         </div>
         <div className="relative flex justify-center text-xs">
-          <span className="bg-primary-900 px-2 text-white-50">or continue with</span>
+          <span className="bg-white dark:bg-primary-800/80 px-2 text-ink-50 dark:text-white-50">or continue with</span>
         </div>
       </div>
 
@@ -139,7 +139,7 @@ export default function SignInPage() {
       <div className="grid grid-cols-2 gap-3">
         <button
           type="button"
-          className="flex items-center justify-center gap-2 rounded-lg border border-primary-500 bg-primary-800 px-4 py-2.5 text-sm font-medium text-white-90 transition-colors hover:bg-primary-600"
+          className="flex items-center justify-center gap-2 rounded-lg border border-ink-30/20 dark:border-primary-500 bg-white dark:bg-primary-800 px-4 py-2.5 text-sm font-medium text-ink dark:text-white-90 transition-colors hover:bg-surface-secondary dark:hover:bg-primary-600"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
@@ -151,7 +151,7 @@ export default function SignInPage() {
         </button>
         <button
           type="button"
-          className="flex items-center justify-center gap-2 rounded-lg border border-primary-500 bg-primary-800 px-4 py-2.5 text-sm font-medium text-white-90 transition-colors hover:bg-primary-600"
+          className="flex items-center justify-center gap-2 rounded-lg border border-ink-30/20 dark:border-primary-500 bg-white dark:bg-primary-800 px-4 py-2.5 text-sm font-medium text-ink dark:text-white-90 transition-colors hover:bg-surface-secondary dark:hover:bg-primary-600"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
             <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
@@ -161,11 +161,11 @@ export default function SignInPage() {
       </div>
 
       {/* Footer */}
-      <p className="text-center text-sm text-white-70">
+      <p className="text-center text-sm text-ink-70 dark:text-white-70">
         Don&apos;t have an account?{' '}
         <Link
           to="/auth/sign-up"
-          className="font-medium text-gold-500 hover:text-gold-400 transition-colors"
+          className="font-medium text-brand-500 hover:text-brand-600 transition-colors"
         >
           Create one
         </Link>

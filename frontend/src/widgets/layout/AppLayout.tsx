@@ -8,10 +8,7 @@ import { OfflineBanner } from './OfflineBanner';
 
 export function AppLayout() {
   const { logout } = useAuth();
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // Close mobile menu on route change (handled by Sidebar's handleNavClick)
 
   // Close mobile menu on escape key
   useEffect(() => {
@@ -23,10 +20,6 @@ export function AppLayout() {
     document.addEventListener('keydown', handleKey);
     return () => document.removeEventListener('keydown', handleKey);
   }, [mobileMenuOpen]);
-
-  const toggleSidebar = useCallback(() => {
-    setSidebarCollapsed((prev) => !prev);
-  }, []);
 
   const openMobileMenu = useCallback(() => {
     setMobileMenuOpen(true);
@@ -41,7 +34,7 @@ export function AppLayout() {
   }, [logout]);
 
   return (
-    <div className="flex h-screen flex-col bg-primary-900">
+    <div className="flex h-screen flex-col bg-surface dark:bg-primary-900">
       {/* Skip to content link — visually hidden, shown on focus */}
       <a href="#main-content" className="skip-to-content">
         Skip to main content
@@ -50,34 +43,26 @@ export function AppLayout() {
       {/* Offline banner at the very top */}
       <OfflineBanner />
 
-      {/* Main flex row: sidebar + content */}
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar
-          collapsed={sidebarCollapsed}
-          onToggle={toggleSidebar}
-          mobileOpen={mobileMenuOpen}
-          onMobileClose={closeMobileMenu}
-          onLogout={handleLogout}
-        />
+      {/* Top navigation bar */}
+      <Header onMenuToggle={openMobileMenu} />
 
-        {/* Content area */}
-        <div className="flex flex-1 flex-col overflow-hidden">
-          <Header
-            collapsed={sidebarCollapsed}
-            onMenuToggle={sidebarCollapsed ? toggleSidebar : openMobileMenu}
-          />
+      {/* Mobile sidebar drawer */}
+      <Sidebar
+        open={mobileMenuOpen}
+        onClose={closeMobileMenu}
+        onLogout={handleLogout}
+      />
 
-          <main
-            id="main-content"
-            tabIndex={-1}
-            className="flex-1 overflow-y-auto p-4 lg:p-6 focus:outline-none"
-          >
-            <Outlet />
-          </main>
-        </div>
-      </div>
+      {/* Main content area */}
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="flex-1 overflow-y-auto pb-16 lg:pb-0 focus:outline-none"
+      >
+        <Outlet />
+      </main>
 
-      {/* Mobile bottom nav (hidden on md+) */}
+      {/* Mobile bottom nav (hidden on lg+) */}
       <MobileNav />
     </div>
   );

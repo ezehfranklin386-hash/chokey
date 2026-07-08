@@ -24,25 +24,25 @@ export function AssetRow({ wallet, onSelect }: AssetRowProps) {
       className="flex items-center gap-4 px-4 py-3.5 transition-colors hover:bg-primary-600/50 cursor-pointer border-b border-primary-500/40 last:border-0"
     >
       {/* Icon */}
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-600 text-base text-white-90 font-mono">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-600 text-base text-ink-90 dark:text-white-90 font-mono">
         {icon}
       </div>
 
       {/* Name + Asset */}
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-white">{wallet.name}</p>
-        <p className="text-xs text-white-50 font-mono">{wallet.asset}</p>
+        <p className="text-sm font-medium text-ink dark:text-white">{wallet.name}</p>
+        <p className="text-xs text-ink-50 dark:text-white-50 font-mono">{wallet.asset}</p>
       </div>
 
       {/* Balance */}
       <div className="text-right">
-        <p className="text-sm font-mono text-white-90">
+        <p className="text-sm font-mono text-ink-90 dark:text-white-90">
           {Number(wallet.balance).toLocaleString(undefined, {
             minimumFractionDigits: 2,
             maximumFractionDigits: 8,
           })}
         </p>
-        <p className="text-xs text-white-70 font-mono">
+        <p className="text-xs text-ink-70 dark:text-white-70 font-mono">
           ${Number(wallet.usdValue).toLocaleString(undefined, {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
@@ -59,9 +59,7 @@ export function AssetRow({ wallet, onSelect }: AssetRowProps) {
       </div>
 
       {/* Arrow */}
-      <svg className="h-4 w-4 text-white-30 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <svg className="h-4 w-4 text-ink-30 dark:text-white-30 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <polyline points="9 18 15 12 9 6" />
       </svg>
-    </div>
-  );
-}
+    

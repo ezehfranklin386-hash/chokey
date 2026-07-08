@@ -95,7 +95,7 @@ export function Modal({ open, onClose, title, size = 'md', children }: ModalProp
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
       onClick={(e) => e.target === overlayRef.current && onClose()}
       role="dialog"
       aria-modal="true"
@@ -104,16 +104,16 @@ export function Modal({ open, onClose, title, size = 'md', children }: ModalProp
       <div
         ref={contentRef}
         className={cn(
-          'relative w-full animate-slide-up rounded-modal bg-primary-700 shadow-lg',
+          'relative w-full animate-slide-up rounded-modal bg-white dark:bg-primary-700 shadow-lg',
           sizeClasses[size],
         )}
       >
         {title && (
-          <div className="flex items-center justify-between border-b border-primary-500 px-6 py-4">
-            <h2 className="text-lg font-semibold text-white">{title}</h2>
+          <div className="flex items-center justify-between border-b border-ink-30/10 dark:border-primary-500 px-6 py-4">
+            <h2 className="text-lg font-semibold text-ink dark:text-white">{title}</h2>
             <button
               onClick={onClose}
-              className="rounded-lg p-1 text-white-70 transition-colors hover:bg-primary-600 hover:text-white"
+              className="rounded-lg p-1 text-ink-70 dark:text-white-70 transition-colors hover:bg-ink-30/10 dark:hover:bg-primary-600 hover:text-ink dark:hover:text-white"
               aria-label="Close modal"
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

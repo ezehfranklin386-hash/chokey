@@ -3,11 +3,11 @@ import { cn } from '@/shared/lib/cn';
 
 const variants = {
   primary:
-    'bg-gold-500 text-white hover:bg-gold-400 active:bg-gold-500 focus-visible:ring-2 focus-visible:ring-gold-500/50',
+    'bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-500/50 shadow-sm',
   secondary:
-    'border border-gold-500 text-gold-500 bg-transparent hover:bg-gold-500/10 active:bg-gold-500/20',
+    'border border-brand-500 text-brand-500 bg-transparent hover:bg-brand-500/10 active:bg-brand-500/20',
   ghost:
-    'text-white-90 bg-transparent hover:bg-primary-600 active:bg-primary-500',
+    'text-ink dark:text-white-90 bg-transparent hover:bg-ink-30/10 dark:hover:bg-primary-600 active:bg-ink-30/20 dark:active:bg-primary-500',
   danger:
     'bg-market-red text-white hover:bg-red-600 active:bg-red-700 focus-visible:ring-2 focus-visible:ring-market-red/50',
 } as const;
@@ -49,7 +49,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           variants[variant],
           sizes[size],
           fullWidth && 'w-full',
-          !disabled && !loading && variant === 'primary' && 'shadow-glow-gold',
           className,
         )}
         {...props}

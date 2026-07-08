@@ -29,8 +29,8 @@ export default function WalletPage() {
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Wallet</h1>
-          <p className="text-sm text-white-50">Manage your assets and transactions</p>
+          <h1 className="text-2xl font-bold text-ink dark:text-white">Wallet</h1>
+          <p className="text-sm text-ink-50 dark:text-white-50">Manage your assets and transactions</p>
         </div>
       </div>
 
@@ -51,13 +51,13 @@ export default function WalletPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-primary-500/40">
+      <div className="flex border-b border-ink-30/10 dark:border-primary-500/40">
         <button
           onClick={() => setActiveTab('assets')}
           className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${
             activeTab === 'assets'
-              ? 'border-gold-500 text-gold-500'
-              : 'border-transparent text-white-50 hover:text-white-70'
+              ? 'border-brand-500 text-brand-500'
+              : 'border-transparent text-ink-50 dark:text-white-50 hover:text-ink-70 dark:hover:text-white-70'
           }`}
         >
           Assets
@@ -66,8 +66,8 @@ export default function WalletPage() {
           onClick={() => setActiveTab('history')}
           className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${
             activeTab === 'history'
-              ? 'border-gold-500 text-gold-500'
-              : 'border-transparent text-white-50 hover:text-white-70'
+              ? 'border-brand-500 text-brand-500'
+              : 'border-transparent text-ink-50 dark:text-white-50 hover:text-ink-70 dark:hover:text-white-70'
           }`}
         >
           History
@@ -81,7 +81,7 @@ export default function WalletPage() {
 
       {/* Content */}
       {activeTab === 'assets' && (
-        <div className="rounded-card border border-white-10 bg-primary-800">
+        <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800">
           {walletsLoading ? (
             <div className="space-y-3 p-4">
               {[1, 2, 3, 4, 5].map((i) => (
@@ -101,11 +101,11 @@ export default function WalletPage() {
             </div>
           ) : !filteredWallets || filteredWallets.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <div className="mb-3 text-3xl text-white-30">💼</div>
-              <p className="text-sm text-white-70">
+              <div className="mb-3 text-3xl text-ink-30 dark:text-white-30">💼</div>
+              <p className="text-sm text-ink-70 dark:text-white-70">
                 {search ? 'No assets match your search' : 'No assets yet'}
               </p>
-              <p className="mt-1 text-xs text-white-50">
+              <p className="mt-1 text-xs text-ink-50 dark:text-white-50">
                 {search ? 'Try a different search term' : 'Deposit or buy crypto to get started'}
               </p>
             </div>
@@ -124,9 +124,9 @@ export default function WalletPage() {
       )}
 
       {activeTab === 'history' && (
-        <div className="rounded-card border border-white-10 bg-primary-800">
-          <div className="px-4 py-3 border-b border-primary-500/40">
-            <h3 className="text-sm font-medium text-white-70">Recent Transactions</h3>
+        <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800">
+          <div className="px-4 py-3 border-b border-ink-30/10 dark:border-primary-500/40">
+            <h3 className="text-sm font-medium text-ink-70 dark:text-white-70">Recent Transactions</h3>
           </div>
           <TransactionList
             transactions={txData?.transactions}

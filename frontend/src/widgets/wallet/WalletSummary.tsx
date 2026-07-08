@@ -12,7 +12,7 @@ export function WalletSummary({ summary, isLoading }: WalletSummaryProps) {
 
   if (isLoading) {
     return (
-      <div className="rounded-card border border-white-10 bg-primary-800 p-6">
+      <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
         <div className="skeleton mb-2 h-4 w-32 rounded" />
         <div className="skeleton mb-2 h-10 w-56 rounded" />
         <div className="flex gap-6">
@@ -24,12 +24,12 @@ export function WalletSummary({ summary, isLoading }: WalletSummaryProps) {
   }
 
   return (
-    <div className="rounded-card border border-white-10 bg-primary-800 p-6">
+    <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium text-white-70">Total Balance</span>
+        <span className="text-sm font-medium text-ink-70 dark:text-white-70">Total Balance</span>
         <button
           onClick={() => setShowBalance(!showBalance)}
-          className="rounded p-1 text-white-50 hover:bg-primary-600 hover:text-white-90 transition-colors"
+          className="rounded p-1 text-ink-50 dark:text-white-50 hover:bg-primary-600 hover:text-ink-90 dark:hover:text-white-90 transition-colors"
           aria-label={showBalance ? 'Hide balance' : 'Show balance'}
         >
           {showBalance ? (
@@ -47,20 +47,20 @@ export function WalletSummary({ summary, isLoading }: WalletSummaryProps) {
         </button>
       </div>
 
-      <h2 className="mt-2 text-3xl font-bold text-white font-mono">
+      <h2 className="mt-2 text-3xl font-bold text-ink dark:text-white font-mono">
         {showBalance ? `$${Number(summary?.totalUsdValue || 0).toLocaleString()}` : '****'}
       </h2>
 
       <div className="mt-4 flex flex-wrap gap-6">
         <div>
-          <p className="text-xs text-white-50">Available</p>
-          <p className="text-sm font-mono text-white-90">
+          <p className="text-xs text-ink-50 dark:text-white-50">Available</p>
+          <p className="text-sm font-mono text-ink-90 dark:text-white-90">
             {showBalance ? `$${Number(summary?.available || 0).toLocaleString()}` : '****'}
           </p>
         </div>
         <div>
-          <p className="text-xs text-white-50">In Orders</p>
-          <p className="text-sm font-mono text-white-90">
+          <p className="text-xs text-ink-50 dark:text-white-50">In Orders</p>
+          <p className="text-sm font-mono text-ink-90 dark:text-white-90">
             {showBalance ? `$${Number(summary?.inOrders || 0).toLocaleString()}` : '****'}
           </p>
         </div>

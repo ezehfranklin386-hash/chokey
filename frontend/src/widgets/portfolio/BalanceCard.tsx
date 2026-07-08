@@ -12,7 +12,7 @@ export function BalanceCard({ summary, isLoading }: BalanceCardProps) {
 
   if (isLoading) {
     return (
-      <div className="rounded-card border border-white-10 bg-primary-800 p-6">
+      <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
         <div className="skeleton mb-2 h-4 w-24 rounded" />
         <div className="skeleton mb-2 h-10 w-48 rounded" />
         <div className="skeleton h-4 w-32 rounded" />
@@ -26,12 +26,12 @@ export function BalanceCard({ summary, isLoading }: BalanceCardProps) {
   const isPositive = !change.startsWith('-');
 
   return (
-    <div className="rounded-card border border-white-10 bg-primary-800 p-6">
+    <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium text-white-70">Total Balance</span>
+        <span className="text-sm font-medium text-ink-70 dark:text-white-70">Total Balance</span>
         <button
           onClick={() => setShowBalance(!showBalance)}
-          className="rounded p-1 text-white-50 hover:bg-primary-600 hover:text-white-90 transition-colors"
+          className="rounded p-1 text-ink-50 dark:text-white-50 hover:bg-primary-600 hover:text-ink-90 dark:hover:text-white-90 transition-colors"
           aria-label={showBalance ? 'Hide balance' : 'Show balance'}
         >
           {showBalance ? (
@@ -50,7 +50,7 @@ export function BalanceCard({ summary, isLoading }: BalanceCardProps) {
       </div>
 
       <div className="mt-2 flex items-baseline gap-3">
-        <h2 className="text-3xl font-bold text-white font-mono">
+        <h2 className="text-3xl font-bold text-ink dark:text-white font-mono">
           {showBalance ? total : '****'}
         </h2>
         <span
@@ -70,21 +70,21 @@ export function BalanceCard({ summary, isLoading }: BalanceCardProps) {
         </span>
       </div>
 
-      <p className="mt-1 text-sm text-white-50">
+      <p className="mt-1 text-sm text-ink-50 dark:text-white-50">
         24h change: {showBalance ? `${isPositive ? '+' : ''}${changeAbs}` : '****'}
       </p>
 
       {summary && (
-        <div className="mt-4 grid grid-cols-2 gap-4 border-t border-white-10 pt-4">
+        <div className="mt-4 grid grid-cols-2 gap-4 border-t border-ink-30/10 dark:border-white-10 pt-4">
           <div>
-            <p className="text-xs text-white-50">In Orders</p>
-            <p className="text-sm font-mono text-white-90">
+            <p className="text-xs text-ink-50 dark:text-white-50">In Orders</p>
+            <p className="text-sm font-mono text-ink-90 dark:text-white-90">
               {showBalance ? `$${Number(summary.inOrders).toLocaleString()}` : '****'}
             </p>
           </div>
           <div>
-            <p className="text-xs text-white-50">Available</p>
-            <p className="text-sm font-mono text-white-90">
+            <p className="text-xs text-ink-50 dark:text-white-50">Available</p>
+            <p className="text-sm font-mono text-ink-90 dark:text-white-90">
               {showBalance ? `$${Number(summary.available).toLocaleString()}` : '****'}
             </p>
           </div>
