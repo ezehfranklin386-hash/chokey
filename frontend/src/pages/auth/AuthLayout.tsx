@@ -19,7 +19,7 @@ export default function AuthLayout() {
       <div className="relative flex flex-1 items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
           {/* Card */}
-          <div className="rounded-modal border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800/80 p-8 shadow-card dark:shadow-2xl dark:backdrop-blur-xl">
+          <div className="rounded-modal border border-ink-30/10 dark:border-white/10 bg-white dark:bg-primary-800/80 p-8 dark:shadow-2xl dark:backdrop-blur-xl">
             <Outlet />
           </div>
 

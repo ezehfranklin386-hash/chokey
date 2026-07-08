@@ -31,11 +31,11 @@ export function PortfolioChart({ data, isLoading }: PortfolioChartProps) {
     return data[data.length - 1]!.value >= data[0]!.value;
   }, [data]);
 
-  const chartColor = isPositive ? '#22C55E' : '#EF4444';
+  const chartColor = isPositive ? '#16A34A' : '#DC2626';
 
   if (isLoading) {
     return (
-      <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
+      <div className="rounded-lg border border-ink-30/10 dark:border-white/10 bg-white dark:bg-primary-800 p-6">
         <div className="skeleton mb-4 h-5 w-32 rounded" />
         <div className="skeleton h-48 w-full rounded" />
       </div>
@@ -44,7 +44,7 @@ export function PortfolioChart({ data, isLoading }: PortfolioChartProps) {
 
   if (!data || data.length === 0) {
     return (
-      <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
+      <div className="rounded-lg border border-ink-30/10 dark:border-white/10 bg-white dark:bg-primary-800 p-6">
         <h3 className="text-sm font-medium text-ink-70 dark:text-white-70">Portfolio Performance</h3>
         <div className="flex h-48 items-center justify-center">
           <p className="text-sm text-ink-50 dark:text-white-50">No history data available</p>
@@ -54,7 +54,7 @@ export function PortfolioChart({ data, isLoading }: PortfolioChartProps) {
   }
 
   return (
-    <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
+    <div className="rounded-lg border border-ink-30/10 dark:border-white/10 bg-white dark:bg-primary-800 p-6">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-sm font-medium text-ink-70 dark:text-white-70">Portfolio Performance</h3>
         <span className={cn(
@@ -77,17 +77,19 @@ export function PortfolioChart({ data, isLoading }: PortfolioChartProps) {
                 <stop offset="95%" stopColor={chartColor} stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+            <CartesianGrid strokeDasharray="3 3" className="stroke-ink-30/20 dark:stroke-white/5" />
             <XAxis
               dataKey="time"
               tickFormatter={formatDate}
-              tick={{ fill: '#808394', fontSize: 11 }}
+              className="text-[11px]"
+              tick={{ fill: '#9CA3AF' }}
               axisLine={false}
               tickLine={false}
               minTickGap={30}
             />
             <YAxis
-              tick={{ fill: '#808394', fontSize: 11 }}
+              className="text-[11px]"
+              tick={{ fill: '#9CA3AF' }}
               axisLine={false}
               tickLine={false}
               tickFormatter={(v: number) => `$${(v / 1000).toFixed(1)}k`}
@@ -95,11 +97,12 @@ export function PortfolioChart({ data, isLoading }: PortfolioChartProps) {
             />
             <Tooltip
               contentStyle={{
-                background: '#151D45',
-                border: '1px solid rgba(255,255,255,0.1)',
+                background: '#FFFFFF',
+                border: '1px solid #E5E7EB',
                 borderRadius: '8px',
-                color: '#E5E6EB',
+                color: '#1A1B1E',
                 fontSize: '13px',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
               }}
               formatter={(value: any) => [`$${Number(value).toLocaleString()}`, 'Portfolio']}
               labelFormatter={(label: any) => formatDate(label)}
@@ -111,7 +114,7 @@ export function PortfolioChart({ data, isLoading }: PortfolioChartProps) {
               strokeWidth={2}
               fill="url(#portfolioGrad)"
               dot={false}
-              activeDot={{ r: 4, fill: chartColor, stroke: '#0F1636', strokeWidth: 2 }}
+              activeDot={{ r: 4, fill: chartColor, className: 'stroke-white dark:stroke-primary-800', strokeWidth: 2 }}
             />
           </AreaChart>
         </ResponsiveContainer>

@@ -32,7 +32,7 @@ export default {
           500: '#F7931A',
           400: '#F9A83A',
         },
-        // ── Dark theme surfaces (existing) ──────────────
+        // ── Dark theme surfaces ──────────────────────────
         primary: {
           900: '#0A0E27',
           800: '#0F1636',
@@ -73,7 +73,6 @@ export default {
       fontFamily: {
         sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
-        display: ['Playfair Display', 'Georgia', 'serif'],
       },
       fontSize: {
         'crypto-xs': ['11px', { lineHeight: '16px', fontFamily: 'JetBrains Mono' }],
@@ -83,7 +82,6 @@ export default {
         'crypto-xl': ['36px', { lineHeight: '44px', fontFamily: 'JetBrains Mono' }],
       },
       borderRadius: {
-        micro: '4px',
         DEFAULT: '8px',
         card: '12px',
         modal: '16px',
@@ -91,9 +89,7 @@ export default {
       },
       boxShadow: {
         'glow-brand': '0 0 20px rgba(0, 82, 255, 0.15)',
-        'card': '0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)',
-        'card-hover': '0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
-        'card-dark': '0 1px 3px rgba(0, 0, 0, 0.3)',
+        'glow-gold': '0 0 20px rgba(212, 168, 67, 0.15)',
       },
       animation: {
         'price-up': 'flashGreen 0.5s ease-out',

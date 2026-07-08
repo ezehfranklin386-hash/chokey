@@ -3,19 +3,19 @@ import { cn } from '@/shared/lib/cn';
 
 const variants = {
   primary:
-    'bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-500/50 shadow-sm',
+    'bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-500/40',
   secondary:
-    'border border-brand-500 text-brand-500 bg-transparent hover:bg-brand-500/10 active:bg-brand-500/20',
+    'border border-brand-500 text-brand-500 bg-transparent hover:bg-brand-500/5 active:bg-brand-500/10',
   ghost:
-    'text-ink dark:text-white-90 bg-transparent hover:bg-ink-30/10 dark:hover:bg-primary-600 active:bg-ink-30/20 dark:active:bg-primary-500',
+    'text-ink dark:text-white-90 bg-transparent hover:text-brand-500 active:text-brand-600',
   danger:
-    'bg-market-red text-white hover:bg-red-600 active:bg-red-700 focus-visible:ring-2 focus-visible:ring-market-red/50',
+    'bg-market-red text-white hover:bg-red-600 active:bg-red-700 focus-visible:ring-2 focus-visible:ring-market-red/40',
 } as const;
 
 const sizes = {
-  sm: 'px-3 py-1.5 text-sm rounded',
-  md: 'px-6 py-3 text-md rounded-lg',
-  lg: 'px-8 py-4 text-lg rounded-lg',
+  sm: 'px-3 py-1.5 text-sm rounded-md',
+  md: 'px-5 py-2.5 text-sm rounded-lg',
+  lg: 'px-6 py-3 text-base rounded-lg',
 } as const;
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -44,7 +44,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || loading}
         className={cn(
-          'inline-flex items-center justify-center font-semibold transition-all duration-200',
+          'inline-flex items-center justify-center font-medium transition-all duration-150',
           'focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
           variants[variant],
           sizes[size],
