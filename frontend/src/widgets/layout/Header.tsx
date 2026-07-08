@@ -57,7 +57,7 @@ export function Header({ onMenuToggle, className }: HeaderProps) {
 
         {/* Logo */}
         <button
-          onClick={() => navigate('/dashboard')}
+          onClick={() => navigate('/app/dashboard')}
           className="flex items-center gap-2"
         >
           <div className="flex h-7 w-7 items-center justify-center rounded bg-brand-500">

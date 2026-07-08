@@ -25,7 +25,7 @@ export function useLogin() {
       sessionStorage.setItem('auth_tokens', JSON.stringify(response.tokens));
       queryClient.setQueryData(['auth', 'me'], response.user);
       toast.success('Welcome back!');
-      navigate('/dashboard', { replace: true });
+      navigate('/app/dashboard', { replace: true });
     },
     onError: (error: { code?: string; message?: string }) => {
       const msg = error?.message ?? 'Login failed. Please try again.';
@@ -126,7 +126,7 @@ export function useVerifyTwoFactor() {
       sessionStorage.setItem('auth_tokens', JSON.stringify(response.tokens));
       queryClient.setQueryData(['auth', 'me'], response.user);
       toast.success('Verified!');
-      navigate('/dashboard', { replace: true });
+      navigate('/app/dashboard', { replace: true });
     },
     onError: () => {
       toast.error('Invalid code. Please try again.');

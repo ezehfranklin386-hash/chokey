@@ -36,7 +36,7 @@ export default function AssetDetailPage() {
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <p className="text-ink-70 dark:text-white-70">Asset not specified</p>
-        <Button variant="secondary" onClick={() => navigate('/wallet')} className="mt-4">
+        <Button variant="secondary" onClick={() => navigate('/app/wallet')} className="mt-4">
           Back to Wallet
         </Button>
       </div>
@@ -47,7 +47,7 @@ export default function AssetDetailPage() {
     <div className="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
       {/* Back */}
       <button
-        onClick={() => navigate('/wallet')}
+        onClick={() => navigate('/app/wallet')}
         className="flex items-center gap-1 text-sm text-ink-50 dark:text-white-50 hover:text-ink-70 dark:hover:text-white-90 transition-colors"
       >
         <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -164,7 +164,7 @@ export default function AssetDetailPage() {
         <Button variant="secondary" onClick={() => setShowWithdraw(true)}>
           Withdraw
         </Button>
-        <Button variant="secondary" onClick={() => navigate(`/trade/${assetId}`)}>
+        <Button variant="secondary" onClick={() => navigate(`/app/trade/${assetId}`)}>
           Trade
         </Button>
       </div>

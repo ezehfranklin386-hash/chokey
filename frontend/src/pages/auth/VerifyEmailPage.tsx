@@ -68,7 +68,7 @@ export default function VerifyEmailPage() {
       { code: codeToVerify },
       {
         onSuccess: () => {
-          navigate('/dashboard', { replace: true });
+          navigate('/app/dashboard', { replace: true });
         },
       },
     );

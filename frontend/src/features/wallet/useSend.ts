@@ -43,7 +43,7 @@ export function useWithdraw() {
       queryClient.invalidateQueries({ queryKey: ['wallets'] });
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
       showSuccessToast('Withdrawal submitted successfully');
-      navigate(`/wallet/${result.id}`, { replace: true });
+      navigate(`/app/wallet/${result.id}`, { replace: true });
     },
     onError: (err: any) => {
       const message = err?.response?.data?.message || 'Withdrawal failed. Please try again.';

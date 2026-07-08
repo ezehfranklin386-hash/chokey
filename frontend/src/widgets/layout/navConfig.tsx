@@ -48,11 +48,11 @@ function SettingsIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 export const navItems: NavItem[] = [
-  { path: '/dashboard', label: 'Dashboard', icon: DashboardIcon },
-  { path: '/trade', label: 'Trade', icon: TradeIcon },
-  { path: '/wallet', label: 'Wallet', icon: WalletIcon },
-  { path: '/signals', label: 'Signals', icon: SignalsIcon },
-  { path: '/settings', label: 'Settings', icon: SettingsIcon },
+  { path: '/app/dashboard', label: 'Dashboard', icon: DashboardIcon },
+  { path: '/app/trade', label: 'Trade', icon: TradeIcon },
+  { path: '/app/wallet', label: 'Wallet', icon: WalletIcon },
+  { path: '/app/signals', label: 'Signals', icon: SignalsIcon },
+  { path: '/app/settings', label: 'Settings', icon: SettingsIcon },
 ];
 
 // Items shown on the mobile bottom nav bar (subset, flattened routes)

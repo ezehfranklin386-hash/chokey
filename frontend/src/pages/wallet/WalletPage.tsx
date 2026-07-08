@@ -39,13 +39,13 @@ export default function WalletPage() {
 
       {/* Actions */}
       <div className="flex gap-3">
-        <Button onClick={() => navigate('/wallet/BTC')}>
+        <Button onClick={() => navigate('/app/wallet/BTC')}>
           Deposit
         </Button>
-        <Button variant="secondary" onClick={() => navigate('/wallet/BTC')}>
+        <Button variant="secondary" onClick={() => navigate('/app/wallet/BTC')}>
           Withdraw
         </Button>
-        <Button variant="secondary" onClick={() => navigate('/trade')}>
+        <Button variant="secondary" onClick={() => navigate('/app/trade')}>
           Trade
         </Button>
       </div>
@@ -115,7 +115,7 @@ export default function WalletPage() {
                 <AssetRow
                   key={w.asset}
                   wallet={w}
-                  onSelect={(asset) => navigate(`/wallet/${asset}`)}
+                  onSelect={(asset) => navigate(`/app/wallet/${asset}`)}
                 />
               ))}
             </div>

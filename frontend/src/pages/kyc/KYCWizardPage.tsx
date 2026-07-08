@@ -160,7 +160,7 @@ export default function KYCWizardPage() {
 
   // Result screens
   if (resultStatus === 'submitted' || step === 'submitted') {
-    return <KycSubmitted estimatedTime={estimatedTime} onBack={() => navigate('/dashboard')} />;
+    return <KycSubmitted estimatedTime={estimatedTime} onBack={() => navigate('/app/dashboard')} />;
   }
   if (resultStatus === 'verified') {
     return <KycVerified result={status} />;

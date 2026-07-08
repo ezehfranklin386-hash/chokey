@@ -13,7 +13,7 @@ export function QuickActions() {
           <polyline points="5 5 19 5" />
         </svg>
       ),
-      onClick: () => navigate('/wallet'),
+      onClick: () => navigate('/app/wallet'),
       variant: 'gold' as const,
     },
     {
@@ -25,7 +25,7 @@ export function QuickActions() {
           <polyline points="19 19 5 19" />
         </svg>
       ),
-      onClick: () => navigate('/wallet'),
+      onClick: () => navigate('/app/wallet'),
       variant: 'secondary' as const,
     },
     {
@@ -38,7 +38,7 @@ export function QuickActions() {
           <path d="M21 13v2a4 4 0 01-4 4H3" />
         </svg>
       ),
-      onClick: () => navigate('/trade'),
+      onClick: () => navigate('/app/trade'),
       variant: 'secondary' as const,
     },
     {
@@ -50,7 +50,7 @@ export function QuickActions() {
           <line x1="8" y1="12" x2="16" y2="12" />
         </svg>
       ),
-      onClick: () => navigate('/trade'),
+      onClick: () => navigate('/app/trade'),
       variant: 'gold' as const,
     },
   ];

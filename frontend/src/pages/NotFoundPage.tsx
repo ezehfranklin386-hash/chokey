@@ -8,9 +8,9 @@ export default function NotFoundPage() {
       <div className="text-center space-y-4">
         <ErrorState
           error="Page not found"
-          onRetry={() => window.location.href = '/dashboard'}
+          onRetry={() => window.location.href = '/app/dashboard'}
         />
-        <Link to="/dashboard">
+        <Link to="/app/dashboard">
           <Button>Go to Dashboard</Button>
         </Link>
       </div>

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/shared/lib/cn';
-import type { Signal } from '@/entities/signals/signals.types';
-import { useToggleBookmark } from '@/features/signals/useSignals';
+import type { Signal } from '@/entities/app/signals/signals.types';
+import { useToggleBookmark } from '@/features/app/signals/useSignals';
 import { Button } from '@/shared/ui';
 
 interface SignalCardProps {
@@ -145,7 +145,7 @@ export function SignalCard({ signal }: SignalCardProps) {
           <div className="flex items-center gap-2">
             <Button
               size="sm"
-              onClick={() => navigate(`/trade/${signal.asset}USDT`)}
+              onClick={() => navigate(`/app/trade/${signal.asset}USDT`)}
             >
               Trade Now
             </Button>
@@ -164,7 +164,7 @@ export function SignalCard({ signal }: SignalCardProps) {
               </svg>
             </button>
             <button
-              onClick={() => navigate(`/signals/${signal.id}`)}
+              onClick={() => navigate(`/app/signals/${signal.id}`)}
               className="rounded-lg p-2 text-ink-50 dark:text-white-50 hover:text-ink-90 dark:text-white-90 transition-colors"
               aria-label="View details"
             >

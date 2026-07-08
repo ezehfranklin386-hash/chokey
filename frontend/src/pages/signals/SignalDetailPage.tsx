@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { cn } from '@/shared/lib/cn';
-import { useSignal, useSignalProvider, useRelatedSignals } from '@/features/signals/useSignals';
-import { SignalCard } from '@/widgets/signals/SignalCard';
+import { useSignal, useSignalProvider, useRelatedSignals } from '@/features/app/signals/useSignals';
+import { SignalCard } from '@/widgets/app/signals/SignalCard';
 import { Button, Spinner } from '@/shared/ui';
 
 const DIRECTION_CONFIG = {
@@ -22,7 +22,7 @@ export default function SignalDetailPage() {
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <p className="text-white-70">No signal selected</p>
-        <Button variant="secondary" onClick={() => navigate('/signals')} className="mt-4">
+        <Button variant="secondary" onClick={() => navigate('/app/signals')} className="mt-4">
           Back to Signals
         </Button>
       </div>
@@ -41,7 +41,7 @@ export default function SignalDetailPage() {
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <p className="text-white-70">Signal not found</p>
-        <Button variant="secondary" onClick={() => navigate('/signals')} className="mt-4">
+        <Button variant="secondary" onClick={() => navigate('/app/signals')} className="mt-4">
           Back to Signals
         </Button>
       </div>
@@ -55,7 +55,7 @@ export default function SignalDetailPage() {
     <div className="mx-auto max-w-4xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
       {/* Back */}
       <button
-        onClick={() => navigate('/signals')}
+        onClick={() => navigate('/app/signals')}
         className="flex items-center gap-1 text-sm text-white-50 hover:text-white-90 transition-colors"
       >
         <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -149,10 +149,10 @@ export default function SignalDetailPage() {
 
         {/* Actions */}
         <div className="flex gap-3">
-          <Button onClick={() => navigate(`/trade/${signal.asset}USDT`)}>
+          <Button onClick={() => navigate(`/app/trade/${signal.asset}USDT`)}>
             Trade Now
           </Button>
-          <Button variant="secondary" onClick={() => navigate('/signals')}>
+          <Button variant="secondary" onClick={() => navigate('/app/signals')}>
             View All Signals
           </Button>
         </div>

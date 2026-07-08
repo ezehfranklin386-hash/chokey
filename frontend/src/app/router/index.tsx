@@ -11,6 +11,7 @@ const TwoFactorPage = lazy(() => import('@/pages/auth/TwoFactorPage'));
 const VerifyEmailPage = lazy(() => import('@/pages/auth/VerifyEmailPage'));
 const ForgotPasswordPage = lazy(() => import('@/pages/auth/ForgotPasswordPage'));
 const ResetPasswordPage = lazy(() => import('@/pages/auth/ResetPasswordPage'));
+const LandingPage = lazy(() => import('@/pages/landing/LandingPage'));
 const AppLayout = lazy(() => import('@/pages/dashboard/AppLayout'));
 const DashboardPage = lazy(() => import('@/pages/dashboard/DashboardPage'));
 const TradePage = lazy(() => import('@/pages/trade/TradePage'));
@@ -24,6 +25,12 @@ const AdminPage = lazy(() => import('@/pages/admin/AdminPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
 export const router = createBrowserRouter([
+  // ── Public ──────────────────────────────────────
+  {
+    path: '/',
+    element: <LandingPage />,
+  },
+  // ── Auth ────────────────────────────────────────
   {
     path: '/auth',
     element: <AuthLayout />,
@@ -37,14 +44,15 @@ export const router = createBrowserRouter([
       { path: 'reset-password', element: <ResetPasswordPage /> },
     ],
   },
+  // ── Protected app (dashboard, trade, wallet, etc.) ──
   {
-    path: '/',
+    path: '/app',
     element: <ProtectedRoute />,
     children: [
       {
         element: <AppLayout />,
         children: [
-          { index: true, element: <Navigate to="/dashboard" replace /> },
+          { index: true, element: <Navigate to="/app/dashboard" replace /> },
           { path: 'dashboard', element: <DashboardPage /> },
           { path: 'trade/:pair?', element: <TradePage /> },
           { path: 'wallet', element: <WalletPage /> },
@@ -57,6 +65,7 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  // ── Admin ───────────────────────────────────────
   {
     path: '/admin',
     element: <AdminRoute />,

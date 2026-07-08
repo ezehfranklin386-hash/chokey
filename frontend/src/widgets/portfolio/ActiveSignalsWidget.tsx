@@ -56,7 +56,7 @@ export function ActiveSignalsWidget({ signals, isLoading }: ActiveSignalsWidgetP
           <p className="text-sm text-ink-70 dark:text-white-70">No active signals</p>
           <p className="mt-1 text-xs text-ink-50 dark:text-white-50">Check back later for trading signals</p>
           <button
-            onClick={() => navigate('/signals')}
+            onClick={() => navigate('/app/signals')}
             className="mt-3 text-xs font-medium text-brand-500 hover:text-brand-400 transition-colors"
           >
             Browse Signals →
@@ -71,7 +71,7 @@ export function ActiveSignalsWidget({ signals, isLoading }: ActiveSignalsWidgetP
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-sm font-medium text-ink-70 dark:text-white-70">Active Signals</h3>
         <button
-          onClick={() => navigate('/signals')}
+          onClick={() => navigate('/app/signals')}
           className="text-xs font-medium text-brand-500 hover:text-brand-400 transition-colors"
         >
           View All →
@@ -84,7 +84,7 @@ export function ActiveSignalsWidget({ signals, isLoading }: ActiveSignalsWidgetP
           return (
             <div
               key={signal.id}
-              onClick={() => navigate(`/signals/${signal.id}`)}
+              onClick={() => navigate(`/app/signals/${signal.id}`)}
               className="flex items-start gap-3 rounded-lg px-2 py-2.5 transition-colors hover:bg-primary-600/50 cursor-pointer"
             >
               {/* Direction accent bar */}
