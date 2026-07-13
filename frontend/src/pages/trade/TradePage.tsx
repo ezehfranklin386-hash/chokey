@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { cn } from '@/shared/lib/cn';
 import { useCandles } from '@/features/market/useMarketData';
 import { useTradingPairs, useOrderBook, useRecentTrades } from '@/features/trading/useTrading';
 import { TradingChart } from '@/widgets/trading/TradingChart';

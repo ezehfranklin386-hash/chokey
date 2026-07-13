@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { createChart, AreaSeries, LineSeries, type IChartApi, type ISeriesApi, type LineData } from 'lightweight-charts';
+import { createChart, AreaSeries, LineSeries, type IChartApi, type ISeriesApi, type LineData, type Time } from 'lightweight-charts';
 import { cn } from '@/shared/lib/cn';
 
 export interface MiniChartDataPoint {
@@ -72,7 +72,7 @@ export function MiniChart({
     seriesRef.current = series as ISeriesApi<'Line'> | null;
 
     const chartData: LineData[] = data.map((d) => ({
-      time: d.time,
+      time: d.time as Time,
       value: d.value,
     }));
     series.setData(chartData);

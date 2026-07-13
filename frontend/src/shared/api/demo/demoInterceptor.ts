@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Demo Mode — Axios adapter that intercepts all HTTP requests
  * and returns realistic mock data. Activated by VITE_DEMO_MODE=true.

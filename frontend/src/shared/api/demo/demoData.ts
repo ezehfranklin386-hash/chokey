@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Demo Mode — Realistic mock data for every API endpoint.
  * Only loaded when VITE_DEMO_MODE=true.

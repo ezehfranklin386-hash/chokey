@@ -4,7 +4,7 @@ export interface OfflineBannerProps {
   className?: string;
 }
 
-export function OfflineBanner({ className }: OfflineBannerProps) {
+export function OfflineBanner({ className: _className }: OfflineBannerProps) {
   const [offline, setOffline] = useState(!navigator.onLine);
 
   useEffect(() => {
