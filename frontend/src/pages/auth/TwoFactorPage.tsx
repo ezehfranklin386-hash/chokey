@@ -95,15 +95,15 @@ export default function TwoFactorPage() {
               <path d="M7 11V7a5 5 0 0110 0v4" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-white">Recovery Code</h1>
-          <p className="mt-1 text-sm text-white-70">
+          <h1 className="text-2xl font-bold text-ink dark:text-white">Recovery Code</h1>
+          <p className="mt-1 text-sm text-ink-70 dark:text-white-70">
             Enter one of your backup recovery codes
           </p>
         </div>
 
         <form onSubmit={handleRecoverySubmit} className="space-y-4">
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-white-70">
+            <label className="mb-1.5 block text-sm font-medium text-ink-70 dark:text-white-70">
               Recovery Code
             </label>
             <input
@@ -111,7 +111,7 @@ export default function TwoFactorPage() {
               value={recoveryCode}
               onChange={(e) => setRecoveryCode(e.target.value)}
               placeholder="XXXXX-XXXXX-XXXXX"
-              className="w-full rounded-lg border border-primary-500 bg-primary-700 px-4 py-3 text-center font-mono text-lg text-white placeholder-white-50 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500/30"
+              className="w-full rounded-lg border border-ink-30/20 dark:border-primary-500 bg-surface-secondary dark:bg-primary-700 px-4 py-3 text-center font-mono text-lg text-ink dark:text-white placeholder-ink-50 dark:placeholder-white-50 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30"
               autoFocus
               disabled={isSubmitting}
             />
@@ -125,7 +125,7 @@ export default function TwoFactorPage() {
         <button
           type="button"
           onClick={() => setMode('totp')}
-          className="block w-full text-center text-sm text-gold-500 hover:text-gold-400 transition-colors"
+          className="block w-full text-center text-sm text-brand-500 hover:text-brand-600 transition-colors"
         >
           Back to authenticator code
         </button>
@@ -137,14 +137,14 @@ export default function TwoFactorPage() {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gold-500/10">
-          <svg className="h-7 w-7 text-gold-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-brand-500/10">
+          <svg className="h-7 w-7 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
             <path d="M7 11V7a5 5 0 0110 0v4" />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-white">Two-Factor Authentication</h1>
-        <p className="mt-1 text-sm text-white-70">
+        <h1 className="text-2xl font-bold text-ink dark:text-white">Two-Factor Authentication</h1>
+        <p className="mt-1 text-sm text-ink-70 dark:text-white-70">
           Enter the 6-digit code from your authenticator app
         </p>
       </div>
@@ -162,10 +162,11 @@ export default function TwoFactorPage() {
             onChange={(e) => handleDigitInput(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
             className={cn(
-              'h-14 w-11 rounded-lg border text-center text-xl font-bold text-white',
-              'bg-primary-700 font-mono transition-all duration-200',
-              'focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500/30',
-              digit ? 'border-gold-500' : 'border-primary-500',
+              'h-14 w-11 rounded-lg border text-center text-xl font-bold',
+              'bg-surface-secondary dark:bg-primary-700 font-mono transition-all duration-200',
+              'focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30',
+              digit ? 'border-brand-500' : 'border-ink-30/20 dark:border-primary-500',
+              'text-ink dark:text-white',
             )}
             disabled={isSubmitting}
             autoFocus={index === 0}
@@ -175,12 +176,12 @@ export default function TwoFactorPage() {
       </div>
 
       {/* Trust this device */}
-      <label className="flex items-center justify-center gap-2 text-sm text-white-70 cursor-pointer">
+      <label className="flex items-center justify-center gap-2 text-sm text-ink-70 dark:text-white-70 cursor-pointer">
         <input
           type="checkbox"
           checked={trustDevice}
           onChange={(e) => setTrustDevice(e.target.checked)}
-          className="h-4 w-4 rounded border-primary-500 bg-primary-700 text-gold-500 focus:ring-gold-500/30 focus:ring-offset-0"
+          className="h-4 w-4 rounded border-ink-30/30 dark:border-primary-500 bg-surface-secondary dark:bg-primary-700 text-brand-500 focus:ring-brand-500/30 focus:ring-offset-0"
         />
         Trust this device for 30 days
       </label>
@@ -200,16 +201,16 @@ export default function TwoFactorPage() {
       <button
         type="button"
         onClick={() => setMode('recovery')}
-        className="block w-full text-center text-sm text-gold-500 hover:text-gold-400 transition-colors"
+        className="block w-full text-center text-sm text-brand-500 hover:text-brand-600 transition-colors"
       >
         Use a recovery code instead
       </button>
 
       {/* Back to sign in */}
-      <p className="text-center text-sm text-white-70">
+      <p className="text-center text-sm text-ink-70 dark:text-white-70">
         <Link
           to="/auth/sign-in"
-          className="text-gold-500 hover:text-gold-400 transition-colors"
+          className="text-brand-500 hover:text-brand-600 transition-colors"
         >
           Back to sign in
         </Link>

@@ -96,7 +96,7 @@ export const Sidebar = forwardRef<HTMLElement, SidebarProps>(
             {/* Drawer */}
             <aside
               ref={ref}
-              className="relative flex w-72 max-w-[80vw] flex-col bg-white dark:bg-primary-800 shadow-2xl h-full animate-slide-up"
+              className="relative flex w-72 max-w-[80vw] flex-col bg-white dark:bg-primary-800 shadow-2xl h-full"
             >
               {content}
             </aside>

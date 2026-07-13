@@ -21,7 +21,7 @@ export const TradingChart = memo(function TradingChart({ candles, isLoading, sym
 
     const chart = createChart(containerRef.current, {
       width: containerRef.current.clientWidth,
-      height: 480,
+      height: Math.min(480, typeof window !== 'undefined' ? window.innerHeight * 0.45 : 360),
       layout: {
         background: { color: '#0F1636' },
         textColor: '#808394',
@@ -32,8 +32,8 @@ export const TradingChart = memo(function TradingChart({ candles, isLoading, sym
       },
       crosshair: {
         mode: 0,
-        vertLine: { color: '#D4A843', width: 1, style: 2, labelBackgroundColor: '#D4A843' },
-        horzLine: { color: '#D4A843', width: 1, style: 2, labelBackgroundColor: '#D4A843' },
+        vertLine: { color: '#0052FF', width: 1, style: 2, labelBackgroundColor: '#0052FF' },
+        horzLine: { color: '#0052FF', width: 1, style: 2, labelBackgroundColor: '#0052FF' },
       },
       timeScale: {
         borderColor: '#24306A',
@@ -114,7 +114,7 @@ export const TradingChart = memo(function TradingChart({ candles, isLoading, sym
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center bg-primary-800 rounded-card border border-white-10" style={{ height: 480 }}>
+      <div className="flex items-center justify-center bg-primary-800 rounded-card border border-white-10" style={{ height: Math.min(480, typeof window !== 'undefined' ? window.innerHeight * 0.45 : 360) }}>
         <Spinner />
       </div>
     );

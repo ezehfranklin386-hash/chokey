@@ -10,6 +10,19 @@ import {
 } from 'recharts';
 import type { PortfolioHistoryPoint } from '@/entities/wallet/wallet.types';
 import { cn } from '@/shared/lib/cn';
+import type { ValueType, NameType } from 'recharts/types/component/DefaultTooltipContent';
+
+function ChartTooltip({ active, payload, label }: { active?: boolean; payload?: { value: ValueType; name: NameType }[]; label?: string }) {
+  if (!active || !payload?.length) return null;
+  return (
+    <div className="rounded-lg border border-ink-30/10 dark:border-white/10 bg-white dark:bg-primary-800 px-3 py-2 shadow-sm">
+      <p className="text-xs text-ink-50 dark:text-white-50">{label ? formatDate(label) : ''}</p>
+      <p className="text-sm font-medium text-ink dark:text-white">
+        ${Number(payload[0].value).toLocaleString()}
+      </p>
+    </div>
+  );
+}
 
 interface PortfolioChartProps {
   data: PortfolioHistoryPoint[] | undefined;
@@ -95,18 +108,7 @@ export function PortfolioChart({ data, isLoading }: PortfolioChartProps) {
               tickFormatter={(v: number) => `$${(v / 1000).toFixed(1)}k`}
               width={60}
             />
-            <Tooltip
-              contentStyle={{
-                background: '#FFFFFF',
-                border: '1px solid #E5E7EB',
-                borderRadius: '8px',
-                color: '#1A1B1E',
-                fontSize: '13px',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
-              }}
-              formatter={(value: any) => [`$${Number(value).toLocaleString()}`, 'Portfolio']}
-              labelFormatter={(label: any) => formatDate(label)}
-            />
+            <Tooltip content={<ChartTooltip />} />
             <Area
               type="monotone"
               dataKey="value"

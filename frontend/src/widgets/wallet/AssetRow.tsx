@@ -21,28 +21,28 @@ export function AssetRow({ wallet, onSelect }: AssetRowProps) {
   return (
     <div
       onClick={() => onSelect(wallet.asset)}
-      className="flex items-center gap-4 px-4 py-3.5 transition-colors hover:bg-primary-600/50 cursor-pointer border-b border-ink-30/10 dark:border-primary-500/40 last:border-0"
+      className="flex items-center gap-3 px-3 py-3 transition-colors hover:bg-primary-600/50 cursor-pointer border-b border-ink-30/10 dark:border-primary-500/40 last:border-0 sm:gap-4 sm:px-4 sm:py-3.5"
     >
       {/* Icon */}
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-600 text-base text-ink-90 dark:text-white-90 font-mono">
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-600 text-sm text-ink-90 dark:text-white-90 font-mono sm:h-9 sm:w-9 sm:text-base">
         {icon}
       </div>
 
       {/* Name + Asset */}
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-ink dark:text-white">{wallet.name}</p>
+        <p className="text-sm font-medium text-ink dark:text-white truncate">{wallet.name}</p>
         <p className="text-xs text-ink-50 dark:text-white-50 font-mono">{wallet.asset}</p>
       </div>
 
       {/* Balance */}
-      <div className="text-right">
-        <p className="text-sm font-mono text-ink-90 dark:text-white-90">
+      <div className="text-right shrink-0">
+        <p className="text-xs font-mono text-ink-90 dark:text-white-90 sm:text-sm">
           {Number(wallet.balance).toLocaleString(undefined, {
             minimumFractionDigits: 2,
             maximumFractionDigits: 8,
           })}
         </p>
-        <p className="text-xs text-ink-70 dark:text-white-70 font-mono">
+        <p className="text-[10px] text-ink-70 dark:text-white-70 font-mono sm:text-xs">
           ${Number(wallet.usdValue).toLocaleString(undefined, {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
@@ -50,16 +50,16 @@ export function AssetRow({ wallet, onSelect }: AssetRowProps) {
         </p>
       </div>
 
-      {/* 24h change indicator */}
+      {/* 24h change indicator - hide on very small screens */}
       <div className={cn(
-        'text-xs font-mono w-16 text-right',
+        'hidden sm:block text-xs font-mono w-16 text-right',
         isPositive ? 'text-market-green' : 'text-market-red',
       )}>
         {isPositive ? '+' : ''}{changeNum.toFixed(2)}%
       </div>
 
       {/* Arrow */}
-      <svg className="h-4 w-4 text-ink-30 dark:text-white-30 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <svg className="h-3 w-3 text-ink-30 dark:text-white-30 shrink-0 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <polyline points="9 18 15 12 9 6" />
       </svg>
     </div>

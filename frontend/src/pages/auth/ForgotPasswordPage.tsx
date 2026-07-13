@@ -47,17 +47,17 @@ export default function ForgotPasswordPage() {
               <polyline points="22,6 12,13 2,6" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-white">Check Your Email</h1>
-          <p className="mt-2 text-sm text-white-70">
+          <h1 className="text-2xl font-bold text-ink dark:text-white">Check Your Email</h1>
+          <p className="mt-2 text-sm text-ink-70 dark:text-white-70">
             If an account with that email exists, we&apos;ve sent a password
             reset link. Please check your inbox and follow the instructions.
           </p>
-          <p className="mt-4 text-xs text-white-50">
+          <p className="mt-4 text-xs text-ink-50 dark:text-white-50">
             Didn&apos;t receive the email? Check your spam folder or{' '}
             <button
               type="button"
               onClick={() => setEmailSent(false)}
-              className="text-gold-500 hover:text-gold-400 transition-colors"
+              className="text-brand-500 hover:text-brand-600 transition-colors"
             >
               try again
             </button>
@@ -76,9 +76,9 @@ export default function ForgotPasswordPage() {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gold-500/10">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-brand-500/10">
           <svg
-            className="h-7 w-7 text-gold-500"
+            className="h-7 w-7 text-brand-500"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -90,8 +90,8 @@ export default function ForgotPasswordPage() {
             <path d="M7 11V7a5 5 0 0110 0v4" />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-white">Forgot Password</h1>
-        <p className="mt-1 text-sm text-white-70">
+        <h1 className="text-2xl font-bold text-ink dark:text-white">Forgot Password</h1>
+        <p className="mt-1 text-sm text-ink-70 dark:text-white-70">
           Enter your email address and we&apos;ll send you a reset link
         </p>
       </div>
@@ -118,11 +118,11 @@ export default function ForgotPasswordPage() {
         </Button>
       </form>
 
-      <p className="text-center text-sm text-white-70">
+      <p className="text-center text-sm text-ink-70 dark:text-white-70">
         Remember your password?{' '}
         <Link
           to="/auth/sign-in"
-          className="font-medium text-gold-500 hover:text-gold-400 transition-colors"
+          className="font-medium text-brand-500 hover:text-brand-600 transition-colors"
         >
           Sign in
         </Link>

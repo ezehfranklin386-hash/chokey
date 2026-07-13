@@ -84,14 +84,14 @@ export default function VerifyEmailPage() {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gold-500/10">
-          <svg className="h-7 w-7 text-gold-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-brand-500/10">
+          <svg className="h-7 w-7 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
             <polyline points="22,6 12,13 2,6" />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-white">Verify Your Email</h1>
-        <p className="mt-1 text-sm text-white-70">
+        <h1 className="text-2xl font-bold text-ink dark:text-white">Verify Your Email</h1>
+        <p className="mt-1 text-sm text-ink-70 dark:text-white-70">
           We&apos;ve sent a 6-digit code to your email. Enter it below.
         </p>
       </div>
@@ -109,10 +109,10 @@ export default function VerifyEmailPage() {
             onChange={(e) => handleDigitInput(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
             className={cn(
-              'h-14 w-11 rounded-lg border text-center text-xl font-bold text-white',
-              'bg-primary-700 font-mono transition-all duration-200',
-              'focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500/30',
-              digit ? 'border-gold-500' : 'border-primary-500',
+              'h-14 w-11 rounded-lg border text-center text-xl font-bold text-ink dark:text-white',
+              'bg-surface-secondary dark:bg-primary-700 font-mono transition-all duration-200',
+              'focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30',
+              digit ? 'border-brand-500' : 'border-ink-30/20 dark:border-primary-500',
             )}
             disabled={isSubmitting}
             autoFocus={index === 0}
@@ -134,7 +134,7 @@ export default function VerifyEmailPage() {
 
       {/* Resend */}
       <div className="text-center">
-        <p className="text-sm text-white-70">
+        <p className="text-sm text-ink-70 dark:text-white-70">
           Didn&apos;t receive the code?{' '}
           <button
             type="button"
@@ -143,8 +143,8 @@ export default function VerifyEmailPage() {
             className={cn(
               'font-medium transition-colors',
               countdown > 0 || isSubmitting
-                ? 'text-white-50 cursor-not-allowed'
-                : 'text-gold-500 hover:text-gold-400',
+                ? 'text-ink-50 dark:text-white-50 cursor-not-allowed'
+                : 'text-brand-500 hover:text-brand-600',
             )}
           >
             {countdown > 0 ? `Resend in ${countdown}s` : 'Resend'}
@@ -152,10 +152,10 @@ export default function VerifyEmailPage() {
         </p>
       </div>
 
-      <p className="text-center text-sm text-white-70">
+      <p className="text-center text-sm text-ink-70 dark:text-white-70">
         <Link
           to="/auth/sign-in"
-          className="text-gold-500 hover:text-gold-400 transition-colors"
+          className="text-brand-500 hover:text-brand-600 transition-colors"
         >
           Back to sign in
         </Link>

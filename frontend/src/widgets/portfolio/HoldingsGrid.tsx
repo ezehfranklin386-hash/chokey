@@ -65,7 +65,7 @@ export function HoldingsGrid({ wallets, isLoading }: HoldingsGridProps) {
   return (
     <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 p-6">
       <h3 className="mb-4 text-sm font-medium text-ink-70 dark:text-white-70">Holdings</h3>
-      <div className="space-y-1">
+      <div className="-mx-2 sm:mx-0 space-y-0.5 sm:space-y-1">
         {wallets.map((wallet) => {
           const change = wallet.changePercent24h;
           const isPositive = change && !change.startsWith('-');

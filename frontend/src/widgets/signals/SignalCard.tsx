@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/shared/lib/cn';
-import type { Signal } from '@/entities/app/signals/signals.types';
-import { useToggleBookmark } from '@/features/app/signals/useSignals';
+import type { Signal } from '@/entities/signals/signals.types';
+import { useToggleBookmark } from '@/features/signals/useSignals';
 import { Button } from '@/shared/ui';
 
 interface SignalCardProps {
@@ -67,7 +67,7 @@ export function SignalCard({ signal }: SignalCardProps) {
           </div>
 
           {/* Price targets grid */}
-          <div className="grid grid-cols-4 gap-2 mb-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 mb-3">
             <div className="rounded bg-market-red/10 p-2 text-center">
               <p className="text-[9px] text-ink-50 dark:text-white-50 uppercase">Stop</p>
               <p className="text-xs font-mono text-market-red font-medium">

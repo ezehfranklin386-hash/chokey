@@ -191,15 +191,15 @@ export default function KYCWizardPage() {
             <div key={s.key} className="flex items-center gap-2">
               <div className={cn(
                 'flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold transition-colors',
-                i === currentStepIndex ? 'bg-gold-500 text-primary-900' :
+                i === currentStepIndex ? 'bg-brand-500 text-white' :
                 i < currentStepIndex ? 'bg-market-green/20 text-market-green' :
                 'bg-primary-600 text-white-50',
               )}>
                 {i < currentStepIndex ? '✓' : s.number}
               </div>
               <span className={cn(
-                'text-xs hidden sm:block',
-                i === currentStepIndex ? 'text-gold-500' :
+                'text-[10px] hidden sm:block',
+                i === currentStepIndex ? 'text-brand-500' :
                 i < currentStepIndex ? 'text-market-green' : 'text-white-50',
               )}>
                 {s.label}
@@ -247,7 +247,7 @@ export default function KYCWizardPage() {
               <select
                 value={personalInfo.nationality}
                 onChange={(e) => setPersonalInfo({ ...personalInfo, nationality: e.target.value })}
-                className="w-full rounded-lg border border-primary-500 bg-primary-700 px-3 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500/30"
+                className="w-full rounded-lg border border-primary-500 bg-primary-700 px-3 py-2.5 text-sm text-white focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30"
               >
                 <option value="">Select nationality</option>
                 {COUNTRIES.map((c) => (
@@ -284,7 +284,7 @@ export default function KYCWizardPage() {
               <select
                 value={personalInfo.country}
                 onChange={(e) => setPersonalInfo({ ...personalInfo, country: e.target.value })}
-                className="w-full rounded-lg border border-primary-500 bg-primary-700 px-3 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500/30"
+                className="w-full rounded-lg border border-primary-500 bg-primary-700 px-3 py-2.5 text-sm text-white focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30"
               >
                 <option value="">Select country</option>
                 {COUNTRIES.map((c) => (
@@ -322,7 +322,7 @@ export default function KYCWizardPage() {
                   className={cn(
                     'rounded-lg px-3 py-1.5 text-xs font-medium border transition-colors',
                     docType === dt.value
-                      ? 'border-gold-500 bg-gold-500/10 text-gold-500'
+                      ? 'border-brand-500 bg-brand-500/10 text-brand-500'
                       : 'border-primary-500 text-white-50 hover:text-white-70',
                   )}
                 >
@@ -494,15 +494,15 @@ export default function KYCWizardPage() {
 function KycSubmitted({ estimatedTime, onBack }: { estimatedTime: string; onBack: () => void }) {
   return (
     <div className="mx-auto max-w-lg px-4 py-16 text-center">
-      <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gold-500/20">
-        <svg className="h-10 w-10 text-gold-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-brand-500/20">
+        <svg className="h-10 w-10 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
           <polyline points="22 4 12 14.01 9 11.01" />
         </svg>
       </div>
-      <h1 className="text-2xl font-bold text-white">Application Submitted</h1>
+      <h1 className="text-lg font-bold text-white sm:text-2xl">Application Submitted</h1>
       <p className="mt-2 text-sm text-white-70">Your identity verification is being reviewed.</p>
-      <p className="mt-1 text-sm text-white-50">Estimated time: <strong className="text-gold-500">{estimatedTime}</strong></p>
+      <p className="mt-1 text-sm text-white-50">Estimated time: <strong className="text-brand-500">{estimatedTime}</strong></p>
       <p className="mt-6 text-xs text-white-50">You will be notified once the review is complete.</p>
       <Button className="mt-8" onClick={onBack}>Go to Dashboard</Button>
     </div>

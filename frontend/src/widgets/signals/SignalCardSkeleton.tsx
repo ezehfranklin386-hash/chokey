@@ -15,7 +15,7 @@ export function SignalCardSkeleton() {
           </div>
 
           {/* Price targets grid */}
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2">
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="skeleton h-10 rounded" />
             ))}

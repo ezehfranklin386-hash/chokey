@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { cn } from '@/shared/lib/cn';
-import { useSignal, useSignalProvider, useRelatedSignals } from '@/features/app/signals/useSignals';
-import { SignalCard } from '@/widgets/app/signals/SignalCard';
+import { useSignal, useSignalProvider, useRelatedSignals } from '@/features/signals/useSignals';
+import { SignalCard } from '@/widgets/signals/SignalCard';
 import { Button, Spinner } from '@/shared/ui';
 
 const DIRECTION_CONFIG = {
@@ -21,7 +21,7 @@ export default function SignalDetailPage() {
   if (!signalId) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
-        <p className="text-white-70">No signal selected</p>
+        <p className="text-ink-70 dark:text-white-70">No signal selected</p>
         <Button variant="secondary" onClick={() => navigate('/app/signals')} className="mt-4">
           Back to Signals
         </Button>
@@ -40,7 +40,7 @@ export default function SignalDetailPage() {
   if (!signal) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
-        <p className="text-white-70">Signal not found</p>
+        <p className="text-ink-70 dark:text-white-70">Signal not found</p>
         <Button variant="secondary" onClick={() => navigate('/app/signals')} className="mt-4">
           Back to Signals
         </Button>
@@ -56,7 +56,7 @@ export default function SignalDetailPage() {
       {/* Back */}
       <button
         onClick={() => navigate('/app/signals')}
-        className="flex items-center gap-1 text-sm text-white-50 hover:text-white-90 transition-colors"
+        className="flex items-center gap-1 text-sm text-ink-50 dark:text-white-50 hover:text-ink-90 dark:hover:text-white-90 transition-colors"
       >
         <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <polyline points="15 18 9 12 15 6" />
@@ -65,20 +65,20 @@ export default function SignalDetailPage() {
       </button>
 
       {/* Signal detail card */}
-      <div className="rounded-card border border-white-10 bg-primary-800 p-6">
+      <div className="rounded-card border border-ink-30/10 dark:border-white/10 bg-white dark:bg-primary-800 p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-600 text-lg font-mono text-white-90">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface-secondary dark:bg-primary-600 text-lg font-mono text-ink-90 dark:text-white-90">
               {signal.asset.slice(0, 2)}
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white">{signal.assetName || signal.asset}</h1>
+              <h1 className="text-xl font-bold text-ink dark:text-white">{signal.assetName || signal.asset}</h1>
               <div className="flex items-center gap-2 mt-0.5">
                 <span className={cn('rounded px-2 py-0.5 text-xs font-bold', config.bg, config.color)}>
                   {config.label}
                 </span>
-                <span className="text-xs text-white-50">{timeSince}</span>
+                <span className="text-xs text-ink-50 dark:text-white-50">{timeSince}</span>
               </div>
             </div>
           </div>
@@ -87,22 +87,22 @@ export default function SignalDetailPage() {
         {/* Price targets */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           <TargetBox label="Stop Loss" value={signal.stopLoss} color="market-red" />
-          <TargetBox label="Entry Price" value={signal.entryPrice} color="white-90" />
+          <TargetBox label="Entry Price" value={signal.entryPrice} color="ink-90 dark:text-white-90" />
           <TargetBox label="Target 1" value={signal.targetPrice1} color="market-green" />
-          <TargetBox label="Target 2" value={signal.targetPrice2 || '—'} color={signal.targetPrice2 ? 'market-green' : 'white-50'} />
+          <TargetBox label="Target 2" value={signal.targetPrice2 || '—'} color={signal.targetPrice2 ? 'market-green' : 'ink-50 dark:text-white-50'} />
         </div>
 
         {/* Confidence */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-sm text-white-70">Confidence</span>
-            <span className={cn('text-lg font-mono font-bold', signal.confidence >= 70 ? 'text-gold-500' : 'text-white-70')}>
+            <span className="text-sm text-ink-70 dark:text-white-70">Confidence</span>
+            <span className={cn('text-lg font-mono font-bold', signal.confidence >= 70 ? 'text-brand-500' : 'text-ink-70 dark:text-white-70')}>
               {signal.confidence}%
             </span>
           </div>
-          <div className="h-2 overflow-hidden rounded-full bg-primary-500">
+          <div className="h-2 overflow-hidden rounded-full bg-ink-30/20 dark:bg-primary-500">
             <div
-              className={cn('h-full rounded-full', signal.confidence >= 70 ? 'bg-gold-500' : 'bg-white-30')}
+              className={cn('h-full rounded-full', signal.confidence >= 70 ? 'bg-brand-500' : 'bg-white-30')}
               style={{ width: `${signal.confidence}%` }}
             />
           </div>
@@ -110,14 +110,14 @@ export default function SignalDetailPage() {
 
         {/* Strategy + Rationale */}
         <div className="mb-6">
-          <h3 className="text-sm font-medium text-white-70 mb-1">Strategy: {signal.strategy}</h3>
-          <p className="text-sm text-white-70 leading-relaxed">{signal.rationale}</p>
+          <h3 className="text-sm font-medium text-ink-70 dark:text-white-70 mb-1">Strategy: {signal.strategy}</h3>
+          <p className="text-sm text-ink-70 dark:text-white-70 leading-relaxed">{signal.rationale}</p>
         </div>
 
         {/* Performance if resolved */}
         {signal.performance && (
-          <div className="mb-6 rounded-lg bg-primary-700 p-4">
-            <h3 className="text-sm font-medium text-white-70 mb-2">Performance</h3>
+          <div className="mb-6 rounded-lg bg-surface-secondary dark:bg-primary-700 p-4">
+            <h3 className="text-sm font-medium text-ink-70 dark:text-white-70 mb-2">Performance</h3>
             <div className="flex items-center gap-4">
               <span className={cn(
                 'text-lg font-mono font-bold',
@@ -160,22 +160,22 @@ export default function SignalDetailPage() {
 
       {/* Provider profile card */}
       {provider && (
-        <div className="rounded-card border border-white-10 bg-primary-800 p-6">
-          <h2 className="text-sm font-medium text-white-70 mb-4">Signal Provider</h2>
+        <div className="rounded-card border border-ink-30/10 dark:border-white/10 bg-white dark:bg-primary-800 p-6">
+          <h2 className="text-sm font-medium text-ink-70 dark:text-white-70 mb-4">Signal Provider</h2>
           <div className="flex items-center gap-4 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold-500/20 text-lg font-bold text-gold-500">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-500/20 text-lg font-bold text-brand-500">
               {provider.name.charAt(0)}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-bold text-white">{provider.name}</h3>
+                <h3 className="text-sm font-bold text-ink dark:text-white">{provider.name}</h3>
                 {provider.isVerified && (
                   <svg className="h-4 w-4 text-info" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
                   </svg>
                 )}
               </div>
-              <p className="text-xs text-white-50">Signal Provider</p>
+              <p className="text-xs text-ink-50 dark:text-white-50">Signal Provider</p>
             </div>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -190,7 +190,7 @@ export default function SignalDetailPage() {
       {/* Related signals */}
       {relatedSignals && relatedSignals.length > 0 && (
         <div>
-          <h2 className="text-sm font-medium text-white-70 mb-4">Related Signals</h2>
+          <h2 className="text-sm font-medium text-ink-70 dark:text-white-70 mb-4">Related Signals</h2>
           <div className="space-y-4">
             {relatedSignals.slice(0, 3).map((s) => (
               <SignalCard key={s.id} signal={s} />
@@ -204,8 +204,8 @@ export default function SignalDetailPage() {
 
 function TargetBox({ label, value, color }: { label: string; value: string; color: string }) {
   return (
-    <div className="rounded-lg bg-primary-700 p-3 text-center">
-      <p className="text-[10px] text-white-50 uppercase mb-0.5">{label}</p>
+    <div className="rounded-lg bg-surface-secondary dark:bg-primary-700 p-3 text-center">
+      <p className="text-[10px] text-ink-50 dark:text-white-50 uppercase mb-0.5">{label}</p>
       <p className={cn('text-sm font-mono font-medium', `text-${color}`)}>
         ${parseFloat(value).toLocaleString()}
       </p>
@@ -215,11 +215,11 @@ function TargetBox({ label, value, color }: { label: string; value: string; colo
 
 function StatBox({ label, value, positive }: { label: string; value: string; positive?: boolean }) {
   return (
-    <div className="rounded-lg bg-primary-700 p-3">
-      <p className="text-[10px] text-white-50">{label}</p>
+    <div className="rounded-lg bg-surface-secondary dark:bg-primary-700 p-3">
+      <p className="text-[10px] text-ink-50 dark:text-white-50">{label}</p>
       <p className={cn(
         'text-sm font-mono font-medium',
-        positive && !value.startsWith('-') ? 'text-market-green' : 'text-white-90',
+        positive && !value.startsWith('-') ? 'text-market-green' : 'text-ink-90 dark:text-white-90',
       )}>
         {value}
       </p>

@@ -10,7 +10,7 @@ function App() {
     <AppProvider>
       <Suspense
         fallback={
-          <div className="flex h-screen items-center justify-center bg-primary-900">
+          <div className="flex h-screen items-center justify-center bg-white dark:bg-primary-900">
             <Spinner size="lg" />
           </div>
         }
@@ -21,8 +21,8 @@ function App() {
         position="top-right"
         toastOptions={{
           style: {
-            background: '#0F1636',
-            color: '#E5E6EB',
+            background: '#1E293B',
+            color: '#F1F5F9',
             border: '1px solid rgba(255,255,255,0.1)',
           },
           success: { iconTheme: { primary: '#22C55E', secondary: '#fff' } },

@@ -49,8 +49,8 @@ export function BalanceCard({ summary, isLoading }: BalanceCardProps) {
         </button>
       </div>
 
-      <div className="mt-2 flex items-baseline gap-3">
-        <h2 className="text-3xl font-bold text-ink dark:text-white font-mono">
+      <div className="mt-2 flex items-baseline gap-2 sm:gap-3">
+        <h2 className="text-2xl font-bold text-ink dark:text-white font-mono sm:text-3xl">
           {showBalance ? total : '****'}
         </h2>
         <span
@@ -75,7 +75,7 @@ export function BalanceCard({ summary, isLoading }: BalanceCardProps) {
       </p>
 
       {summary && (
-        <div className="mt-4 grid grid-cols-2 gap-4 border-t border-ink-30/10 dark:border-white-10 pt-4">
+        <div className="mt-4 flex flex-wrap gap-4 border-t border-ink-30/10 dark:border-white-10 pt-4">
           <div>
             <p className="text-xs text-ink-50 dark:text-white-50">In Orders</p>
             <p className="text-sm font-mono text-ink-90 dark:text-white-90">

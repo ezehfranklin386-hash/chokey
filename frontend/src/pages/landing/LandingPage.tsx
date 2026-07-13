@@ -268,7 +268,7 @@ export default function LandingPage() {
                     required
                   />
                 </div>
-                <Button type="submit" size="lg">
+                <Button type="submit" size="lg" className="w-full sm:w-auto">
                   Get Started
                   <ArrowRightIcon className="ml-2 h-4 w-4" />
                 </Button>

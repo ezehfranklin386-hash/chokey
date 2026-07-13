@@ -49,8 +49,8 @@ export default function ResetPasswordPage() {
               <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-white">Invalid Link</h1>
-          <p className="mt-2 text-sm text-white-70">
+          <h1 className="text-2xl font-bold text-ink dark:text-white">Invalid Link</h1>
+          <p className="mt-2 text-sm text-ink-70 dark:text-white-70">
             This password reset link is invalid or has expired. Please request a new one.
           </p>
         </div>
@@ -67,14 +67,14 @@ export default function ResetPasswordPage() {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gold-500/10">
-          <svg className="h-7 w-7 text-gold-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-brand-500/10">
+          <svg className="h-7 w-7 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
             <path d="M7 11V7a5 5 0 0110 0v4" />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-white">Reset Password</h1>
-        <p className="mt-1 text-sm text-white-70">
+        <h1 className="text-2xl font-bold text-ink dark:text-white">Reset Password</h1>
+        <p className="mt-1 text-sm text-ink-70 dark:text-white-70">
           Choose a new password for your account
         </p>
       </div>
@@ -92,7 +92,7 @@ export default function ResetPasswordPage() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-white-50 hover:text-white-90 transition-colors"
+                className="text-ink-50 dark:text-white-50 hover:text-ink-90 dark:hover:text-white-90 transition-colors"
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? (
@@ -124,7 +124,7 @@ export default function ResetPasswordPage() {
             <button
               type="button"
               onClick={() => setShowConfirm(!showConfirm)}
-              className="text-white-50 hover:text-white-90 transition-colors"
+              className="text-ink-50 dark:text-white-50 hover:text-ink-90 dark:hover:text-white-90 transition-colors"
               aria-label={showConfirm ? 'Hide confirmation' : 'Show confirmation'}
             >
               {showConfirm ? (
@@ -155,10 +155,10 @@ export default function ResetPasswordPage() {
         </Button>
       </form>
 
-      <p className="text-center text-sm text-white-70">
+      <p className="text-center text-sm text-ink-70 dark:text-white-70">
         <Link
           to="/auth/sign-in"
-          className="text-gold-500 hover:text-gold-400 transition-colors"
+          className="text-brand-500 hover:text-brand-600 transition-colors"
         >
           Back to sign in
         </Link>

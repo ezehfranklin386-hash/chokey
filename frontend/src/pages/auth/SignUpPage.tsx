@@ -42,11 +42,11 @@ export default function SignUpPage() {
     <div className="space-y-6">
       {/* Heading */}
       <div className="text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gold-500 shadow-glow-gold">
-          <span className="text-2xl font-bold text-primary-900">C</span>
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-brand-500 shadow-glow-brand">
+          <span className="text-2xl font-bold text-white">C</span>
         </div>
-        <h1 className="text-2xl font-bold text-white">Create Account</h1>
-        <p className="mt-1 text-sm text-white-70">
+        <h1 className="text-2xl font-bold text-ink dark:text-white">Create Account</h1>
+        <p className="mt-1 text-sm text-ink-70 dark:text-white-70">
           Start your crypto journey
         </p>
       </div>
@@ -74,7 +74,7 @@ export default function SignUpPage() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-white-50 hover:text-white-90 transition-colors"
+                className="text-ink-50 dark:text-white-50 hover:text-ink-90 dark:hover:text-white-90 transition-colors"
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? (
@@ -106,7 +106,7 @@ export default function SignUpPage() {
             <button
               type="button"
               onClick={() => setShowConfirm(!showConfirm)}
-              className="text-white-50 hover:text-white-90 transition-colors"
+              className="text-ink-50 dark:text-white-50 hover:text-ink-90 dark:hover:text-white-90 transition-colors"
               aria-label={showConfirm ? 'Hide confirmation' : 'Show confirmation'}
             >
               {showConfirm ? (
@@ -134,13 +134,13 @@ export default function SignUpPage() {
         />
 
         {/* Terms */}
-        <p className="text-xs text-white-50">
+        <p className="text-xs text-ink-50 dark:text-white-50">
           By creating an account, you agree to our{' '}
-          <a href="#" className="text-gold-500 hover:text-gold-400">
+          <a href="#" className="text-brand-500 hover:text-brand-600">
             Terms of Service
           </a>{' '}
           and{' '}
-          <a href="#" className="text-gold-500 hover:text-gold-400">
+          <a href="#" className="text-brand-500 hover:text-brand-600">
             Privacy Policy
           </a>
         </p>
@@ -158,11 +158,11 @@ export default function SignUpPage() {
       </form>
 
       {/* Footer */}
-      <p className="text-center text-sm text-white-70">
+      <p className="text-center text-sm text-ink-70 dark:text-white-70">
         Already have an account?{' '}
         <Link
           to="/auth/sign-in"
-          className="font-medium text-gold-500 hover:text-gold-400 transition-colors"
+          className="font-medium text-brand-500 hover:text-brand-600 transition-colors"
         >
           Sign in
         </Link>

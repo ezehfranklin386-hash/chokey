@@ -7,7 +7,7 @@ export function MobileNav() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-30 flex border-t border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 lg:hidden"
+      className="fixed bottom-0 left-0 right-0 z-30 flex border-t border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800 pb-[env(safe-area-inset-bottom)] lg:hidden"
       aria-label="Mobile navigation"
     >
       {mobileNavItems.map((item) => {

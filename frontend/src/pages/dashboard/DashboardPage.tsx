@@ -34,15 +34,15 @@ export default function DashboardPage() {
     : [];
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
       {/* Page header */}
       <div>
-        <h1 className="text-xl font-bold text-ink dark:text-white">Dashboard</h1>
-        <p className="text-sm text-ink-50 dark:text-white-50">Portfolio overview and market summary</p>
+        <h1 className="text-lg font-bold text-ink dark:text-white sm:text-xl">Dashboard</h1>
+        <p className="text-xs text-ink-50 dark:text-white-50 sm:text-sm">Portfolio overview and market summary</p>
       </div>
 
       {/* Balance card + Portfolio chart */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-3 lg:gap-4">
         <div className="lg:col-span-1">
           <BalanceCard summary={summary} isLoading={walletsLoading} />
         </div>
@@ -52,7 +52,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Holdings & Quick Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-3 lg:gap-4">
         <div className="lg:col-span-2">
           <HoldingsGrid wallets={wallets} isLoading={walletsLoading} />
         </div>
@@ -62,7 +62,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Transactions & Signals */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-4">
         <RecentTransactions transactions={transactions} isLoading={txLoading} />
         <ActiveSignalsWidget signals={mockSignals} isLoading={pricesLoading} />
       </div>

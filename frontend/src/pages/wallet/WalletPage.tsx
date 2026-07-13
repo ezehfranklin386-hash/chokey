@@ -27,10 +27,10 @@ export default function WalletPage() {
   return (
     <div className="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
       {/* Header */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-ink dark:text-white">Wallet</h1>
-          <p className="text-sm text-ink-50 dark:text-white-50">Manage your assets and transactions</p>
+          <h1 className="text-lg font-bold text-ink dark:text-white sm:text-2xl">Wallet</h1>
+          <p className="text-xs text-ink-50 dark:text-white-50 sm:text-sm">Manage your assets and transactions</p>
         </div>
       </div>
 
@@ -38,14 +38,14 @@ export default function WalletPage() {
       <WalletSummary summary={walletData?.summary} isLoading={walletsLoading} />
 
       {/* Actions */}
-      <div className="flex gap-3">
-        <Button onClick={() => navigate('/app/wallet/BTC')}>
+      <div className="flex gap-2 sm:gap-3">
+        <Button onClick={() => navigate('/app/wallet/BTC')} size="sm">
           Deposit
         </Button>
-        <Button variant="secondary" onClick={() => navigate('/app/wallet/BTC')}>
+        <Button variant="secondary" onClick={() => navigate('/app/wallet/BTC')} size="sm">
           Withdraw
         </Button>
-        <Button variant="secondary" onClick={() => navigate('/app/trade')}>
+        <Button variant="secondary" onClick={() => navigate('/app/trade')} size="sm">
           Trade
         </Button>
       </div>

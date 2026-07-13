@@ -66,21 +66,21 @@ export default function AssetDetailPage() {
           </div>
         </div>
       ) : (
-        <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-100 dark:bg-primary-600 text-xl text-brand-600 dark:text-white-90 font-mono">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-100 dark:bg-primary-600 text-base text-brand-600 dark:text-white-90 font-mono sm:h-12 sm:w-12 sm:text-xl">
             {icon}
           </div>
           <div>
-            <h1 className="text-xl font-bold text-ink dark:text-white">{wallet?.name || assetId}</h1>
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-ink-50 dark:text-white-50 font-mono">{assetId}</span>
+            <h1 className="text-base font-bold text-ink dark:text-white sm:text-xl">{wallet?.name || assetId}</h1>
+            <div className="flex flex-wrap items-center gap-1 sm:gap-2">
+              <span className="text-xs text-ink-50 dark:text-white-50 font-mono sm:text-sm">{assetId}</span>
               {priceData && (
                 <>
-                  <span className="text-sm font-mono text-ink dark:text-white-90">
+                  <span className="text-xs font-mono text-ink dark:text-white-90 sm:text-sm">
                     ${Number(priceData.price).toLocaleString()}
                   </span>
                   <span className={cn(
-                    'text-sm font-mono',
+                    'text-xs font-mono sm:text-sm',
                     isPositive ? 'text-market-green' : 'text-market-red',
                   )}>
                     {isPositive ? '+' : ''}{priceData.change24h}%
@@ -112,7 +112,7 @@ export default function AssetDetailPage() {
             <p className="text-sm text-ink-70 dark:text-white-70 font-mono mt-1">
               ${Number(wallet?.usdValue || 0).toLocaleString()}
             </p>
-            <div className="flex flex-wrap gap-6 mt-4">
+            <div className="flex flex-wrap gap-3 mt-3 sm:gap-6 sm:mt-4">
               <div>
                 <p className="text-xs text-ink-50 dark:text-white-50">Available</p>
                 <p className="text-sm font-mono text-ink dark:text-white-90">
@@ -171,7 +171,7 @@ export default function AssetDetailPage() {
 
       {/* Transaction History */}
       <div className="rounded-card border border-ink-30/10 dark:border-white-10 bg-white dark:bg-primary-800">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-ink-30/10 dark:border-primary-500/40">
+        <div className="flex flex-col gap-2 px-4 py-3 border-b border-ink-30/10 dark:border-primary-500/40 sm:flex-row sm:items-center sm:justify-between">
           <h3 className="text-sm font-medium text-ink-70 dark:text-white-70">Transaction History</h3>
           <SearchBar value={txSearch} onChange={setTxSearch} />
         </div>
