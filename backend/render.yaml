@@ -13,6 +13,8 @@ services:
     name: chokey-redis
     plan: free
     maxmemoryPolicy: allkeys-lru
+    ipAllowList: # required — allow all within Render's private network
+      - 0.0.0.0/0
 
   # ── Web Service: FastAPI (gunicorn + uvicorn workers) ──────────────
   - type: web
@@ -22,9 +24,8 @@ services:
     plan: free
     rootDir: backend
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn -k uvicorn.workers.UvicornWorker -w 2 app.main:app --bind 0.0.0.0:$PORT --log-level info --access-logfile -
+    startCommand: alembic upgrade head && gunicorn -k uvicorn.workers.UvicornWorker -w 2 app.main:app --bind 0.0.0.0:$PORT --log-level info --access-logfile -
     healthCheckPath: /health
-    preDeployCommand: alembic upgrade head
 
     envVars:
       - key: APP_NAME
