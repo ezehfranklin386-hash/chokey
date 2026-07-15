@@ -13,8 +13,9 @@ services:
     name: chokey-redis
     plan: free
     maxmemoryPolicy: allkeys-lru
-    ipAllowList: # required — allow all within Render's private network
-      - 0.0.0.0/0
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: allow-all
 
   # ── Web Service: FastAPI (gunicorn + uvicorn workers) ──────────────
   - type: web
