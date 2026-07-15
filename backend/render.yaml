@@ -7,18 +7,20 @@ databases:
     databaseName: chokey
     user: chokey
 
-redis:
-  - name: chokey-redis
+services:
+  # ── Redis (Key Value Store) ───────────────────────────────────────
+  - type: redis
+    name: chokey-redis
     plan: free
     maxmemoryPolicy: allkeys-lru
 
-services:
   # ── Web Service: FastAPI (gunicorn + uvicorn workers) ──────────────
   - type: web
     name: chokey-api
     runtime: python
     region: oregon
     plan: free
+    rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn -k uvicorn.workers.UvicornWorker -w 2 app.main:app --bind 0.0.0.0:$PORT --log-level info --access-logfile -
     healthCheckPath: /health
@@ -71,6 +73,7 @@ services:
     runtime: python
     region: oregon
     plan: free
+    rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: celery -A app.tasks.celery_app worker --concurrency=2 --loglevel=info --max-tasks-per-child=100
 
@@ -108,6 +111,7 @@ services:
     runtime: python
     region: oregon
     plan: free
+    rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: celery -A app.tasks.celery_app beat --loglevel=info
 
