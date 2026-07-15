@@ -1,0 +1,134 @@
+# Render Blueprint — Chokey Backend
+# Deploys: API (gunicorn), Celery Worker, Celery Beat, PostgreSQL, Redis
+
+databases:
+  - name: chokey-db
+    plan: free
+    databaseName: chokey
+    user: chokey
+
+redis:
+  - name: chokey-redis
+    plan: free
+    maxmemoryPolicy: allkeys-lru
+
+services:
+  # ── Web Service: FastAPI (gunicorn + uvicorn workers) ──────────────
+  - type: web
+    name: chokey-api
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -k uvicorn.workers.UvicornWorker -w 2 app.main:app --bind 0.0.0.0:$PORT --log-level info --access-logfile -
+    healthCheckPath: /health
+    preDeployCommand: alembic upgrade head
+
+    envVars:
+      - key: APP_NAME
+        value: Chokey API
+      - key: DEBUG
+        value: "false"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chokey-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: chokey-redis
+          property: connectionString
+      - key: ALLOWED_ORIGINS
+        value: https://chokey.vercel.app,http://localhost:5173,http://localhost:3000
+      - key: JWT_ACCESS_EXPIRE_MINUTES
+        value: "30"
+      - key: JWT_REFRESH_EXPIRE_DAYS
+        value: "7"
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: COINGECKO_API_URL
+        value: https://api.coingecko.com/api/v3
+      - key: ADMIN_EMAIL
+        value: admin@chokey.app
+      - key: SENTRY_DSN
+        sync: false
+      - key: SENDGRID_API_KEY
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: S3_BUCKET
+        sync: false
+      - key: S3_REGION
+        sync: false
+
+  # ── Background Worker: Celery ──────────────────────────────────────
+  - type: worker
+    name: chokey-worker
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: celery -A app.tasks.celery_app worker --concurrency=2 --loglevel=info --max-tasks-per-child=100
+
+    envVars:
+      - key: APP_NAME
+        value: Chokey API
+      - key: DEBUG
+        value: "false"
+      - key: SECRET_KEY
+        fromService:
+          name: chokey-api
+          type: web
+          envVarKey: SECRET_KEY
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chokey-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: chokey-redis
+          property: connectionString
+      - key: SENDGRID_API_KEY
+        sync: false
+      - key: COINGECKO_API_URL
+        value: https://api.coingecko.com/api/v3
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+
+  # ── Background Worker: Celery Beat (scheduler) ─────────────────────
+  - type: worker
+    name: chokey-beat
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: celery -A app.tasks.celery_app beat --loglevel=info
+
+    envVars:
+      - key: APP_NAME
+        value: Chokey API
+      - key: DEBUG
+        value: "false"
+      - key: SECRET_KEY
+        fromService:
+          name: chokey-api
+          type: web
+          envVarKey: SECRET_KEY
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chokey-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: chokey-redis
+          property: connectionString
+      - key: COINGECKO_API_URL
+        value: https://api.coingecko.com/api/v3

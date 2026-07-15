@@ -5,6 +5,7 @@
   "outputDirectory": "dist",
   "installCommand": "npm install --ignore-scripts",
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "https://chokey-api.onrender.com/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
