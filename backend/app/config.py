@@ -60,5 +60,25 @@ class Settings(BaseSettings):
     def origins_list(self) -> list[str]:
         return [o.strip() for o in self.allowed_origins.split(",") if o.strip()]
 
+    @property
+    def async_database_url(self) -> str:
+        """Return DATABASE_URL with +asyncpg driver suffix.
+        
+        Render's fromDatabase injects postgresql:// but asyncpg needs postgresql+asyncpg://
+        """
+        url = self.database_url
+        if url.startswith("postgresql://") and "+asyncpg" not in url:
+            url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return url
+
+    @property
+    def async_database_read_url(self) -> str:
+        if not self.database_read_url:
+            return ""
+        url = self.database_read_url
+        if url.startswith("postgresql://") and "+asyncpg" not in url:
+            url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return url
+
 
 settings = Settings()

@@ -28,7 +28,7 @@ metadata = MetaData(naming_convention=convention)
 # ── Primary (write) engine ───────────────────────────────────
 
 engine = create_async_engine(
-    settings.database_url,
+    settings.async_database_url,
     echo=settings.debug,
     pool_size=settings.db_pool_size,
     max_overflow=settings.db_max_overflow,
@@ -48,9 +48,9 @@ async_session_factory = async_sessionmaker(
 _read_engine = None
 _read_session_factory = None
 
-if settings.database_read_url:
+if settings.async_database_read_url:
     _read_engine = create_async_engine(
-        settings.database_read_url,
+        settings.async_database_read_url,
         echo=settings.debug,
         pool_size=settings.db_pool_size,
         max_overflow=settings.db_max_overflow,

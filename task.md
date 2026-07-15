@@ -50,7 +50,9 @@ Scale the FastAPI backend from ~500 to 10k concurrent users. Multi-phase impleme
 - `backend/render.yaml` — NEW: Render blueprint (API + Worker + Beat + DB + Redis)
 - `backend/app/storage/__init__.py` — NEW: storage package
 - `backend/app/storage/s3.py` — NEW: S3 upload/download/presigned URL service
-- `backend/app/config.py` — Added aws_access_key_id, aws_secret_access_key fields
+- `backend/app/config.py` — Added aws_access_key_id, aws_secret_access_key; async_database_url, async_database_read_url properties
+- `backend/app/database.py` — Use settings.async_database_url instead of raw settings.database_url
+- `backend/alembic/env.py` — Use settings.async_database_url instead of settings.database_url
 - `backend/app/api/v1/uploads.py` — NEW: Upload router (presigned POST, presigned URL, delete)
 - `backend/app/api/v1/router.py` — Registered uploads router at /uploads
 - `backend/app/main.py` — Added S3 storage init in lifespan
