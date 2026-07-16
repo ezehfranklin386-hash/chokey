@@ -40,7 +40,7 @@ class Asset(Base):
     wallets = relationship("Wallet", back_populates="asset", lazy="selectin")
     market_prices = relationship("MarketPrice", back_populates="asset", lazy="selectin")
     signals = relationship("Signal", back_populates="asset", lazy="selectin")
-    transactions = relationship("Transaction", back_populates="asset", lazy="selectin")
+    transactions = relationship("Transaction", back_populates="asset", lazy="selectin", foreign_keys="[Transaction.asset_id]")
 
 
 class Wallet(Base):

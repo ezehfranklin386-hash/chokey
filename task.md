@@ -51,6 +51,7 @@ Scale the FastAPI backend from ~500 to 10k concurrent users. Multi-phase impleme
 - `backend/start.sh` — NEW: Startup script with migration + gunicorn
 - `backend/app/storage/__init__.py` — NEW: storage package
 - `backend/app/storage/s3.py` — NEW: S3 upload/download/presigned URL service
+- `backend/app/models/wallet.py` — Fix Asset.transactions ambiguous foreign key
 - `backend/scripts/init_db.py` — NEW: DB init script (create tables + stamp alembic on fresh DB)
 - `backend/app/config.py` — Added aws_access_key_id, aws_secret_access_key; async_database_url, async_database_read_url properties
 - `backend/app/database.py` — Use settings.async_database_url instead of raw settings.database_url
