@@ -45,7 +45,7 @@ services:
           name: chokey-redis
           property: connectionString
       - key: ALLOWED_ORIGINS
-        value: https://chokey.vercel.app,http://localhost:5173,http://localhost:3000
+        value: https://chokey1.vercel.app,http://localhost:5173,http://localhost:3000
       - key: JWT_ACCESS_EXPIRE_MINUTES
         value: "30"
       - key: JWT_REFRESH_EXPIRE_DAYS
