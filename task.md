@@ -48,6 +48,7 @@ Scale the FastAPI backend from ~500 to 10k concurrent users. Multi-phase impleme
 ## Files Modified (Phase 5 — Render Deploy)
 - `backend/requirements.txt` — Added gunicorn, boto3
 - `backend/render.yaml` — NEW: Render blueprint (API + Worker + Beat + DB + Redis)
+- `backend/start.sh` — NEW: Startup script with migration + gunicorn
 - `backend/app/storage/__init__.py` — NEW: storage package
 - `backend/app/storage/s3.py` — NEW: S3 upload/download/presigned URL service
 - `backend/app/config.py` — Added aws_access_key_id, aws_secret_access_key; async_database_url, async_database_read_url properties
