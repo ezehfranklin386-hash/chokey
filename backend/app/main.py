@@ -107,7 +107,7 @@ def create_app() -> FastAPI:
                 "status": "error",
                 "error": {
                     "code": "INTERNAL_ERROR",
-                    "message": "An unexpected error occurred.",
+                    "message": f"{type(exc).__name__}: {str(exc)[:200]}",
                 },
             },
         )
@@ -118,7 +118,15 @@ def create_app() -> FastAPI:
     # --- Health check ---
     @app.get("/health")
     async def health() -> dict:
-        return {"status": "ok", "app": settings.app_name}
+        db_ok = False
+        try:
+            from sqlalchemy import text as sql_text
+            async with engine.connect() as conn:
+                await conn.execute(sql_text("SELECT 1"))
+                db_ok = True
+        except Exception as e:
+            pass
+        return {"status": "ok", "app": settings.app_name, "db": db_ok}
 
     return app
 
