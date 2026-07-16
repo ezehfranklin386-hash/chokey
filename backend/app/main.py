@@ -14,7 +14,7 @@ from app.api.v1.router import api_v1_router
 from app.config import settings
 from app.core.exceptions import AppException
 from app.core.logging import setup_logging
-from app.database import engine
+from app.database import Base, engine
 from app.redis import close_redis, get_redis
 from app.storage.s3 import storage as s3_storage
 from app.ws.manager import manager as ws_manager
@@ -33,6 +33,15 @@ async def lifespan(app: FastAPI):
         logger.info("Redis connected")
     except Exception as e:
         logger.warning("Redis not available", error=str(e)[:80])
+
+    # Create database tables if they don't exist (fresh database)
+    try:
+        import app.models  # noqa: F401
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+        logger.info("Database tables verified")
+    except Exception as e:
+        logger.warning("Could not create tables", error=str(e)[:80])
 
     # Initialize S3 storage
     await s3_storage.initialize()
