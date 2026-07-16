@@ -15,6 +15,7 @@ from app.config import settings
 from app.core.exceptions import AppException
 from app.core.logging import setup_logging
 from app.database import Base, engine
+from app.models import *  # noqa: F401,F403 — register all models on Base.metadata
 from app.redis import close_redis, get_redis
 from app.storage.s3 import storage as s3_storage
 from app.ws.manager import manager as ws_manager
@@ -36,12 +37,11 @@ async def lifespan(app: FastAPI):
 
     # Create database tables if they don't exist (fresh database)
     try:
-        import app.models  # noqa: F401
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
         logger.info("Database tables verified")
     except Exception as e:
-        logger.warning("Could not create tables", error=str(e)[:80])
+        logger.error("Could not create tables", error=str(e)[:200])
 
     # Initialize S3 storage
     await s3_storage.initialize()
