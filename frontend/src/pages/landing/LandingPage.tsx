@@ -1,7 +1,65 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/shared/ui';
-import heroImage from '@/assets/hero.png';
+
+/* ── Hooks ──────────────────────────────────────────────── */
+
+function useScrollReveal(threshold = 0.15) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return { ref, visible };
+}
+
+function useCountUp(end: number, duration = 2000) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          const startTime = performance.now();
+          const step = (now: number) => {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // ease-out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.round(eased * end));
+            if (progress < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.3 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [end, duration]);
+
+  return { ref, count };
+}
 
 /* ── Inline SVG Icons ──────────────────────────────────── */
 
@@ -76,6 +134,148 @@ function CheckIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+function StarsIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  );
+}
+
+/* ── Hero Dashboard Illustration (SVG) ──────────────────── */
+
+function HeroIllustration() {
+  return (
+    <div className="relative">
+      {/* Glow behind illustration */}
+      <div className="absolute -inset-8 bg-gradient-to-r from-brand-500/20 via-brand-400/10 to-transparent rounded-3xl blur-3xl" />
+
+      {/* Main illustration card */}
+      <div className="relative w-full max-w-lg rounded-2xl border border-white-30/10 bg-primary-800/60 p-5 shadow-2xl backdrop-blur-sm">
+        {/* Top bar */}
+        <div className="mb-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-brand-500">
+              <span className="text-[10px] font-bold text-white">C</span>
+            </div>
+            <span className="text-sm font-semibold text-white-90">Chokey</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-market-green" />
+            <span className="text-xs text-white-70">Live</span>
+          </div>
+        </div>
+
+        {/* Portfolio summary */}
+        <div className="mb-4 rounded-xl border border-white-30/10 bg-primary-700/50 p-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs text-white-50">Portfolio Value</p>
+              <p className="text-2xl font-bold text-white">$12,458.32</p>
+            </div>
+            <div className="rounded-lg bg-market-green/15 px-3 py-1.5">
+              <p className="text-sm font-semibold text-market-green">+8.2%</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Mini candlestick chart */}
+        <svg className="mb-4 w-full" viewBox="0 0 400 80" preserveAspectRatio="none" style={{ height: 48 }}>
+          <defs>
+            <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#0052FF" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#0052FF" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          {/* Price line */}
+          <path
+            d="M0,60 L20,55 L40,58 L60,45 L80,48 L100,35 L120,38 L140,25 L160,28 L180,20 L200,22 L220,15 L240,18 L260,10 L280,12 L300,8 L320,10 L340,5 L360,7 L380,3 L400,6"
+            fill="none"
+            stroke="#0052FF"
+            strokeWidth="2"
+            className="animate-pulse"
+          />
+          {/* Gradient fill */}
+          <path
+            d="M0,60 L20,55 L40,58 L60,45 L80,48 L100,35 L120,38 L140,25 L160,28 L180,20 L200,22 L220,15 L240,18 L260,10 L280,12 L300,8 L320,10 L340,5 L360,7 L380,3 L400,6 L400,80 L0,80 Z"
+            fill="url(#chartGrad)"
+          />
+          {/* Candles */}
+          {[
+            { x: 10, up: true }, { x: 50, up: true }, { x: 90, up: false },
+            { x: 130, up: true }, { x: 170, up: true }, { x: 210, up: false },
+            { x: 250, up: true }, { x: 290, up: true }, { x: 330, up: false },
+            { x: 370, up: true },
+          ].map((c, i) => (
+            <g key={i}>
+              <rect x={c.x} y={c.up ? 38 : 42} width="6" height={c.up ? -10 : 10} rx="1" fill={c.up ? '#16A34A' : '#DC2626'} />
+              <line x1={c.x + 3} y1={c.up ? 28 : 52} x2={c.x + 3} y2={c.up ? 38 : 42} stroke={c.up ? '#16A34A' : '#DC2626'} strokeWidth="1" />
+            </g>
+          ))}
+        </svg>
+
+        {/* Asset row */}
+        <div className="flex items-center justify-between rounded-lg border border-white-30/10 bg-primary-700/30 px-4 py-3">
+          <div className="flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-500/20 text-sm font-bold text-brand-400">B</div>
+            <div>
+              <p className="text-sm font-medium text-white">Bitcoin</p>
+              <p className="text-xs text-white-50">BTC</p>
+            </div>
+          </div>
+          <div className="text-right">
+            <p className="text-sm font-semibold text-white">$43,821.50</p>
+            <p className="text-xs font-medium text-market-green">+2.4%</p>
+          </div>
+        </div>
+
+        {/* Bottom asset dots */}
+        <div className="mt-3 flex items-center justify-center gap-1.5">
+          {['bg-brand-400', 'bg-gold-400', 'bg-market-green', 'bg-purple-500', 'bg-pink-500'].map((c, i) => (
+            <div key={i} className={`h-2 w-2 rounded-full ${c} opacity-60`} />
+          ))}
+        </div>
+      </div>
+
+      {/* Floating glass card */}
+      <div className="absolute -bottom-4 -left-4 rounded-xl border border-white-30/10 bg-primary-800/80 p-4 shadow-xl backdrop-blur-lg lg:-left-8 animate-slide-up"
+        style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
+      >
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-market-green/15">
+            <ChartIcon className="h-5 w-5 text-market-green" />
+          </div>
+          <div>
+            <p className="text-xs text-white-50">24h Volume</p>
+            <p className="text-lg font-bold text-white">$2.4B</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Animated gradient orbs ─────────────────────────────── */
+
+function FloatingOrbs() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+      <div className="absolute -top-40 -right-40 h-80 w-80 animate-pulse rounded-full bg-brand-500/10 blur-3xl" style={{ animationDuration: '8s' }} />
+      <div className="absolute -bottom-40 -left-40 h-80 w-80 animate-pulse rounded-full bg-purple-500/10 blur-3xl" style={{ animationDuration: '12s' }} />
+      <div className="absolute top-1/2 left-1/3 h-60 w-60 animate-pulse rounded-full bg-brand-400/5 blur-3xl" style={{ animationDuration: '10s' }} />
+      {/* Dot grid overlay */}
+      <svg className="absolute inset-0 h-full w-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dotGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1" fill="white" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dotGrid)" />
+      </svg>
+    </div>
+  );
+}
+
 /* ── Feature data ──────────────────────────────────────── */
 
 const features = [
@@ -111,7 +311,6 @@ const features = [
   },
 ];
 
-/* ─── nav links ──────────────────────────────────────── */
 const navLinks = [
   { label: 'Features', href: '#features' },
   { label: 'Security', href: '#security' },
@@ -119,7 +318,46 @@ const navLinks = [
   { label: 'About', href: '#about' },
 ];
 
-/* ─── Landing Page ────────────────────────────────────── */
+/* ── Animated section wrapper ──────────────────────────── */
+
+function RevealSection({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const { ref, visible } = useScrollReveal(0.12);
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ease-out ${visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'} ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ── Stat with counter ─────────────────────────────────── */
+
+function AnimatedStat({ value, label, suffix = '' }: { value: number; label: string; suffix?: string }) {
+  const { ref, count } = useCountUp(value);
+  return (
+    <div className="text-center">
+      <p className="text-3xl font-bold text-white">
+        {count > 0 ? (
+          <>
+            {label.startsWith('$') && '$'}
+            {count}
+            {suffix}
+          </>
+        ) : (
+          label
+        )}
+        <span ref={ref} />
+      </p>
+      <p className="mt-1 text-sm text-white-50">{label.replace(/^.\d+[A-Z]?\s*/, '')}</p>
+    </div>
+  );
+}
+
+/* ── Landing Page ──────────────────────────────────────── */
+
 export default function LandingPage() {
   const navigate = useNavigate();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -144,16 +382,16 @@ export default function LandingPage() {
   );
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       {/* ─── NAVIGATION ─────────────────────────────── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-ink-30/10 bg-white/95 backdrop-blur-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white-30/10 bg-primary-900/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded bg-brand-500">
+            <div className="flex h-7 w-7 items-center justify-center rounded bg-brand-500 shadow-glow-brand">
               <span className="text-xs font-bold text-white">C</span>
             </div>
-            <span className="text-base font-bold tracking-tight text-ink">Chokey</span>
+            <span className="text-base font-bold tracking-tight text-white">Chokey</span>
           </Link>
 
           {/* Desktop nav links */}
@@ -162,7 +400,7 @@ export default function LandingPage() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-ink-50 hover:text-ink transition-colors"
+                className="text-sm font-medium text-white-70 hover:text-white transition-colors"
               >
                 {link.label}
               </a>
@@ -173,7 +411,7 @@ export default function LandingPage() {
           <div className="hidden md:flex items-center gap-3">
             <button
               onClick={handleSignIn}
-              className="text-sm font-medium text-ink-50 hover:text-ink transition-colors"
+              className="text-sm font-medium text-white-70 hover:text-white transition-colors"
             >
               Sign In
             </button>
@@ -185,7 +423,7 @@ export default function LandingPage() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileNavOpen(!mobileNavOpen)}
-            className="rounded-lg p-2 text-ink-50 hover:text-ink transition-colors md:hidden"
+            className="rounded-lg p-2 text-white-70 hover:text-white transition-colors md:hidden"
             aria-label="Toggle navigation"
           >
             {mobileNavOpen ? (
@@ -205,22 +443,22 @@ export default function LandingPage() {
 
         {/* Mobile nav panel */}
         {mobileNavOpen && (
-          <div className="border-t border-ink-30/10 bg-white px-4 py-4 md:hidden">
+          <div className="border-t border-white-30/10 bg-primary-900 px-4 py-4 md:hidden">
             <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileNavOpen(false)}
-                  className="text-sm font-medium text-ink-50 hover:text-ink transition-colors"
+                  className="text-sm font-medium text-white-70 hover:text-white transition-colors"
                 >
                   {link.label}
                 </a>
               ))}
-              <hr className="border-ink-30/10" />
+              <hr className="border-white-30/10" />
               <button
                 onClick={handleSignIn}
-                className="text-sm font-medium text-ink-50 hover:text-ink transition-colors text-left"
+                className="text-sm font-medium text-white-70 hover:text-white transition-colors text-left"
               >
                 Sign In
               </button>
@@ -233,24 +471,26 @@ export default function LandingPage() {
       </nav>
 
       {/* ─── HERO ──────────────────────────────────── */}
-      <section className="relative overflow-hidden pt-14">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-50 via-white to-white" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,82,255,0.06),transparent_50%)]" />
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-primary-900 pt-14">
+        {/* Background layers */}
+        <FloatingOrbs />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-900 via-primary-800 to-primary-900" />
 
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             {/* Left: Text */}
             <div className="max-w-xl">
-              <div className="mb-6 inline-flex items-center gap-1.5 rounded-full border border-brand-500/20 bg-brand-500/5 px-3 py-1 text-xs font-medium text-brand-500">
-                <span className="h-1.5 w-1.5 rounded-full bg-brand-500 animate-pulse" />
+              <div className="mb-6 inline-flex items-center gap-1.5 rounded-full border border-brand-500/30 bg-brand-500/10 px-3 py-1 text-xs font-medium text-brand-400 shadow-glow-brand">
+                <span className="h-1.5 w-1.5 rounded-full bg-brand-400 animate-pulse" />
                 Now available in 100+ countries
               </div>
-              <h1 className="text-4xl font-bold tracking-tight text-ink sm:text-5xl lg:text-6xl">
+              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
                 Your Crypto Journey{' '}
-                <span className="text-brand-500">Starts Here</span>
+                <span className="bg-gradient-to-r from-brand-400 via-brand-300 to-brand-500 bg-clip-text text-transparent">
+                  Starts Here
+                </span>
               </h1>
-              <p className="mt-4 text-lg leading-relaxed text-ink-70 sm:text-xl">
+              <p className="mt-4 text-lg leading-relaxed text-white-70 sm:text-xl max-w-lg">
                 Buy, sell, and trade 100+ cryptocurrencies with confidence.
                 Industry-leading security, lightning-fast execution, and a platform
                 trusted by millions worldwide.
@@ -264,21 +504,21 @@ export default function LandingPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
-                    className="w-full rounded-lg border border-ink-30/20 bg-surface-secondary px-4 py-3 text-sm text-ink placeholder-ink-50 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/20 transition-colors"
+                    className="w-full rounded-lg border border-white-30/10 bg-primary-800/80 px-4 py-3 text-sm text-white placeholder-white-50 backdrop-blur-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30 transition-colors"
                     required
                   />
                 </div>
-                <Button type="submit" size="lg" className="w-full sm:w-auto">
+                <Button type="submit" size="lg" className="w-full sm:w-auto shadow-glow-brand hover:shadow-lg hover:shadow-brand-500/20 transition-shadow">
                   Get Started
                   <ArrowRightIcon className="ml-2 h-4 w-4" />
                 </Button>
               </form>
 
-              <p className="mt-4 text-xs text-ink-50">
+              <p className="mt-4 text-xs text-white-50">
                 By signing up, you agree to our{' '}
-                <a href="#" className="text-brand-500 hover:text-brand-600">Terms of Service</a>{' '}
+                <a href="#" className="text-brand-400 hover:text-brand-300 transition-colors">Terms of Service</a>{' '}
                 and{' '}
-                <a href="#" className="text-brand-500 hover:text-brand-600">Privacy Policy</a>.
+                <a href="#" className="text-brand-400 hover:text-brand-300 transition-colors">Privacy Policy</a>.
               </p>
 
               {/* Trusted by */}
@@ -287,89 +527,82 @@ export default function LandingPage() {
                   {[1, 2, 3, 4].map((i) => (
                     <div
                       key={i}
-                      className="h-8 w-8 rounded-full border-2 border-white bg-brand-100 flex items-center justify-center text-xs font-semibold text-brand-600"
+                      className="h-8 w-8 rounded-full border-2 border-primary-800 bg-brand-500/20 flex items-center justify-center text-xs font-semibold text-brand-400"
                     >
                       {['JD', 'AK', 'ML', 'TS'][i - 1]}
                     </div>
                   ))}
                 </div>
-                <p className="text-sm text-ink-50">
-                  <span className="font-semibold text-ink">2M+</span> traders trust Chokey
+                <p className="text-sm text-white-50">
+                  <span className="font-semibold text-white">2M+</span> traders trust Chokey
                 </p>
               </div>
             </div>
 
-            {/* Right: Hero Image */}
+            {/* Right: Illustration */}
             <div className="relative flex items-center justify-center">
-              <div className="absolute inset-0 bg-gradient-to-r from-brand-500/10 to-transparent rounded-3xl blur-3xl" />
-              <img
-                src={heroImage}
-                alt="Chokey crypto dashboard"
-                className="relative w-full max-w-lg rounded-2xl shadow-2xl ring-1 ring-ink-30/10"
-              />
-              {/* Floating card */}
-              <div className="absolute -bottom-4 -left-4 rounded-lg border border-ink-30/10 bg-white p-4 shadow-lg lg:-left-8">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-market-green/10">
-                    <ChartIcon className="h-5 w-5 text-market-green" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-ink-50">Portfolio Value</p>
-                    <p className="text-lg font-bold text-ink">$12,458.32</p>
-                    <p className="text-xs font-medium text-market-green">+8.2% today</p>
-                  </div>
-                </div>
-              </div>
+              <HeroIllustration />
             </div>
           </div>
         </div>
+
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-primary-900 to-transparent" />
       </section>
 
       {/* ─── STATS BAR ─────────────────────────────── */}
-      <section className="border-y border-ink-30/10 bg-surface-secondary">
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {[
-              { value: '$2.4B', label: 'Trading Volume' },
-              { value: '2M+', label: 'Active Users' },
-              { value: '100+', label: 'Countries' },
-              { value: '150+', label: 'Assets Supported' },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-3xl font-bold text-ink">{stat.value}</p>
-                <p className="mt-1 text-sm text-ink-50">{stat.label}</p>
-              </div>
-            ))}
+      <section className="border-y border-white-30/10 bg-primary-900">
+        <RevealSection>
+          <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+              {[
+                { value: '$2.4B', label: 'Trading Volume', num: 2400000000, prefix: '$', suffix: 'B' },
+                { value: '2M+', label: 'Active Users', num: 2000000, prefix: '', suffix: 'M+' },
+                { value: '100+', label: 'Countries', num: 100, prefix: '', suffix: '+' },
+                { value: '150+', label: 'Assets Supported', num: 150, prefix: '', suffix: '+' },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <p className="text-3xl font-bold text-white">{stat.value}</p>
+                  <p className="mt-1 text-sm text-white-50">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        </RevealSection>
       </section>
 
       {/* ─── FEATURES ──────────────────────────────── */}
-      <section id="features" className="scroll-mt-14">
+      <section id="features" className="scroll-mt-14 bg-primary-900">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold text-ink sm:text-4xl">
-              Everything you need to trade crypto
-            </h2>
-            <p className="mt-3 text-lg text-ink-70">
-              A complete platform for buying, selling, and managing your digital assets.
-            </p>
-          </div>
+          <RevealSection>
+            <div className="mx-auto max-w-2xl text-center">
+              <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-brand-500/20 bg-brand-500/10 px-3 py-1 text-xs font-medium text-brand-400">
+                <StarsIcon className="h-3 w-3" />
+                Platform Features
+              </div>
+              <h2 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+                Everything you need to{' '}
+                <span className="bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">trade crypto</span>
+              </h2>
+              <p className="mt-3 text-lg text-white-70">
+                A complete platform for buying, selling, and managing your digital assets.
+              </p>
+            </div>
+          </RevealSection>
 
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature) => {
+            {features.map((feature, i) => {
               const Icon = feature.icon;
               return (
-                <div
-                  key={feature.title}
-                  className="group rounded-lg border border-ink-30/10 bg-white p-6 transition-all duration-200 hover:border-brand-500/30 hover:shadow-sm"
-                >
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-500 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-200">
-                    <Icon className="h-5 w-5" />
+                <RevealSection key={feature.title} delay={i * 100}>
+                  <div className="group rounded-xl border border-white-30/10 bg-primary-800/50 p-6 backdrop-blur-sm transition-all duration-300 hover:border-brand-500/30 hover:bg-primary-800/80 hover:shadow-glow-brand hover:-translate-y-0.5">
+                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-brand-500/15 text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="text-base font-semibold text-white">{feature.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-white-70">{feature.description}</p>
                   </div>
-                  <h3 className="text-base font-semibold text-ink">{feature.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-70">{feature.description}</p>
-                </div>
+                </RevealSection>
               );
             })}
           </div>
@@ -377,113 +610,130 @@ export default function LandingPage() {
       </section>
 
       {/* ─── SECURITY SECTION ──────────────────────── */}
-      <section id="security" className="scroll-mt-14 bg-surface-secondary">
+      <section id="security" className="scroll-mt-14 bg-primary-800/50">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div>
-              <h2 className="text-3xl font-bold text-ink sm:text-4xl">
-                Built with{' '}
-                <span className="text-brand-500">security</span> at every layer
-              </h2>
-              <p className="mt-4 text-lg text-ink-70">
-                Your assets are protected by the same security infrastructure used by
-                leading financial institutions worldwide.
-              </p>
-              <ul className="mt-8 space-y-4">
-                {[
-                  'Multi-signature wallet technology',
-                  '98% of assets stored in cold storage',
-                  'Real-time fraud monitoring',
-                  'SOC 2 Type II certified',
-                  'FDIC insurance eligible',
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-market-green" />
-                    <span className="text-sm text-ink-70">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="rounded-2xl border border-ink-30/10 bg-white p-8 shadow-sm">
-                <ShieldIcon className="mx-auto h-24 w-24 text-brand-500" />
-                <p className="mt-4 text-center text-sm font-medium text-ink-70">
-                  Enterprise-grade security for everyone
+          <RevealSection>
+            <div className="grid items-center gap-12 lg:grid-cols-2">
+              <div>
+                <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-brand-500/20 bg-brand-500/10 px-3 py-1 text-xs font-medium text-brand-400">
+                  <ShieldIcon className="h-3 w-3" />
+                  Security First
+                </div>
+                <h2 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+                  Built with{' '}
+                  <span className="bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">security</span>{' '}
+                  at every layer
+                </h2>
+                <p className="mt-4 text-lg text-white-70">
+                  Your assets are protected by the same security infrastructure used by
+                  leading financial institutions worldwide.
                 </p>
+                <ul className="mt-8 space-y-4">
+                  {[
+                    'Multi-signature wallet technology',
+                    '98% of assets stored in cold storage',
+                    'Real-time fraud monitoring',
+                    'SOC 2 Type II certified',
+                    'FDIC insurance eligible',
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-market-green" />
+                      <span className="text-sm text-white-70">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="flex items-center justify-center">
+                <div className="rounded-2xl border border-white-30/10 bg-primary-800/80 p-8 shadow-xl backdrop-blur-sm">
+                  <div className="flex items-center justify-center">
+                    <div className="relative">
+                      <div className="absolute inset-0 animate-pulse rounded-full bg-brand-500/20 blur-xl" />
+                      <ShieldIcon className="relative h-24 w-24 text-brand-400" />
+                    </div>
+                  </div>
+                  <p className="mt-4 text-center text-sm font-medium text-white-70">
+                    Enterprise-grade security for everyone
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          </RevealSection>
         </div>
       </section>
 
       {/* ─── CTA SECTION ───────────────────────────── */}
-      <section id="about" className="scroll-mt-14">
+      <section id="about" className="scroll-mt-14 bg-primary-900">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-          <div className="relative overflow-hidden rounded-2xl bg-brand-500 px-6 py-16 text-center sm:px-16">
-            {/* Background pattern */}
-            <div className="absolute inset-0 opacity-10">
-              <div
-                className="h-full w-full"
-                style={{
-                  backgroundImage:
-                    'radial-gradient(circle at 25% 25%, white 1px, transparent 1px), radial-gradient(circle at 75% 75%, white 1px, transparent 1px)',
-                  backgroundSize: '40px 40px',
-                }}
-              />
-            </div>
+          <RevealSection>
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-600 via-brand-500 to-primary-700 px-6 py-16 text-center sm:px-16 shadow-2xl">
+              {/* Animated background pattern */}
+              <div className="absolute inset-0 opacity-10">
+                <div
+                  className="h-full w-full"
+                  style={{
+                    backgroundImage:
+                      'radial-gradient(circle at 25% 25%, white 1px, transparent 1px), radial-gradient(circle at 75% 75%, white 1px, transparent 1px)',
+                    backgroundSize: '40px 40px',
+                  }}
+                />
+              </div>
+              {/* Glow orbs */}
+              <div className="absolute -top-20 -right-20 h-40 w-40 animate-pulse rounded-full bg-white/10 blur-3xl" style={{ animationDuration: '6s' }} />
+              <div className="absolute -bottom-20 -left-20 h-40 w-40 animate-pulse rounded-full bg-white/10 blur-3xl" style={{ animationDuration: '8s' }} />
 
-            <div className="relative">
-              <h2 className="text-3xl font-bold text-white sm:text-4xl">
-                Start your crypto journey today
-              </h2>
-              <p className="mx-auto mt-4 max-w-lg text-lg text-white/80">
-                Join millions of traders worldwide. Sign up in minutes and start trading instantly.
-              </p>
-              <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <Button
-                  size="lg"
-                  onClick={handleGetStarted}
-                  className="bg-white text-brand-500 hover:bg-white/90 hover:text-brand-600"
-                >
-                  Create free account
-                  <ArrowRightIcon className="ml-2 h-4 w-4" />
-                </Button>
-                <button
-                  onClick={handleSignIn}
-                  className="text-sm font-medium text-white/80 hover:text-white transition-colors"
-                >
-                  Sign in instead
-                </button>
+              <div className="relative">
+                <h2 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+                  Start your crypto journey today
+                </h2>
+                <p className="mx-auto mt-4 max-w-lg text-lg text-white/80">
+                  Join millions of traders worldwide. Sign up in minutes and start trading instantly.
+                </p>
+                <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                  <Button
+                    size="lg"
+                    onClick={handleGetStarted}
+                    className="bg-white text-brand-600 hover:bg-white/90 hover:text-brand-700 shadow-xl hover:shadow-2xl transition-all"
+                  >
+                    Create free account
+                    <ArrowRightIcon className="ml-2 h-4 w-4" />
+                  </Button>
+                  <button
+                    onClick={handleSignIn}
+                    className="text-sm font-medium text-white/70 hover:text-white transition-colors"
+                  >
+                    Sign in instead
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          </RevealSection>
         </div>
       </section>
 
       {/* ─── FOOTER ────────────────────────────────── */}
-      <footer className="border-t border-ink-30/10 bg-surface-secondary">
+      <footer className="border-t border-white-30/10 bg-primary-900">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {/* Brand */}
             <div>
               <Link to="/" className="flex items-center gap-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded bg-brand-500">
+                <div className="flex h-7 w-7 items-center justify-center rounded bg-brand-500 shadow-glow-brand">
                   <span className="text-xs font-bold text-white">C</span>
                 </div>
-                <span className="text-base font-bold tracking-tight text-ink">Chokey</span>
+                <span className="text-base font-bold tracking-tight text-white">Chokey</span>
               </Link>
-              <p className="mt-3 text-sm leading-relaxed text-ink-50">
+              <p className="mt-3 text-sm leading-relaxed text-white-50">
                 Your trusted platform for buying, selling, and managing cryptocurrency.
               </p>
             </div>
 
             {/* Product */}
             <div>
-              <h4 className="text-sm font-semibold text-ink">Product</h4>
+              <h4 className="text-sm font-semibold text-white">Product</h4>
               <ul className="mt-4 space-y-2">
                 {['Buy Crypto', 'Sell Crypto', 'Wallet', 'Trading', 'Signals'].map((item) => (
                   <li key={item}>
-                    <a href="#" className="text-sm text-ink-50 hover:text-ink transition-colors">
+                    <a href="#" className="text-sm text-white-50 hover:text-white transition-colors">
                       {item}
                     </a>
                   </li>
@@ -493,11 +743,11 @@ export default function LandingPage() {
 
             {/* Company */}
             <div>
-              <h4 className="text-sm font-semibold text-ink">Company</h4>
+              <h4 className="text-sm font-semibold text-white">Company</h4>
               <ul className="mt-4 space-y-2">
                 {['About', 'Careers', 'Press', 'Blog', 'Security'].map((item) => (
                   <li key={item}>
-                    <a href="#" className="text-sm text-ink-50 hover:text-ink transition-colors">
+                    <a href="#" className="text-sm text-white-50 hover:text-white transition-colors">
                       {item}
                     </a>
                   </li>
@@ -507,11 +757,11 @@ export default function LandingPage() {
 
             {/* Support */}
             <div>
-              <h4 className="text-sm font-semibold text-ink">Support</h4>
+              <h4 className="text-sm font-semibold text-white">Support</h4>
               <ul className="mt-4 space-y-2">
                 {['Help Center', 'Contact Us', 'API Docs', 'Community', 'Status'].map((item) => (
                   <li key={item}>
-                    <a href="#" className="text-sm text-ink-50 hover:text-ink transition-colors">
+                    <a href="#" className="text-sm text-white-50 hover:text-white transition-colors">
                       {item}
                     </a>
                   </li>
@@ -520,15 +770,15 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="mt-12 border-t border-ink-30/10 pt-8">
+          <div className="mt-12 border-t border-white-30/10 pt-8">
             <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-              <p className="text-xs text-ink-50">
+              <p className="text-xs text-white-50">
                 &copy; {new Date().getFullYear()} Chokey. All rights reserved.
               </p>
-              <div className="flex gap-4 text-xs text-ink-50">
-                <a href="#" className="hover:text-ink transition-colors">Privacy Policy</a>
-                <a href="#" className="hover:text-ink transition-colors">Terms of Service</a>
-                <a href="#" className="hover:text-ink transition-colors">Cookie Policy</a>
+              <div className="flex gap-4 text-xs text-white-50">
+                <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+                <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
               </div>
             </div>
           </div>
