@@ -13,14 +13,19 @@ router = APIRouter()
 @router.get("")
 async def list_transactions(
     user_id: str = Depends(get_current_user_id),
-    page: int = 1,
+    cursor: str | None = None,
     limit: int = 20,
     type: str | None = None,
     status: str | None = None,
 ):
-    """Get paginated transaction history."""
+    """Get cursor-paginated transaction history.
+
+    - ``cursor``: Opaque token from the previous page's ``next_cursor``.
+    - ``limit``: Maximum items (default 20, max 100).
+    - ``type`` / ``status``: Optional filters.
+    """
     result = await transaction_service.list_transactions(
-        user_id, page=page, limit=limit, type=type, status=status
+        user_id, cursor=cursor, limit=limit, type=type, status=status
     )
     return {"status": "success", "data": result}
 

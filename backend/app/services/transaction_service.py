@@ -7,10 +7,11 @@ from datetime import UTC, datetime
 from decimal import Decimal
 from typing import Any
 
-from sqlalchemy import func, select
+from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
 from app.core.exceptions import InvalidInputException, NotFoundException
+from app.core.pagination import paginate_cursor
 from app.database import async_session_factory
 from app.models.transaction import Transaction
 from app.models.wallet import Asset, Wallet
@@ -22,33 +23,27 @@ class TransactionService:
     @staticmethod
     async def list_transactions(
         user_id: str,
-        page: int = 1,
+        cursor: str | None = None,
         limit: int = 20,
         type: str | None = None,
         status: str | None = None,
     ) -> dict[str, Any]:
-        """Paginated transaction history."""
-        offset = (page - 1) * limit
+        """Cursor-paginated transaction history."""
         async with async_session_factory() as session:
             query = (
                 select(Transaction)
                 .options(joinedload(Transaction.asset))
                 .where(Transaction.user_id == user_id)
             )
-            count_query = select(func.count(Transaction.id)).where(Transaction.user_id == user_id)
 
             if type:
                 query = query.where(Transaction.type == type.upper())
-                count_query = count_query.where(Transaction.type == type.upper())
             if status:
                 query = query.where(Transaction.status == status.upper())
-                count_query = count_query.where(Transaction.status == status.upper())
 
-            total = (await session.execute(count_query)).scalar() or 0
-            result = await session.execute(
-                query.order_by(Transaction.created_at.desc()).offset(offset).limit(limit)
+            txns, next_cursor, has_more = await paginate_cursor(
+                session, query, cursor=cursor, limit=limit,
             )
-            txns = result.scalars().all()
 
             return {
                 "items": [
@@ -67,9 +62,8 @@ class TransactionService:
                     }
                     for t in txns
                 ],
-                "total": total,
-                "page": page,
-                "limit": limit,
+                "next_cursor": next_cursor,
+                "has_more": has_more,
             }
 
     @staticmethod

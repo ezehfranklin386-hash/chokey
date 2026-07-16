@@ -10,6 +10,7 @@ from typing import Any
 from sqlalchemy import func, select
 
 from app.core.exceptions import InvalidInputException, NotFoundException
+from app.core.pagination import paginate_cursor
 from app.database import async_session_factory
 from app.models.order import Order, Trade
 from app.models.wallet import Asset, Wallet
@@ -190,25 +191,20 @@ class OrderService:
     @staticmethod
     async def list_orders(
         user_id: str,
-        page: int = 1,
+        cursor: str | None = None,
         limit: int = 20,
         status: str | None = None,
     ) -> dict[str, Any]:
-        """List user orders with pagination."""
-        offset = (page - 1) * limit
+        """List user orders with cursor pagination."""
         async with async_session_factory() as session:
             query = select(Order).where(Order.user_id == user_id)
-            count_query = select(func.count(Order.id)).where(Order.user_id == user_id)
 
             if status:
                 query = query.where(Order.status == status.upper())
-                count_query = count_query.where(Order.status == status.upper())
 
-            total = (await session.execute(count_query)).scalar() or 0
-            result = await session.execute(
-                query.order_by(Order.created_at.desc()).offset(offset).limit(limit)
+            orders, next_cursor, has_more = await paginate_cursor(
+                session, query, cursor=cursor, limit=limit,
             )
-            orders = result.scalars().all()
 
             asset_ids = list({o.asset_id for o in orders})
             asset_map = {}
@@ -235,9 +231,51 @@ class OrderService:
                     }
                     for o in orders
                 ],
-                "total": total,
-                "page": page,
-                "limit": limit,
+                "next_cursor": next_cursor,
+                "has_more": has_more,
+            }
+
+
+    @staticmethod
+    async def list_trades(
+        user_id: str,
+        cursor: str | None = None,
+        limit: int = 20,
+    ) -> dict[str, Any]:
+        """List user trades with cursor pagination."""
+        async with async_session_factory() as session:
+            query = select(Trade).where(Trade.user_id == user_id)
+
+            trades, next_cursor, has_more = await paginate_cursor(
+                session, query, cursor=cursor, limit=limit,
+            )
+
+            asset_ids = list({t.asset_id for t in trades})
+            asset_map = {}
+            if asset_ids:
+                assets_result = await session.execute(
+                    select(Asset).where(Asset.id.in_(asset_ids))
+                )
+                for a in assets_result.scalars().all():
+                    asset_map[a.id] = a.symbol
+
+            return {
+                "items": [
+                    {
+                        "id": t.id,
+                        "order_id": t.order_id,
+                        "asset": asset_map.get(t.asset_id, "UNKNOWN"),
+                        "side": t.side,
+                        "price": str(t.price),
+                        "quantity": str(t.quantity),
+                        "total": str(t.total),
+                        "fee": str(t.fee) if t.fee else "0",
+                        "created_at": t.created_at.isoformat() if t.created_at else None,
+                    }
+                    for t in trades
+                ],
+                "next_cursor": next_cursor,
+                "has_more": has_more,
             }
 
 

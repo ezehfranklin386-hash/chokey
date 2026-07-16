@@ -1,5 +1,9 @@
 # Chokey API
 
+[![Python](https://img.shields.io/badge/python-3.12-blue.svg)]()
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-00a393.svg)]()
+![Coverage](https://img.shields.io/badge/coverage-70%25-brightgreen.svg)
+
 Crypto trading backend — FastAPI + PostgreSQL + Redis + Celery.
 
 ## Stack
@@ -127,19 +131,27 @@ X-2FA-Code: <totp_code>
 
 ## Testing
 
+Test coverage is configured with a **70% minimum threshold** enforced via `pytest-cov`.
+
 ```bash
 # Install test deps
 pip install -r requirements-dev.txt
 
-# Run all tests
+# Run all tests (coverage enforced automatically)
 pytest
 
-# With coverage
-pytest --cov=app --cov-report=term-missing
+# Run without coverage check
+pytest --no-header -p no:cov
+
+# Generate HTML coverage report
+pytest --cov-report=html:coverage_html
+# Open coverage_html/index.html in your browser
 
 # Specific test file
 pytest tests/test_auth.py -v
 ```
+
+Coverage configuration lives in `pyproject.toml` under `[tool.coverage.*]`.
 
 ## Scripts
 

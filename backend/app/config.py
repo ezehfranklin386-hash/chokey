@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     app_name: str = "Chokey API"
     debug: bool = True
     secret_key: str = "dev-secret-key-change-in-production-min-32-chars!!"
+    run_migrations: bool = False  # Set True in prod to skip create_all fallback
 
     # Database
     database_url: str = "postgresql+asyncpg://chokey:chokey@localhost:5432/chokey"
@@ -46,6 +47,10 @@ class Settings(BaseSettings):
     # External APIs
     coingecko_api_url: str = "https://api.coingecko.com/api/v3"
     sendgrid_api_key: str = ""
+
+    # Sentry
+    sentry_dsn: str = ""
+    sentry_traces_sample_rate: float = 0.1  # 10% of requests get traced
 
     # AWS / S3
     s3_bucket: str = ""

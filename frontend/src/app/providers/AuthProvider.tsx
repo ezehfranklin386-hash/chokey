@@ -1,8 +1,44 @@
 import { type PropsWithChildren, createContext, useContext, useCallback, useMemo, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import type { User, AuthTokens, LoginRequest } from '@/entities/user/user.types';
+import type { User, AuthTokens, KycLevel, KycStatus, LoginRequest } from '@/entities/user/user.types';
+import { apiClient } from '@/shared/api/apiClient';
 import { IS_DEMO_MODE } from '@/shared/api/demo/demoConfig';
 import { DEMO_USER, DEMO_TOKENS } from '@/shared/api/demo/demoData';
+
+// ── Backend-to-frontend user mapper ───────────────────────────
+// Backend returns snake_case fields with different naming; this
+// normalizes them to the frontend's camelCase User type.
+
+const KYC_LEVEL_MAP: Record<string, KycLevel> = {
+  NONE: 0, BASIC: 1, VERIFIED: 2, ADVANCED: 3,
+};
+const KYC_STATUS_MAP: Record<string, KycStatus> = {
+  NONE: 'none', PENDING: 'pending', VERIFIED: 'verified', REJECTED: 'rejected',
+};
+
+function mapBackendUser(raw: Record<string, unknown>): User {
+  const kycLevel = raw.kycLevel ?? raw.kyc_level ?? 'NONE';
+  return {
+    id: (raw.id as string) ?? '',
+    email: (raw.email as string) ?? '',
+    fullName: (raw.fullName as string) ?? (raw.displayName as string) ?? (raw.display_name as string) ?? '',
+    username: (raw.username as string) ?? (raw.email as string)?.split('@')[0] ?? '',
+    phone: (raw.phone as string) ?? undefined,
+    avatarUrl: (raw.avatarUrl as string) ?? (raw.avatar_url as string) ?? undefined,
+    kycLevel: KYC_LEVEL_MAP[String(kycLevel).toUpperCase()] ?? 0,
+    kycStatus: KYC_STATUS_MAP[String(kycLevel).toUpperCase()] ?? 'none',
+    twoFactorEnabled: !!(raw.twoFactorEnabled ?? raw.two_factor_enabled),
+    createdAt: (raw.createdAt as string) ?? (raw.created_at as string) ?? '',
+  };
+}
+
+function mapBackendTokens(raw: Record<string, unknown>): AuthTokens {
+  return {
+    accessToken: (raw.accessToken as string) ?? (raw.access_token as string) ?? '',
+    refreshToken: (raw.refreshToken as string) ?? (raw.refresh_token as string) ?? '',
+    expiresIn: (raw.expiresIn as number) ?? (raw.expires_in as number) ?? 1800,
+  };
+}
 
 interface AuthContextValue {
   user: User | null;
@@ -54,22 +90,23 @@ export function AuthProvider({ children }: PropsWithChildren) {
     queryKey: ['auth', 'me'],
     queryFn: async () => {
       if (IS_DEMO_MODE) return DEMO_USER;
-      // Stub: replace with actual API call
-      // const res = await apiClient.get('/auth/me');
-      // return res.data;
-      return null as User | null;
+      const res = await apiClient.get('/auth/me');
+      return mapBackendUser(res as Record<string, unknown>);
     },
     enabled: !!tokens,
     staleTime: 5 * 60_000,
   });
 
   const loginMutation = useMutation({
-    mutationFn: async (_data: LoginRequest) => {
+    mutationFn: async (data: LoginRequest) => {
       if (IS_DEMO_MODE) return { user: DEMO_USER, tokens: DEMO_TOKENS };
-      // Stub: replace with actual API call
-      // const res = await apiClient.post('/auth/login', data);
-      // return res.data;
-      throw new Error('API not connected');
+      const res = await apiClient.post('/auth/login', data) as Record<string, unknown>;
+      // Backend login returns {accessToken, refreshToken, expiresIn, tokenType, user}
+      // Normalize to {user, tokens}
+      return {
+        user: mapBackendUser((res.user ?? res) as Record<string, unknown>),
+        tokens: mapBackendTokens(res),
+      };
     },
     onSuccess: (result: { user: User; tokens: AuthTokens }) => {
       saveTokens(result.tokens);

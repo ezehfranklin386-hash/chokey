@@ -1,4 +1,4 @@
-"""Wallet and balance business logic."""
+"""Wallet and balance business logic with Redis caching."""
 
 from __future__ import annotations
 
@@ -7,6 +7,14 @@ from typing import Any
 
 from sqlalchemy import select
 
+from app.core.cache import (
+    WALLET_CACHE_TTL,
+    cache_delete_pattern,
+    cache_get,
+    cache_set,
+    key_user_wallet,
+    key_user_wallets,
+)
 from app.core.exceptions import InsufficientBalanceException, NotFoundException
 from app.database import async_session_factory
 from app.models.wallet import Asset, Wallet, WalletAddress
@@ -17,7 +25,12 @@ ZERO = Decimal("0")
 class WalletService:
     @staticmethod
     async def list_wallets(user_id: str) -> dict[str, Any]:
-        """Get all wallets with USD values."""
+        """Get all wallets with USD values (cached 30s)."""
+        cache_key = key_user_wallets(user_id)
+        cached = await cache_get(cache_key)
+        if cached is not None:
+            return cached
+
         async with async_session_factory() as session:
             result = await session.execute(
                 select(Wallet).where(Wallet.user_id == user_id)
@@ -48,14 +61,22 @@ class WalletService:
                     "price": str(price),
                 })
 
-            return {
+            result_data = {
                 "wallets": data,
                 "total_usd_value": str(total_usd.quantize(Decimal("0.01"))),
             }
 
+            await cache_set(cache_key, result_data, WALLET_CACHE_TTL)
+            return result_data
+
     @staticmethod
     async def get_wallet(user_id: str, wallet_id: str) -> dict[str, Any] | None:
-        """Get single wallet detail."""
+        """Get single wallet detail (cached 30s)."""
+        cache_key = key_user_wallet(user_id, wallet_id)
+        cached = await cache_get(cache_key)
+        if cached is not None:
+            return cached
+
         async with async_session_factory() as session:
             result = await session.execute(
                 select(Wallet).where(Wallet.id == wallet_id, Wallet.user_id == user_id)
@@ -73,7 +94,7 @@ class WalletService:
             price = Decimal(str(price_row)) if price_row else ZERO
 
             available = w.balance - w.locked_balance
-            return {
+            data = {
                 "id": w.id,
                 "asset": w.asset.symbol,
                 "balance": str(w.balance),
@@ -82,6 +103,9 @@ class WalletService:
                 "usd_value": str((w.balance * price).quantize(Decimal("0.01"))),
                 "price": str(price),
             }
+
+            await cache_set(cache_key, data, WALLET_CACHE_TTL)
+            return data
 
     @staticmethod
     async def get_wallet_summary(user_id: str) -> dict[str, Any]:
@@ -105,7 +129,7 @@ class WalletService:
 
     @staticmethod
     async def deposit(user_id: str, asset: str, amount: Decimal) -> dict[str, Any]:
-        """Deposit funds to a wallet."""
+        """Deposit funds to a wallet. Invalidates wallet cache."""
         async with async_session_factory() as session:
             asset_result = await session.execute(
                 select(Asset).where(Asset.symbol == asset.upper())
@@ -124,11 +148,15 @@ class WalletService:
             w.balance += amount
             w.total_deposited += amount
 
-            return {"status": "success", "new_balance": str(w.balance)}
+        # Invalidate cache after mutation
+        await cache_delete_pattern(key_user_wallets(user_id))
+        await cache_delete_pattern(f"{key_user_wallet(user_id, '*')}")
+
+        return {"status": "success", "new_balance": str(w.balance)}
 
     @staticmethod
     async def withdraw(user_id: str, asset: str, amount: Decimal, address: str) -> dict[str, Any]:
-        """Withdraw funds from a wallet."""
+        """Withdraw funds from a wallet. Invalidates wallet cache."""
         async with async_session_factory() as session:
             asset_result = await session.execute(
                 select(Asset).where(Asset.symbol == asset.upper())
@@ -151,7 +179,11 @@ class WalletService:
             w.balance -= amount
             w.total_withdrawn += amount
 
-            return {"status": "success", "new_balance": str(w.balance)}
+        # Invalidate cache after mutation
+        await cache_delete_pattern(key_user_wallets(user_id))
+        await cache_delete_pattern(f"{key_user_wallet(user_id, '*')}")
+
+        return {"status": "success", "new_balance": str(w.balance)}
 
 
 wallet_service = WalletService()

@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime
 from decimal import Decimal
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, Numeric, String, UniqueConstraint, func
+from sqlalchemy import Boolean, DateTime, ForeignKey, Index, Integer, Numeric, String, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -58,7 +58,10 @@ class Wallet(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
-    __table_args__ = (UniqueConstraint("user_id", "asset_id", "type", name="uq_user_asset_type"),)
+    __table_args__ = (
+        UniqueConstraint("user_id", "asset_id", "type", name="uq_user_asset_type"),
+        Index("ix_wallets_user_asset", "user_id", "asset_id"),
+    )
 
     user = relationship("User", back_populates="wallets")
     asset = relationship("Asset", back_populates="wallets")

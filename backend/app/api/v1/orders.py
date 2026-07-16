@@ -33,11 +33,11 @@ async def create_order(data: dict, user_id: str = Depends(get_current_user_id)):
 async def list_orders(
     user_id: str = Depends(get_current_user_id),
     status: str | None = None,
-    page: int = 1,
+    cursor: str | None = None,
     limit: int = 20,
 ):
-    """List orders (filterable by status)."""
-    result = await order_service.list_orders(user_id, status=status, page=page, limit=limit)
+    """List orders with cursor pagination."""
+    result = await order_service.list_orders(user_id, status=status, cursor=cursor, limit=limit)
     return {"status": "success", "data": result}
 
 
@@ -60,20 +60,20 @@ async def cancel_order(order_id: str, user_id: str = Depends(get_current_user_id
 @router.get("/trades")
 async def list_trades(
     user_id: str = Depends(get_current_user_id),
-    page: int = 1,
+    cursor: str | None = None,
     limit: int = 20,
 ):
-    """Get user's trade history."""
-    result = await order_service.list_trades(user_id, page=page, limit=limit)
+    """Get user's trade history (cursor paginated)."""
+    result = await order_service.list_trades(user_id, cursor=cursor, limit=limit)
     return {"status": "success", "data": result}
 
 
 @router.get("/history")
 async def order_history(
     user_id: str = Depends(get_current_user_id),
-    page: int = 1,
+    cursor: str | None = None,
     limit: int = 20,
 ):
     """Get order history (filled + cancelled)."""
-    result = await order_service.list_orders(user_id, page=page, limit=limit)
+    result = await order_service.list_orders(user_id, cursor=cursor, limit=limit)
     return {"status": "success", "data": result}

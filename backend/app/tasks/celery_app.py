@@ -1,10 +1,19 @@
-"""Celery application configuration."""
+"""Celery application configuration with optional Sentry integration."""
 
 from __future__ import annotations
 
 from celery import Celery
 
 from app.config import settings
+
+# Initialize Sentry for Celery workers (separate from FastAPI's init in create_app)
+if settings.sentry_dsn:
+    import sentry_sdk
+    sentry_sdk.init(
+        dsn=settings.sentry_dsn,
+        traces_sample_rate=settings.sentry_traces_sample_rate,
+        environment="production" if not settings.debug else "development",
+    )
 
 celery_app = Celery(
     "chokey",

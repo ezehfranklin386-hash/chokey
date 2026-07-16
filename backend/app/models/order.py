@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime
 from decimal import Decimal
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, JSON, Numeric, String, func
+from sqlalchemy import Boolean, DateTime, ForeignKey, Index, Integer, JSON, Numeric, String, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -47,6 +47,11 @@ class Order(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
+    __table_args__ = (
+        Index("ix_orders_user_status_created", "user_id", "status", "created_at"),
+        Index("ix_orders_status_created", "status", "created_at"),
+    )
+
     user = relationship("User", back_populates="orders")
     trades = relationship("Trade", back_populates="order", cascade="all, delete-orphan", lazy="selectin")
 
@@ -68,6 +73,11 @@ class Trade(Base):
     maker_order_id: Mapped[str | None] = mapped_column(UUID(as_uuid=False))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
+    __table_args__ = (
+        Index("ix_trades_user_created", "user_id", "created_at"),
+        Index("ix_trades_asset_created", "asset_id", "created_at"),
+    )
+
     order = relationship("Order", back_populates="trades")
 
 
@@ -83,5 +93,9 @@ class OrderBook(Base):
     order_count: Mapped[int] = mapped_column(Integer, default=1)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+    __table_args__ = (
+        Index("ix_orderbook_asset_side", "asset_id", "side"),
+    )
 
     asset = relationship("Asset")

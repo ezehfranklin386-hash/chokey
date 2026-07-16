@@ -35,13 +35,19 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.warning("Redis not available", error=str(e)[:80])
 
-    # Create database tables if they don't exist (fresh database)
-    try:
-        async with engine.begin() as conn:
-            await conn.run_sync(Base.metadata.create_all)
-        logger.info("Database tables verified")
-    except Exception as e:
-        logger.error("Could not create tables", error=str(e)[:200])
+    # Ensure database tables exist
+    # In dev, Base.metadata.create_all handles fresh databases.
+    # In production, run `alembic upgrade head` instead and set
+    # RUN_MIGRATIONS=true to skip this fallback.
+    if not settings.run_migrations:
+        try:
+            async with engine.begin() as conn:
+                await conn.run_sync(Base.metadata.create_all)
+            logger.info("Database tables created/verified via metadata")
+        except Exception as e:
+            logger.error("Could not create tables", error=str(e)[:200])
+    else:
+        logger.info("Skipping metadata create_all — expecting alembic migrations")
 
     # Initialize S3 storage
     await s3_storage.initialize()
@@ -66,6 +72,20 @@ def create_app() -> FastAPI:
     """Create and configure the FastAPI application."""
     setup_logging()
 
+    # ── Sentry ─────────────────────────────────────────────────
+    if settings.sentry_dsn:
+        import sentry_sdk
+        sentry_sdk.init(
+            dsn=settings.sentry_dsn,
+            traces_sample_rate=settings.sentry_traces_sample_rate,
+            environment="production" if not settings.debug else "development",
+            profiles_sample_rate=0.1,
+            send_default_pii=False,
+        )
+        logger.info("Sentry initialized")
+    else:
+        logger.info("Sentry not configured — skipping")
+
     app = FastAPI(
         title=settings.app_name,
         version="0.1.0",
@@ -82,6 +102,14 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    # --- Prometheus metrics ---
+    try:
+        from prometheus_fastapi_instrumentator import Instrumentator
+        Instrumentator().instrument(app).expose(app, endpoint="/metrics", include_in_schema=False)
+        logger.info("Prometheus metrics enabled at /metrics")
+    except ImportError:
+        logger.warning("prometheus-fastapi-instrumentator not installed — metrics disabled")
 
     # --- Global exception handler ---
     @app.exception_handler(AppException)
@@ -124,9 +152,53 @@ def create_app() -> FastAPI:
             async with engine.connect() as conn:
                 await conn.execute(sql_text("SELECT 1"))
                 db_ok = True
-        except Exception as e:
+        except Exception:
             pass
-        return {"status": "ok", "app": settings.app_name, "db": db_ok}
+
+        redis_ok = False
+        try:
+            r = await get_redis()
+            if r:
+                await r.ping()
+                redis_ok = True
+        except Exception:
+            pass
+
+        return {
+            "status": "ok",
+            "app": settings.app_name,
+            "version": "0.1.0",
+            "db": db_ok,
+            "redis": redis_ok,
+        }
+
+    # --- Readiness probe (Kubernetes / Docker) ---
+    @app.get("/ready")
+    async def ready() -> dict:
+        """Readiness check — all dependencies must be reachable."""
+        db_ok = False
+        try:
+            from sqlalchemy import text as sql_text
+            async with engine.connect() as conn:
+                await conn.execute(sql_text("SELECT 1"))
+                db_ok = True
+        except Exception:
+            pass
+
+        redis_ok = False
+        try:
+            r = await get_redis()
+            if r:
+                await r.ping()
+                redis_ok = True
+        except Exception:
+            pass
+
+        all_ok = db_ok  # Redis is optional
+        return {
+            "status": "ok" if all_ok else "degraded",
+            "checks": {"db": db_ok, "redis": redis_ok},
+        }
 
     return app
 

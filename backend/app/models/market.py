@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime
 from decimal import Decimal
 
-from sqlalchemy import DateTime, ForeignKey, Integer, Numeric, String, UniqueConstraint, func
+from sqlalchemy import DateTime, ForeignKey, Index, Integer, Numeric, String, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -31,6 +31,10 @@ class MarketPrice(Base):
     ask_price: Mapped[Decimal | None] = mapped_column(MONEY)
     timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
+    __table_args__ = (
+        Index("ix_market_prices_asset_ts", "asset_id", "timestamp"),
+    )
+
     asset = relationship("Asset", back_populates="market_prices")
 
 
@@ -50,4 +54,7 @@ class Candle(Base):
     trades: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
-    __table_args__ = (UniqueConstraint("asset_id", "interval", "open_time", name="uq_candle_asset_interval_time"),)
+    __table_args__ = (
+        UniqueConstraint("asset_id", "interval", "open_time", name="uq_candle_asset_interval_time"),
+        Index("ix_candles_asset_interval_time", "asset_id", "interval", "open_time"),
+    )

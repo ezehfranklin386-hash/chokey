@@ -5,7 +5,7 @@ from __future__ import annotations
 import uuid
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, JSON, String, Text, func
+from sqlalchemy import DateTime, ForeignKey, Index, JSON, String, Text, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -25,6 +25,11 @@ class AuditLog(Base):
     user_agent: Mapped[str | None] = mapped_column(Text)
     severity: Mapped[str] = mapped_column(String(10), default="info")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+    __table_args__ = (
+        Index("ix_auditlogs_user_created", "user_id", "created_at"),
+        Index("ix_auditlogs_action_created", "action", "created_at"),
+    )
 
     user = relationship("User", back_populates="audit_logs")
 
