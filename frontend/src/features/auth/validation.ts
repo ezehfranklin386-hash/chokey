@@ -8,7 +8,8 @@ export const loginSchema = z.object({
     .email('Invalid email address'),
   password: z
     .string()
-    .min(1, 'Password is required'),
+    .min(6, 'Password must be at least 6 characters')
+    .regex(/[^A-Za-z0-9]/, 'Password must contain a special character'),
   rememberMe: z.boolean().optional().default(false),
 });
 
@@ -23,8 +24,7 @@ export const registerSchema = z
       .email('Invalid email address'),
     password: z
       .string()
-      .min(12, 'Password must be at least 12 characters')
-      .regex(/[A-Z]/, 'Password must contain an uppercase letter')
+      .min(6, 'Password must be at least 6 characters')
       .regex(/[a-z]/, 'Password must contain a lowercase letter')
       .regex(/[0-9]/, 'Password must contain a number')
       .regex(/[^A-Za-z0-9]/, 'Password must contain a special character'),
@@ -71,8 +71,7 @@ export const resetPasswordSchema = z
     token: z.string().min(1, 'Reset token is required'),
     password: z
       .string()
-      .min(12, 'Password must be at least 12 characters')
-      .regex(/[A-Z]/, 'Password must contain an uppercase letter')
+      .min(6, 'Password must be at least 6 characters')
       .regex(/[a-z]/, 'Password must contain a lowercase letter')
       .regex(/[0-9]/, 'Password must contain a number')
       .regex(/[^A-Za-z0-9]/, 'Password must contain a special character'),

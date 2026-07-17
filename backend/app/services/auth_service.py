@@ -24,6 +24,8 @@ from app.core.security import (
     verify_password,
 )
 from app.database import async_session_factory
+
+import re
 from app.models.user import Session, User, UserSettings
 
 
@@ -41,8 +43,10 @@ class AuthService:
         if password != password_confirm:
             raise InvalidInputException("Passwords do not match.")
 
-        if len(password) < 8:
-            raise InvalidInputException("Password must be at least 8 characters.")
+        if len(password) < 6:
+            raise InvalidInputException("Password must be at least 6 characters.")
+        if not re.search(r"[^a-zA-Z0-9]", password):
+            raise InvalidInputException("Password must contain a special character.")
 
         async with async_session_factory() as session:
             existing = await session.execute(select(User).where(User.email == email))
@@ -224,8 +228,10 @@ class AuthService:
         """Reset password with reset token."""
         if password != password_confirm:
             raise InvalidInputException("Passwords do not match.")
-        if len(password) < 8:
-            raise InvalidInputException("Password must be at least 8 characters.")
+        if len(password) < 6:
+            raise InvalidInputException("Password must be at least 6 characters.")
+        if not re.search(r"[^a-zA-Z0-9]", password):
+            raise InvalidInputException("Password must contain a special character.")
         # In production: verify reset token, update password
         pass
 
