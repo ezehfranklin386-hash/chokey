@@ -161,7 +161,7 @@ class ConnectionManager:
         except Exception as exc:
             logger.error("redis listener crashed", error=str(exc)[:120])
         finally:
-            await self._stop_listener()
+            await self.stop_listener()
 
     async def stop_listener(self) -> None:
         """Stop the Redis pub/sub listener."""

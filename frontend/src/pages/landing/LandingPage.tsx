@@ -13,6 +13,7 @@ function useScrollReveal(threshold = 0.15) {
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (!entry) return;
         if (entry.isIntersecting) {
           setVisible(true);
           observer.unobserve(el);
@@ -25,40 +26,6 @@ function useScrollReveal(threshold = 0.15) {
   }, [threshold]);
 
   return { ref, visible };
-}
-
-function useCountUp(end: number, duration = 2000) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const started = useRef(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          const startTime = performance.now();
-          const step = (now: number) => {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            // ease-out cubic
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.round(eased * end));
-            if (progress < 1) requestAnimationFrame(step);
-          };
-          requestAnimationFrame(step);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.3 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [end, duration]);
-
-  return { ref, count };
 }
 
 /* ── Inline SVG Icons ──────────────────────────────────── */
@@ -329,29 +296,6 @@ function RevealSection({ children, className = '', delay = 0 }: { children: Reac
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
-    </div>
-  );
-}
-
-/* ── Stat with counter ─────────────────────────────────── */
-
-function AnimatedStat({ value, label, suffix = '' }: { value: number; label: string; suffix?: string }) {
-  const { ref, count } = useCountUp(value);
-  return (
-    <div className="text-center">
-      <p className="text-3xl font-bold text-white">
-        {count > 0 ? (
-          <>
-            {label.startsWith('$') && '$'}
-            {count}
-            {suffix}
-          </>
-        ) : (
-          label
-        )}
-        <span ref={ref} />
-      </p>
-      <p className="mt-1 text-sm text-white-50">{label.replace(/^.\d+[A-Z]?\s*/, '')}</p>
     </div>
   );
 }

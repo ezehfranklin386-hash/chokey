@@ -84,7 +84,8 @@ apiClient.interceptors.response.use(
       data = data.data;
     }
     // Normalize backend snake_case → frontend camelCase
-    return mapKeys(data as JsonValue, snakeToCamel);
+    response.data = mapKeys(data as JsonValue, snakeToCamel);
+    return response;
   },
   async (error) => {
     const originalRequest = error.config;
@@ -97,9 +98,9 @@ apiClient.interceptors.response.use(
         if (raw) {
           const { refreshToken } = JSON.parse(raw);
           const res = await axios.post(`${API_BASE}/auth/refresh`, { refresh_token: refreshToken });
-          const newTokens = mapKeys(res.data.data, snakeToCamel);
+          const newTokens = mapKeys(res.data.data, snakeToCamel) as Record<string, unknown>;
           sessionStorage.setItem('auth_tokens', JSON.stringify(newTokens));
-          originalRequest.headers.Authorization = `Bearer ${newTokens.accessToken}`;
+          originalRequest.headers.Authorization = `Bearer ${newTokens.accessToken as string}`;
           return apiClient(originalRequest);
         }
       } catch {

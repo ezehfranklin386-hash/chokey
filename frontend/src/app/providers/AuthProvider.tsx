@@ -91,7 +91,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     queryFn: async () => {
       if (IS_DEMO_MODE) return DEMO_USER;
       const res = await apiClient.get('/auth/me');
-      return mapBackendUser(res as Record<string, unknown>);
+      return mapBackendUser(res.data as unknown as Record<string, unknown>);
     },
     enabled: !!tokens,
     staleTime: 5 * 60_000,
@@ -100,12 +100,10 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const loginMutation = useMutation({
     mutationFn: async (data: LoginRequest) => {
       if (IS_DEMO_MODE) return { user: DEMO_USER, tokens: DEMO_TOKENS };
-      const res = await apiClient.post('/auth/login', data) as Record<string, unknown>;
-      // Backend login returns {accessToken, refreshToken, expiresIn, tokenType, user}
-      // Normalize to {user, tokens}
+      const res = await apiClient.post('/auth/login', data);
       return {
-        user: mapBackendUser((res.user ?? res) as Record<string, unknown>),
-        tokens: mapBackendTokens(res),
+        user: mapBackendUser((res.data.user ?? res.data) as unknown as Record<string, unknown>),
+        tokens: mapBackendTokens(res.data as unknown as Record<string, unknown>),
       };
     },
     onSuccess: (result: { user: User; tokens: AuthTokens }) => {

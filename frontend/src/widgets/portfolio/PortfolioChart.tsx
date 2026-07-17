@@ -18,7 +18,7 @@ function ChartTooltip({ active, payload, label }: { active?: boolean; payload?: 
     <div className="rounded-lg border border-ink-30/10 dark:border-white/10 bg-white dark:bg-primary-800 px-3 py-2 shadow-sm">
       <p className="text-xs text-ink-50 dark:text-white-50">{label ? formatDate(label) : ''}</p>
       <p className="text-sm font-medium text-ink dark:text-white">
-        ${Number(payload[0].value).toLocaleString()}
+        ${Number(payload[0]?.value ?? 0).toLocaleString()}
       </p>
     </div>
   );

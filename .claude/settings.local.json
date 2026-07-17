@@ -5,7 +5,8 @@
       "Bash(npx --version)",
       "Bash(curl -s --max-time 10 https://registry.npmjs.org/)",
       "Bash(npm --version)",
-      "Bash(curl *)"
+      "Bash(curl *)",
+      "Bash(dir *)"
     ]
   }
 }

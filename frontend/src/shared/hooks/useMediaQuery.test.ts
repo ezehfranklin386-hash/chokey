@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { renderHook, act } from '@testing-library/react';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { renderHook } from '@testing-library/react';
 import { useMediaQuery, useIsMobile, useIsTablet, useIsDesktop } from './useMediaQuery';
 
 // Store original matchMedia

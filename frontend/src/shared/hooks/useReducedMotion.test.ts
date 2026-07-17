@@ -52,7 +52,7 @@ describe('useReducedMotion', () => {
   });
 
   it('updates when the preference changes', () => {
-    const { mockFn, mql, listeners } = createMatchMediaMock(false);
+    const { mockFn, listeners } = createMatchMediaMock(false);
     window.matchMedia = mockFn;
 
     const { result } = renderHook(() => useReducedMotion());
