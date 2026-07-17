@@ -66,6 +66,7 @@ class Wallet(Base):
     user = relationship("User", back_populates="wallets")
     asset = relationship("Asset", back_populates="wallets")
     addresses = relationship("WalletAddress", back_populates="wallet", cascade="all, delete-orphan", lazy="selectin")
+    transactions = relationship("Transaction", back_populates="wallet", lazy="selectin")
 
 
 class WalletAddress(Base):
