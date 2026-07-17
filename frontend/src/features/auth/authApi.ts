@@ -51,8 +51,8 @@ export const authApi = {
     password: string;
     rememberMe?: boolean;
   }): Promise<LoginResponse> => {
-    const res = await apiClient.post('/auth/login', data);
-    return res as unknown as LoginResponse;
+    const { data: body } = await apiClient.post('/auth/login', data);
+    return body as unknown as LoginResponse;
   },
 
   /** Register a new account */
@@ -61,22 +61,22 @@ export const authApi = {
     password: string;
     referralCode?: string;
   }): Promise<RegisterResponse> => {
-    const res = await apiClient.post('/auth/register', data);
-    return res as unknown as RegisterResponse;
+    const { data: body } = await apiClient.post('/auth/register', data);
+    return body as unknown as RegisterResponse;
   },
 
   /** Verify email with 6-digit code */
   verifyEmail: async (data: {
     code: string;
   }): Promise<VerifyEmailResponse> => {
-    const res = await apiClient.post('/auth/verify-email', data);
-    return res as unknown as VerifyEmailResponse;
+    const { data: body } = await apiClient.post('/auth/verify-email', data);
+    return body as unknown as VerifyEmailResponse;
   },
 
   /** Resend email verification code */
   resendVerification: async (): Promise<{ message: string }> => {
-    const res = await apiClient.post('/auth/resend-verification');
-    return res as unknown as { message: string };
+    const { data: body } = await apiClient.post('/auth/resend-verification');
+    return body as unknown as { message: string };
   },
 
   /** Verify 2FA TOTP code */
@@ -85,8 +85,8 @@ export const authApi = {
     tempToken: string;
     trustDevice?: boolean;
   }): Promise<TwoFactorResponse> => {
-    const res = await apiClient.post('/auth/2fa/verify', data);
-    return res as unknown as TwoFactorResponse;
+    const { data: body } = await apiClient.post('/auth/2fa/verify', data);
+    return body as unknown as TwoFactorResponse;
   },
 
   /** Verify recovery code */
@@ -94,16 +94,16 @@ export const authApi = {
     recoveryCode: string;
     tempToken: string;
   }): Promise<TwoFactorResponse> => {
-    const res = await apiClient.post('/auth/2fa/recovery', data);
-    return res as unknown as TwoFactorResponse;
+    const { data: body } = await apiClient.post('/auth/2fa/recovery', data);
+    return body as unknown as TwoFactorResponse;
   },
 
   /** Forgot password — send reset email */
   forgotPassword: async (data: {
     email: string;
   }): Promise<ForgotPasswordResponse> => {
-    const res = await apiClient.post('/auth/forgot-password', data);
-    return res as unknown as ForgotPasswordResponse;
+    const { data: body } = await apiClient.post('/auth/forgot-password', data);
+    return body as unknown as ForgotPasswordResponse;
   },
 
   /** Reset password with token */
@@ -111,14 +111,14 @@ export const authApi = {
     token: string;
     password: string;
   }): Promise<ResetPasswordResponse> => {
-    const res = await apiClient.post('/auth/reset-password', data);
-    return res as unknown as ResetPasswordResponse;
+    const { data: body } = await apiClient.post('/auth/reset-password', data);
+    return body as unknown as ResetPasswordResponse;
   },
 
   /** Refresh access token */
   refreshToken: async (refreshToken: string): Promise<AuthTokens> => {
-    const res = await apiClient.post('/auth/refresh', { refreshToken });
-    return res as unknown as AuthTokens;
+    const { data: body } = await apiClient.post('/auth/refresh', { refreshToken });
+    return body as unknown as AuthTokens;
   },
 
   /** Logout — invalidate tokens server-side */
@@ -128,29 +128,29 @@ export const authApi = {
 
   /** Get current user profile */
   getMe: async (): Promise<User> => {
-    const res = await apiClient.get('/auth/me');
-    return res as unknown as User;
+    const { data: body } = await apiClient.get('/auth/me');
+    return body as unknown as User;
   },
 
   /** Setup 2FA — get QR code and backup codes */
   setup2FA: async (): Promise<Setup2FAResponse> => {
-    const res = await apiClient.post('/auth/2fa/setup');
-    return res as unknown as Setup2FAResponse;
+    const { data: body } = await apiClient.post('/auth/2fa/setup');
+    return body as unknown as Setup2FAResponse;
   },
 
   /** Confirm 2FA setup with TOTP code */
   confirm2FA: async (data: {
     code: string;
   }): Promise<Verify2FAResponse> => {
-    const res = await apiClient.post('/auth/2fa/confirm', data);
-    return res as unknown as Verify2FAResponse;
+    const { data: body } = await apiClient.post('/auth/2fa/confirm', data);
+    return body as unknown as Verify2FAResponse;
   },
 
   /** Disable 2FA */
   disable2FA: async (data: {
     code: string;
   }): Promise<{ disabled: boolean }> => {
-    const res = await apiClient.post('/auth/2fa/disable', data);
-    return res as unknown as { disabled: boolean };
+    const { data: body } = await apiClient.post('/auth/2fa/disable', data);
+    return body as unknown as { disabled: boolean };
   },
 };

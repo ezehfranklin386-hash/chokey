@@ -1,0 +1,239 @@
+vercel erro :
+15:15:51.932 Running build in Washington, D.C., USA (East) – iad1
+15:15:51.933 Build machine configuration: 2 cores, 8 GB
+15:15:51.949 Cloning github.com/ezehfranklin386-hash/chokey (Branch: main, Commit: 88686c1)
+15:15:51.950 Skipping build cache, deployment was triggered without cache.
+15:15:52.536 Cloning completed: 587.000ms
+15:15:57.527 Running "vercel build"
+15:15:57.548 Vercel CLI 56.2.0
+15:15:58.464 Installing dependencies...
+15:16:04.325 npm warn deprecated source-map@0.8.0-beta.0: The work that was done in this beta branch won't be included in future versions
+15:16:06.489 npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+15:16:11.848 
+15:16:11.849 > frontend@0.0.0 prepare
+15:16:11.849 > husky
+15:16:11.850 
+15:16:11.946 .git can't be found
+15:16:11.946 added 635 packages in 13s
+15:16:11.947 
+15:16:11.947 182 packages are looking for funding
+15:16:11.948   run `npm fund` for details
+15:16:12.102 Running "npm run build"
+15:16:12.262 
+15:16:12.262 > frontend@0.0.0 build
+15:16:12.262 > tsc -b && vite build
+15:16:12.263 
+15:16:20.828 src/app/providers/AuthProvider.tsx(94,29): error TS2352: Conversion of type 'AxiosResponse<any, any, {}>' to type 'Record<string, unknown>' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+15:16:20.829   Index signature for type 'string' is missing in type 'AxiosResponse<any, any, {}>'.
+15:16:20.830 src/shared/api/apiClient.ts(80,3): error TS2345: Argument of type '(response: AxiosResponse<any, any, {}>) => JsonValue' is not assignable to parameter of type 'AxiosInterceptorFulfilled<AxiosResponse<any, any, {}>>'.
+15:16:20.830   Type 'JsonValue' is not assignable to type 'AxiosResponse<any, any, {}> | Promise<AxiosResponse<any, any, {}>>'.
+15:16:20.830     Type 'null' is not assignable to type 'AxiosResponse<any, any, {}> | Promise<AxiosResponse<any, any, {}>>'.
+15:16:20.831 src/shared/api/apiClient.ts(102,61): error TS18047: 'newTokens' is possibly 'null'.
+15:16:20.832 src/shared/api/apiClient.ts(102,71): error TS2339: Property 'accessToken' does not exist on type 'string | number | boolean | JsonValue[] | { [key: string]: JsonValue; }'.
+15:16:20.832   Property 'accessToken' does not exist on type 'string'.
+15:16:20.832 src/shared/hooks/useMediaQuery.test.ts(1,36): error TS6133: 'beforeEach' is declared but its value is never read.
+15:16:20.833 src/shared/hooks/useMediaQuery.test.ts(2,22): error TS6133: 'act' is declared but its value is never read.
+15:16:20.833 src/shared/hooks/useReducedMotion.test.ts(55,21): error TS6133: 'mql' is declared but its value is never read.
+15:16:20.834 src/shared/ui/Skeleton/Skeleton.test.tsx(2,18): error TS6133: 'screen' is declared but its value is never read.
+15:16:20.834 src/widgets/portfolio/PortfolioChart.tsx(21,18): error TS2532: Object is possibly 'undefined'.
+15:16:21.947 Error: Command "npm run build" exited with 2  :
+          render erro:
+10.219.27.170:55834 - "GET /health HTTP/1.1" 200
+10.219.27.170:55838 - "GET /health HTTP/1.1" 200
+10.219.27.170:43884 - "GET /health HTTP/1.1" 200
+10.219.27.170:43898 - "GET /health HTTP/1.1" 200
+10.219.27.170:43900 - "GET /health HTTP/1.1" 200
+10.219.27.170:35876 - "GET /health HTTP/1.1" 200
+10.219.27.170:35892 - "GET /health HTTP/1.1" 200
+10.219.27.170:35822 - "GET /health HTTP/1.1" 200
+10.219.27.170:35838 - "GET /health HTTP/1.1" 200
+10.219.27.170:60970 - "GET /health HTTP/1.1" 200
+10.219.27.170:60978 - "GET /health HTTP/1.1" 200
+10.219.27.170:60980 - "GET /health HTTP/1.1" 200
+10.219.27.170:55326 - "GET /health HTTP/1.1" 200
+10.219.27.170:55340 - "GET /health HTTP/1.1" 200
+10.219.27.170:56430 - "GET /health HTTP/1.1" 200
+10.219.27.170:56434 - "GET /health HTTP/1.1" 200
+10.219.27.170:53668 - "GET /health HTTP/1.1" 200
+10.219.27.170:53680 - "GET /health HTTP/1.1" 200
+10.219.27.170:53696 - "GET /health HTTP/1.1" 200
+10.219.27.170:33782 - "GET /health HTTP/1.1" 200
+10.219.27.170:33784 - "GET /health HTTP/1.1" 200
+10.219.27.170:40448 - "GET /health HTTP/1.1" 200
+10.219.27.170:40458 - "GET /health HTTP/1.1" 200
+10.219.27.170:51516 - "GET /health HTTP/1.1" 200
+10.219.27.170:51518 - "GET /health HTTP/1.1" 200
+10.219.27.170:51522 - "GET /health HTTP/1.1" 200
+10.219.27.170:57276 - "GET /health HTTP/1.1" 200
+10.219.27.170:57282 - "GET /health HTTP/1.1" 200
+10.219.27.170:38028 - "GET /health HTTP/1.1" 200
+10.219.27.170:38038 - "GET /health HTTP/1.1" 200
+10.219.27.170:53340 - "GET /health HTTP/1.1" 200
+10.219.27.170:53344 - "GET /health HTTP/1.1" 200
+10.219.27.170:53358 - "GET /health HTTP/1.1" 200
+10.219.27.170:36838 - "GET /health HTTP/1.1" 200
+10.219.27.170:36848 - "GET /health HTTP/1.1" 200
+10.219.27.170:54052 - "GET /health HTTP/1.1" 200
+10.219.27.170:54066 - "GET /health HTTP/1.1" 200
+10.219.27.170:34772 - "GET /health HTTP/1.1" 200
+10.219.27.170:34780 - "GET /health HTTP/1.1" 200
+10.219.27.170:34796 - "GET /health HTTP/1.1" 200
+10.219.27.170:59064 - "GET /health HTTP/1.1" 200
+10.219.27.170:59070 - "GET /health HTTP/1.1" 200
+10.219.27.170:53314 - "GET /health HTTP/1.1" 200
+10.219.27.170:53326 - "GET /health HTTP/1.1" 200
+10.219.27.170:32796 - "GET /health HTTP/1.1" 200
+10.219.27.170:32810 - "GET /health HTTP/1.1" 200
+10.219.27.170:32826 - "GET /health HTTP/1.1" 200
+10.219.27.170:43682 - "GET /health HTTP/1.1" 200
+10.219.27.170:43694 - "GET /health HTTP/1.1" 200
+10.219.27.170:53674 - "GET /health HTTP/1.1" 200
+10.219.27.170:53684 - "GET /health HTTP/1.1" 200
+10.219.27.170:47062 - "GET /health HTTP/1.1" 200
+10.219.27.170:47074 - "GET /health HTTP/1.1" 200
+10.219.27.170:47080 - "GET /health HTTP/1.1" 200
+10.219.27.170:49062 - "GET /health HTTP/1.1" 200
+10.219.27.170:49074 - "GET /health HTTP/1.1" 200
+10.219.27.170:46404 - "GET /health HTTP/1.1" 200
+10.219.27.170:46412 - "GET /health HTTP/1.1" 200
+10.219.27.170:55788 - "GET /health HTTP/1.1" 200
+10.219.27.170:55790 - "GET /health HTTP/1.1" 200
+10.219.27.170:55802 - "GET /health HTTP/1.1" 200
+10.219.27.170:55320 - "GET /health HTTP/1.1" 200
+10.219.27.170:55322 - "GET /health HTTP/1.1" 200
+10.219.27.170:47206 - "GET /health HTTP/1.1" 200
+10.219.27.170:47212 - "GET /health HTTP/1.1" 200
+10.219.27.170:40630 - "GET /health HTTP/1.1" 200
+10.219.27.170:40634 - "GET /health HTTP/1.1" 200
+10.219.27.170:40644 - "GET /health HTTP/1.1" 200
+10.219.27.170:59206 - "GET /health HTTP/1.1" 200
+10.219.27.170:59214 - "GET /health HTTP/1.1" 200
+10.219.27.170:38462 - "GET /health HTTP/1.1" 200
+10.219.27.170:38470 - "GET /health HTTP/1.1" 200
+10.219.27.170:55266 - "GET /health HTTP/1.1" 200
+10.219.27.170:55278 - "GET /health HTTP/1.1" 200
+10.219.27.170:55288 - "GET /health HTTP/1.1" 200
+10.219.27.170:43388 - "GET /health HTTP/1.1" 200
+10.219.27.170:43396 - "GET /health HTTP/1.1" 200
+10.219.27.170:52446 - "GET /health HTTP/1.1" 200
+10.219.27.170:52456 - "GET /health HTTP/1.1" 200
+10.219.27.170:57432 - "GET /health HTTP/1.1" 200
+10.219.27.170:57442 - "GET /health HTTP/1.1" 200
+10.219.27.170:57444 - "GET /health HTTP/1.1" 200
+10.219.27.170:36088 - "GET /health HTTP/1.1" 200
+10.219.27.170:36102 - "GET /health HTTP/1.1" 200
+10.219.27.170:50534 - "GET /health HTTP/1.1" 200
+10.219.27.170:50548 - "GET /health HTTP/1.1" 200
+10.219.27.170:56774 - "GET /health HTTP/1.1" 200
+10.219.27.170:56790 - "GET /health HTTP/1.1" 200
+10.219.27.170:56802 - "GET /health HTTP/1.1" 200
+10.219.27.170:44200 - "GET /health HTTP/1.1" 200
+10.219.27.170:44202 - "GET /health HTTP/1.1" 200
+10.219.27.170:57240 - "GET /health HTTP/1.1" 200
+10.219.27.170:57256 - "GET /health HTTP/1.1" 200
+10.219.27.170:33438 - "GET /health HTTP/1.1" 200
+10.219.27.170:33450 - "GET /health HTTP/1.1" 200
+10.219.27.170:33460 - "GET /health HTTP/1.1" 200
+10.219.27.170:41026 - "GET /health HTTP/1.1" 200
+10.219.27.170:41038 - "GET /health HTTP/1.1" 200
+10.219.27.170:36776 - "GET /health HTTP/1.1" 200
+10.219.27.170:36788 - "GET /health HTTP/1.1" 200
+10.219.27.170:57130 - "GET /health HTTP/1.1" 200
+10.219.27.170:57132 - "GET /health HTTP/1.1" 200
+10.219.27.170:57138 - "GET /health HTTP/1.1" 200
+10.219.27.170:57232 - "GET /health HTTP/1.1" 200
+10.219.27.170:57240 - "GET /health HTTP/1.1" 200
+10.219.27.170:44990 - "GET /health HTTP/1.1" 200
+10.219.27.170:44994 - "GET /health HTTP/1.1" 200
+10.219.27.170:46486 - "GET /health HTTP/1.1" 200
+10.219.27.170:46492 - "GET /health HTTP/1.1" 200
+10.219.27.170:46494 - "GET /health HTTP/1.1" 200
+10.219.27.170:40680 - "GET /health HTTP/1.1" 200
+10.219.27.170:40686 - "GET /health HTTP/1.1" 200
+10.219.27.170:44214 - "GET /health HTTP/1.1" 200
+10.219.27.170:44222 - "GET /health HTTP/1.1" 200
+10.219.27.170:51546 - "GET /health HTTP/1.1" 200
+10.219.27.170:51562 - "GET /health HTTP/1.1" 200
+10.219.27.170:51568 - "GET /health HTTP/1.1" 200
+10.219.27.170:45798 - "GET /health HTTP/1.1" 200
+10.219.27.170:45810 - "GET /health HTTP/1.1" 200
+10.219.27.170:60452 - "GET /health HTTP/1.1" 200
+10.219.27.170:60468 - "GET /health HTTP/1.1" 200
+10.219.27.170:44060 - "GET /health HTTP/1.1" 200
+10.219.27.170:44074 - "GET /health HTTP/1.1" 200
+10.219.27.170:44084 - "GET /health HTTP/1.1" 200
+10.219.27.170:46550 - "GET /health HTTP/1.1" 200
+10.219.27.170:46566 - "GET /health HTTP/1.1" 200
+10.219.27.170:38848 - "GET /health HTTP/1.1" 200
+10.219.27.170:38862 - "GET /health HTTP/1.1" 200
+10.219.27.170:46200 - "GET /health HTTP/1.1" 200
+10.219.27.170:46208 - "GET /health HTTP/1.1" 200
+10.219.27.170:46210 - "GET /health HTTP/1.1" 200
+10.219.27.170:59816 - "GET /health HTTP/1.1" 200
+10.219.27.170:59824 - "GET /health HTTP/1.1" 200
+10.219.27.170:54686 - "GET /health HTTP/1.1" 200
+10.219.27.170:54690 - "GET /health HTTP/1.1" 200
+10.219.27.170:36418 - "GET /health HTTP/1.1" 200
+10.219.27.170:36430 - "GET /health HTTP/1.1" 200
+10.219.27.170:36432 - "GET /health HTTP/1.1" 200
+10.219.27.170:54096 - "GET /health HTTP/1.1" 200
+10.219.27.170:54112 - "GET /health HTTP/1.1" 200
+10.219.27.170:39336 - "GET /health HTTP/1.1" 200
+10.219.27.170:39344 - "GET /health HTTP/1.1" 200
+10.219.27.170:58756 - "GET /health HTTP/1.1" 200
+10.219.27.170:58760 - "GET /health HTTP/1.1" 200
+10.219.27.170:58774 - "GET /health HTTP/1.1" 200
+10.219.27.170:56270 - "GET /health HTTP/1.1" 200
+10.219.27.170:56280 - "GET /health HTTP/1.1" 200
+10.219.27.170:44450 - "GET /health HTTP/1.1" 200
+10.219.27.170:44452 - "GET /health HTTP/1.1" 200
+10.219.27.170:56730 - "GET /health HTTP/1.1" 200
+10.219.27.170:56732 - "GET /health HTTP/1.1" 200
+10.219.27.170:56740 - "GET /health HTTP/1.1" 200
+10.219.27.170:49346 - "GET /health HTTP/1.1" 200
+10.219.27.170:49350 - "GET /health HTTP/1.1" 200
+10.219.27.170:59570 - "GET /health HTTP/1.1" 200
+10.219.27.170:59586 - "GET /health HTTP/1.1" 200
+10.219.27.170:37642 - "GET /health HTTP/1.1" 200
+10.219.27.170:37646 - "GET /health HTTP/1.1" 200
+10.219.27.170:37658 - "GET /health HTTP/1.1" 200
+10.219.27.170:50452 - "GET /health HTTP/1.1" 200
+10.219.27.170:50464 - "GET /health HTTP/1.1" 200
+10.219.27.170:35914 - "GET /health HTTP/1.1" 200
+10.219.27.170:35924 - "GET /health HTTP/1.1" 200
+10.219.27.170:39940 - "GET /health HTTP/1.1" 200
+10.219.27.170:39944 - "GET /health HTTP/1.1" 200
+10.219.27.170:39956 - "GET /health HTTP/1.1" 200
+10.219.27.170:36414 - "GET /health HTTP/1.1" 200
+10.219.27.170:36428 - "GET /health HTTP/1.1" 200
+10.219.27.170:58062 - "GET /health HTTP/1.1" 200
+10.219.27.170:58076 - "GET /health HTTP/1.1" 200
+10.219.27.170:40400 - "GET /health HTTP/1.1" 200
+10.219.27.170:40406 - "GET /health HTTP/1.1" 200
+10.219.27.170:40416 - "GET /health HTTP/1.1" 200
+10.219.27.170:52348 - "GET /health HTTP/1.1" 200
+[2026-07-17 11:50:43 +0000] [43] [INFO] Handling signal: term
+[2026-07-17 11:50:43 +0000] [47] [INFO] Shutting down
+[2026-07-17 11:50:43 +0000] [47] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2026-07-17 11:50:43 +0000] [47] [INFO] Waiting for application shutdown.
+[2026-07-17 11:50:43 +0000] [47] [ERROR] Traceback (most recent call last):
+  File "/opt/render/project/src/.venv/lib/python3.14/site-packages/starlette/routing.py", line 638, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               ~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/render/project/python/Python-3.14.3/lib/python3.14/contextlib.py", line 221, in __aexit__
+    await anext(self.gen)
+  File "/opt/render/project/src/.venv/lib/python3.14/site-packages/fastapi/routing.py", line 232, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+               ~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/render/project/python/Python-3.14.3/lib/python3.14/contextlib.py", line 221, in __aexit__
+    await anext(self.gen)
+  File "/opt/render/project/src/backend/app/main.py", line 63, in lifespan
+    await listener_task
+  File "/opt/render/project/src/backend/app/ws/manager.py", line 164, in start_listener
+    await self._stop_listener()
+          ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ConnectionManager' object has no attribute '_stop_listener'. Did you mean: 'stop_listener'?
+[2026-07-17 11:50:43 +0000] [47] [ERROR] Application shutdown failed. Exiting.
+[2026-07-17 11:50:43 +0000] [47] [INFO] Finished server process [47]
+[2026-07-17 11:50:43 +0000] [43] [INFO] Worker (pid:47) was sent SIGTERM!
+[2026-07-17 11:50:43 +0000] [43] [INFO] Shutting down: Master
